@@ -1,4 +1,3 @@
-import pygame
 from buttons import*
 
 
@@ -13,19 +12,10 @@ def choose_loop(screen, buttons):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
-            # elif event.type == pygame.MOUSEBUTTONDOWN:
-            #     if event.button == 1:
+            # elif event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_ESCAPE:
             #         running = False
-            #         return 1
-            #     elif event.button == 2:
-            #         running = False
-            #         return  2
-            #     elif event.button == 3:
-            #         running = False
-            #         return 3
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
@@ -49,10 +39,10 @@ def choose_loop(screen, buttons):
 
 
         screen.fill((0, 100, 0))
-        buttons.draw_text('Play', 50, 300, 100)
-        buttons.draw_text('Best Score', 50, 300, 200)
-        buttons.draw_text('Help', 50, 300, 300)
-        buttons.draw_text('Exit', 50, 300, 400)
+        buttons.draw_main_menu('Play', 50, 300, 100)
+        buttons.draw_main_menu('Best Score', 50, 300, 200)
+        buttons.draw_main_menu('Help', 50, 300, 300)
+        buttons.draw_main_menu('Exit', 50, 300, 400)
 
 
         pygame.display.flip()

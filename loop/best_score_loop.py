@@ -1,19 +1,24 @@
-import pygame
 from buttons import *
 
 # BEST SCORE
-def best_score_loop(screen):
+def best_score_loop(screen, buttons):
     running = True
 
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    running = False
+            # elif event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_ESCAPE:
+            #         running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if buttons.best_score_buttons[0].collidepoint(pygame.mouse.get_pos()):
+                    if event.button == 1:
+                        running = False
+                        return True
 
-        but = Button(screen)
-        but.draw_text('Best Score Table!', 50, 300, 100)
-        screen.fill((204,255,153))
+        screen.fill((204, 255, 153))
+        buttons.draw_text('Best Score Table!', 50, 300, 100)
+        buttons.draw_best_score('Main Menu', 50, 300, 200)
+
         pygame.display.flip()

@@ -29,6 +29,7 @@ def exit_loop(screen, buttons):
                         return 2
 
         screen.fill((90, 22, 45))
-        buttons.draw_exit('Yes', 50, 300, 100)
-        buttons.draw_exit('No', 50, 300, 200)
+        buttons.draw_text("Are you sure?", 50, 300, 100)
+        buttons.draw_exit('Yes', 50, 300, 200)
+        buttons.draw_exit('No', 50, 300, 300)
         pygame.display.flip()

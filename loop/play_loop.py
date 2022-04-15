@@ -17,5 +17,6 @@ def play_loop(screen, buttons):
                     return 1
 
 
-        buttons.draw_text('Let\'s PLAY!', 50, 300, 100)
+        buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
+        buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)
         pygame.display.flip()

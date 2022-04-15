@@ -204,9 +204,8 @@ class BestScoreState(State):
     # best score table
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
-        new_state = best_score_loop(screen)
-        if new_state == 'main_menu':
-            print('go back to main')
+        new_state = best_score_loop(screen, buttons)
+        if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 
     # -> PLAY mode
@@ -237,7 +236,10 @@ class HelpState(State):
     # we are already here
     def enter_new_screen(self):
         pygame.display.set_caption('HELP INFORMATION')
-        help_loop(screen, buttons)
+        check = help_loop(screen, buttons)
+        # back into MAIN MENU mode
+        if check:
+            self.game.change_game_state(MainMenuState(self.game))
 
 
     # -> PLAY mode
