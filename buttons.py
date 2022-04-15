@@ -30,16 +30,6 @@ class Button:
         self.main_menu_buttons.append(button_rect)
         self.screen.blit(button_text, button_rect)
 
-    # EXIT mode buttons
-    def draw_exit(self, text, size, pos_x, pos_y):
-        font = pygame.font.SysFont('Comic Sans MS', size)
-        button_text = font.render(text, True, (0, 1, 1))
-        button_rect = button_text.get_rect()
-        button_rect.center = (pos_x, pos_y)
-
-        self.exit_buttons.append(button_rect)
-        self.screen.blit(button_text, button_rect)
-
     # PAUSE mode buttons
     def draw_pause(self, text, size, pos_x, pos_y):
         font = pygame.font.SysFont('Comic Sans MS', size)
@@ -69,4 +59,14 @@ class Button:
         button_rect.center = (pos_x, pos_y)
 
         self.help_buttons.append(button_rect)
+        self.screen.blit(button_text, button_rect)
+
+    # EXIT mode buttons
+    def draw_exit(self, text, size, pos_x, pos_y):
+        font = pygame.font.SysFont('Comic Sans MS', size)
+        button_text = font.render(text, True, (0, 1, 1))
+        button_rect = button_text.get_rect()
+        button_rect.center = (pos_x, pos_y)
+
+        self.exit_buttons.append(button_rect)
         self.screen.blit(button_text, button_rect)

@@ -45,7 +45,7 @@ class Game:
     def __init__(self):
         # the first screen of the GAME
         # is INTRO (MainMenu)
-        self.game_state = MainMenuState(game = self)
+        self.game_state = UserNameState(game = self)
 
     # the method that STARTS the GAME
     # -> MainMenu
@@ -76,7 +76,28 @@ class Game:
         self.game_state.exit_game_mode()
 
 
-# the first screen of the GAME
+# USER NAME
+class UserNameState(State):
+    def __init__(self, game):
+        self.game = game
+
+    def enter_new_screen(self):
+        check = user_name(screen)
+        if check:
+            self.game.change_game_state(MainMenuState(self.game))
+
+    def back_to_intro_mode(self):
+        pass
+    def play_game_mode(self):
+        pass
+    def best_game_mode(self):
+        pass
+    def help_game_mode(self):
+        pass
+    def exit_game_mode(self):
+        pass
+
+# MAIN MENU mod
 class MainMenuState(State):
     def __init__(self, game):
         self.game = game
@@ -126,6 +147,7 @@ class MainMenuState(State):
     def exit_game_mode(self):
         self.game.change_game_state(ExitState(self.game))
 
+
 # PLAY GAME class
 class PlayState(State):
     def __init__(self, game):
@@ -157,6 +179,7 @@ class PlayState(State):
 
     def exit_game_mode(self):
         self.game.change_game_state(ExitState(self.game))
+
 
 # PAUSE on PLAY mode
 class PauseState(State):
