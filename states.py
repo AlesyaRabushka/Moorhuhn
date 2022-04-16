@@ -1,6 +1,8 @@
 import pygame
 from loop_imports import *
 from buttons import *
+from chicken import Chicken
+from cursor import Cursor
 
 pygame.init()
 HEIGHT = 700
@@ -12,7 +14,15 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 # all buttons
 buttons = Button(screen)
 
+# all chickens
+chickens_group = pygame.sprite.Group()
+chickens = Chicken(screen)
+chickens_group.add(Chicken(screen))
 
+# CURSOR
+cursor = Cursor('img/cursor.png')
+cursor_group = pygame.sprite.Group()
+cursor_group.add(cursor)
 
 
 class State:
@@ -57,7 +67,6 @@ class Game:
         if self.game_state == None:
             pass
         self.game_state = new_state
-        print('new state ', new_state)
         self.game_state.enter_new_screen()
 
     # -> PLAY mode
@@ -82,9 +91,11 @@ class UserNameState(State):
         self.game = game
 
     def enter_new_screen(self):
-        check = user_name(screen)
+        check, user_name = user_name_loop(screen)
         if check:
+            print(user_name)
             self.game.change_game_state(MainMenuState(self.game))
+
 
     def back_to_intro_mode(self):
         pass
@@ -161,7 +172,7 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         print('we are in PLAY mode')
-        check = play_loop(screen, buttons)
+        check = play_loop(screen, buttons, cursor_group, chickens_group)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
 
@@ -193,7 +204,7 @@ class PauseState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PAUSE')
-        check = pause_loop(screen, buttons)
+        check = pause_loop(screen, buttons, cursor_group)
         if check == 1:
             pass
         elif check == 2:

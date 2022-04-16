@@ -2,7 +2,7 @@ import pygame
 
 from buttons import *
 
-def user_name(screen):
+def user_name_loop(screen):
     running = True
     user_name = ''
     box_width = True
@@ -20,7 +20,7 @@ def user_name(screen):
             # enter USER NAME
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
-                    return True
+                    return True, user_name
                 elif event.key == pygame.K_BACKSPACE:
                     # переписываем user_name от начала до предпоследнего символа
                     user_name = user_name[0:-1]
