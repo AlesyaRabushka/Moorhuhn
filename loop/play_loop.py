@@ -20,7 +20,7 @@ def play_loop(screen, buttons, cursor, cursor_group, chickens_group):
                     running = False
                     return 1
             elif event.type == pygame.USEREVENT:
-                chickens_group.add(Chicken(screen, randint(10,600)))
+                chickens_group.add(Chicken(screen, randint(10,550)))
             # elif event.type == pygame.MOUSEBUTTONDOWN:
             #     if chicken.chickens[0].collidepoint(pygame.mouse.get_pos()):
             #         if event.button == 1:

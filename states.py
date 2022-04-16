@@ -20,7 +20,7 @@ buttons = Button(screen)
 # all chickens
 chickens_group = pygame.sprite.Group()
 #chickens = Chicken(screen)
-chickens_group.add(Chicken(screen, randint(10, 500)))
+chickens_group.add(Chicken(screen, randint(100, 490)))
 
 
 

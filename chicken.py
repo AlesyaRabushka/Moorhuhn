@@ -49,15 +49,24 @@ class Chicken(pygame.sprite.Sprite):
                 self.rect.x += 1
             else:
                 self.rect.x -= 1
+            if self.rect.y >= 500:
+                self.kill()
+            elif self.rect.x >= 901:
+                self.kill()
+            if  self.rect.x <= -40:
+                self.kill()
+                print('kill')
 
 
-
+        # if we have shooted one of them
         if not self.alive:
             #self.y += 2
             #self.image = pygame.image.load('img/chickendead1.png')
             self.image = pygame.image.load('img/chickendead3.png')
             self.rect.y += 2
             if self.rect.y >= 500:
+                self.kill()
+            elif self.rect.x >= 901 or self.rect.x <= 0:
                 self.kill()
 
     # def kill_chicken(self):
