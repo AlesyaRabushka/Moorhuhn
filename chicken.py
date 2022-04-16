@@ -49,13 +49,14 @@ class Chicken(pygame.sprite.Sprite):
                 self.rect.x += 1
             else:
                 self.rect.x -= 1
-            if self.rect.y >= 500:
+
+            # if the chicken is out of the screen
+            if self.rect.y >= 540:
                 self.kill()
             elif self.rect.x >= 901:
                 self.kill()
             if  self.rect.x <= -40:
                 self.kill()
-                print('kill')
 
 
         # if we have shooted one of them
