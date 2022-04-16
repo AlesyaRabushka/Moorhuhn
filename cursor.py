@@ -13,5 +13,6 @@ class Cursor(pygame.sprite.Sprite):
 
     # shoot the chicken
     def shoot(self, cursor, chicken):
-        chicken.fly_chicken()
-        pygame.sprite.spritecollide(cursor, chicken, True)
+        for ch in chicken:
+            ch.alive = False
+        #pygame.sprite.spritecollide(cursor, chicken, True)

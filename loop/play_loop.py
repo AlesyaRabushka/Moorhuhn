@@ -1,10 +1,11 @@
 import pygame
 from buttons import*
 from chicken import Chicken
-
+from random import randint
 
 # PLAY
 def play_loop(screen, buttons, cursor, cursor_group, chickens_group):
+    print('PLAY mode')
     running = True
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
@@ -18,6 +19,8 @@ def play_loop(screen, buttons, cursor, cursor_group, chickens_group):
                 if event.key == pygame.K_ESCAPE:
                     running = False
                     return 1
+            elif event.type == pygame.USEREVENT:
+                chickens_group.add(Chicken(screen, randint(10,600)))
             # elif event.type == pygame.MOUSEBUTTONDOWN:
             #     if chicken.chickens[0].collidepoint(pygame.mouse.get_pos()):
             #         if event.button == 1:

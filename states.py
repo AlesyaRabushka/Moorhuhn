@@ -3,21 +3,26 @@ from loop_imports import *
 from buttons import *
 from chicken import Chicken
 from cursor import Cursor
+from random import randint
 
 pygame.init()
-HEIGHT = 700
-WIDTH = 1000
+HEIGHT = 600
+WIDTH = 900
 
 # the SCREEN of the GAME
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
+
+pygame.time.set_timer(pygame.USEREVENT, 1000)
 
 # all buttons
 buttons = Button(screen)
 
 # all chickens
 chickens_group = pygame.sprite.Group()
-chickens = Chicken(screen)
-chickens_group.add(Chicken(screen))
+#chickens = Chicken(screen)
+chickens_group.add(Chicken(screen, randint(10, 500)))
+
+
 
 # CURSOR
 cursor = Cursor('img/cursor.png')
