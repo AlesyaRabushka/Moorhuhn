@@ -172,7 +172,7 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         print('we are in PLAY mode')
-        check = play_loop(screen, buttons, cursor_group, chickens_group)
+        check = play_loop(screen, buttons, cursor, cursor_group, chickens_group)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
 

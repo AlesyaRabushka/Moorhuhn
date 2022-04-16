@@ -4,7 +4,7 @@ from chicken import Chicken
 
 
 # PLAY
-def play_loop(screen, buttons, cursor_group, chickens_group):
+def play_loop(screen, buttons, cursor, cursor_group, chickens_group):
     running = True
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
@@ -22,6 +22,8 @@ def play_loop(screen, buttons, cursor_group, chickens_group):
             #     if chicken.chickens[0].collidepoint(pygame.mouse.get_pos()):
             #         if event.button == 1:
             #             print('we shoot a chicken')
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                cursor.shoot(cursor, chickens_group)
 
 
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
@@ -31,9 +33,11 @@ def play_loop(screen, buttons, cursor_group, chickens_group):
         # chicken.draw_chicken()
         # chicken.update()
 
+
+        chickens_group.draw(screen)
+        chickens_group.update()
+
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
         cursor_group.update()
-
-        #chickens_group.draw(screen)
         pygame.display.flip()
