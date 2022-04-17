@@ -2,7 +2,7 @@ import pygame
 
 
 # EXIT
-def exit_loop(screen, cursor_group, buttons):
+def exit_loop(screen, sounds, cursor_group, buttons):
     running = True
 
     while running:
@@ -20,11 +20,13 @@ def exit_loop(screen, cursor_group, buttons):
                 # EXIT the GAME
                 if buttons.exit_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
+                        sounds.button_click_sound.play()
                         running = False
                         return 1
                 # back to Main Menu
                 elif buttons.exit_buttons[1].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
+                        sounds.button_click_sound.play()
                         running = False
                         return 2
 

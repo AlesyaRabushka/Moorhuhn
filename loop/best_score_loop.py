@@ -1,7 +1,7 @@
 from buttons import *
 
 # BEST SCORE
-def best_score_loop(screen, cursor_group, buttons):
+def best_score_loop(screen, sounds, cursor_group, buttons):
     running = True
 
     while running:
@@ -14,6 +14,7 @@ def best_score_loop(screen, cursor_group, buttons):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.best_score_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
+                        sounds.button_click_sound.play()
                         running = False
                         return True
 

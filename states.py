@@ -62,7 +62,7 @@ class Game:
     def __init__(self):
         # the first screen of the GAME
         # is INTRO (MainMenu)
-        self.game_state = UserNameState(game = self)
+        self.game_state = MainMenuState(game = self)
 
     # the method that STARTS the GAME
     # -> MainMenu
@@ -98,10 +98,10 @@ class UserNameState(State):
         self.game = game
 
     def enter_new_screen(self):
-        check, user_name = user_name_loop(screen)
+        check, user_name = user_name_loop(screen, sounds)
         if check:
             print(user_name)
-            self.game.change_game_state(MainMenuState(self.game))
+            self.game.change_game_state(PlayState(self.game))
 
 
     def back_to_intro_mode(self):
@@ -125,7 +125,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
 
         # choose the next mode in MAIN MENU
-        chosen_screen = choose_loop(screen, cursor_group, buttons)
+        chosen_screen = choose_loop(screen, sounds, cursor_group, buttons)
         if chosen_screen == 1:
             self.game.play_game_mode()
         elif chosen_screen == 2:
@@ -141,7 +141,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
         print('we are on start screen')
         # choose the next mode in MAIN MENU
-        chosen_screen = choose_loop(screen, cursor_group, buttons)
+        chosen_screen = choose_loop(screen, sounds, cursor_group, buttons)
         if chosen_screen == 1:
             print('we are supposed to change it')
             self.game.play_game_mode()
@@ -152,7 +152,7 @@ class MainMenuState(State):
 
     # -> PLAY mode
     def play_game_mode(self):
-        self.game.change_game_state(PlayState(self.game))
+        self.game.change_game_state(UserNameState(self.game))
 
     # -> BEST SCORE mode
     def best_game_mode(self):
@@ -211,7 +211,7 @@ class PauseState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PAUSE')
-        check = pause_loop(screen, buttons, cursor_group)
+        check = pause_loop(screen, sounds, buttons, cursor_group)
         if check == 1:
             # go back to MAIN MENU mode
             self.game.change_game_state(MainMenuState(self.game))
@@ -247,7 +247,7 @@ class BestScoreState(State):
     # best score table
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
-        new_state = best_score_loop(screen, cursor_group, buttons)
+        new_state = best_score_loop(screen, sounds, cursor_group, buttons)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 
@@ -279,7 +279,7 @@ class HelpState(State):
     # we are already here
     def enter_new_screen(self):
         pygame.display.set_caption('HELP INFORMATION')
-        check = help_loop(screen, cursor_group, buttons)
+        check = help_loop(screen, sounds, cursor_group, buttons)
         # back into MAIN MENU mode
         if check:
             self.game.change_game_state(MainMenuState(self.game))
@@ -312,7 +312,7 @@ class ExitState(State):
     # we work here
     def enter_new_screen(self):
         pygame.display.set_caption('EXIT')
-        check = exit_loop(screen, cursor_group, buttons)
+        check = exit_loop(screen, sounds, cursor_group, buttons)
         if check == 1:
             pygame.quit()
         elif check == 2:

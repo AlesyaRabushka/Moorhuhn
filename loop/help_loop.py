@@ -2,7 +2,7 @@ import pygame
 
 
 # HELP INFORMATION
-def help_loop(screen, cursor_group, buttons):
+def help_loop(screen, sounds, cursor_group, buttons):
     running = True
 
     while running:
@@ -17,6 +17,7 @@ def help_loop(screen, cursor_group, buttons):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.help_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
+                        sounds.button_click_sound.play()
                         running = False
                         return True
 

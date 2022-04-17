@@ -2,7 +2,7 @@ import pygame
 
 from buttons import *
 
-def user_name_loop(screen):
+def user_name_loop(screen, sounds):
     running = True
     user_name = ''
     box_width = True
@@ -14,14 +14,11 @@ def user_name_loop(screen):
             if event.type == pygame.QUIT:
                 running = False
 
-            # elif event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_SPACE:
-            #         running = False
-            #         return True
-
             # enter USER NAME
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
+                    # ready to go further SOUND
+                    sounds.ready_after_user_name.play()
                     return True, user_name
                 elif event.key == pygame.K_BACKSPACE:
                     # переписываем user_name от начала до предпоследнего символа
@@ -29,6 +26,8 @@ def user_name_loop(screen):
                 else:
                     # если длина в пределах нормы
                     if box_width:
+                        # type text SOUND
+                        sounds.type_sound.play()
                         user_name += event.unicode
 
         screen.fill((254, 204, 153))
