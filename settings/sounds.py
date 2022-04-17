@@ -27,6 +27,10 @@ class Sound():
         self.chick_hits.append(self.chick_hit2)
         self.chick_hits.append(self.chick_hit3)
 
+        # AMMO sounds
+        self.empty_shot_sound = pygame.mixer.Sound('sounds/empty_shot_sound.ogg')
+        self.update_ammo = pygame.mixer.Sound('sounds/update_ammo.ogg')
+
     # return CHICKEN HIT SOUND
     def return_chick_hits(self, sound):
         return self.chick_hits[sound]

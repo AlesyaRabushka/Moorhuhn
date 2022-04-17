@@ -3,8 +3,7 @@ from objects.chicken import Chicken
 from random import randint
 
 # PLAY mode
-def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group):
-    print('PLAY mode')
+def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -29,6 +28,9 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group):
                     sounds.play_background.stop()
                     running = False
                     return 1
+                elif event.key == pygame.K_SPACE:
+                    if ammo.count < 6:
+                        ammo.update()
 
             # add new CHICKEN on the screen0
             elif event.type == pygame.USEREVENT:
@@ -42,10 +44,11 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group):
                 #     chickens_group.add(Chicken(screen, y1 + 4))
             # checks if we have shot a CHICKEN
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                # add SHOT SOUND
-                sounds.shot_sound.play()
+                # check for AMMO amount
+                check_shot = ammo.shot()
 
-                cursor.shoot(sounds, chickens_group)
+                cursor.shoot(sounds, chickens_group, check_shot)
+
 
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
         buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)

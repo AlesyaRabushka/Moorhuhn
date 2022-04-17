@@ -1,9 +1,12 @@
+import pygame.sprite
+
 from loop_imports import *
 from settings.buttons import *
 from objects.chicken import Chicken
 from objects.cursor import Cursor
 from random import randint
 from settings.sounds import Sound
+from objects.ammo import Ammo
 
 pygame.init()
 HEIGHT = 600
@@ -24,6 +27,12 @@ chickens_group.add(Chicken(screen, randint(100, 500)))
 
 # SOUNDS
 sounds = Sound()
+
+# AMMO
+# ammo_group = pygame.sprite.Group()
+# for i in range(0, 10):
+#     ammo_group.add(Ammo())
+ammo = Ammo(sounds)
 
 # CURSOR
 cursor = Cursor('img/cursor.png')
@@ -178,7 +187,7 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         print('we are in PLAY mode')
-        check = play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group)
+        check = play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
 

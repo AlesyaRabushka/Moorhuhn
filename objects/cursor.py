@@ -13,13 +13,13 @@ class Cursor(pygame.sprite.Sprite):
         self.rect.center = pygame.mouse.get_pos()
 
     # shoot the chicken
-    def shoot(self, sounds, chickens_group):
+    def shoot(self, sounds, chickens_group, check_shot):
         for chicken in chickens_group:
             # looking for a shot chicken
             if self.rect.colliderect(chicken.rect) and chicken.alive:
-                # add SHOT CHICKEN SOUND
-                index = random.randint(0, 2)
-                sounds.return_chick_hits(index).play()
-                # CHICKEN is DEAD
-                chicken.alive = False
-        #pygame.sprite.spritecollide(cursor, chicken, True)
+                if check_shot:
+                    # add SHOT CHICKEN SOUND
+                    index = random.randint(0, 2)
+                    sounds.return_chick_hits(index).play()
+                    # CHICKEN is DEAD
+                    chicken.alive = False
