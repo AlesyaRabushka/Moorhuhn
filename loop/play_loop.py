@@ -44,6 +44,11 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group):
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # add SHOT SOUND
                 sounds.shot_sound.play()
+
+                # add SHOT CHICKEN SOUND
+                sound = randint(0,2)
+                sounds.return_chick_hits(sound).play()
+
                 cursor.shoot(cursor, chickens_group)
 
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
