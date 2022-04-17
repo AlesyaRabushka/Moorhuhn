@@ -31,6 +31,7 @@ class Chicken(pygame.sprite.Sprite):
     def update(self):
         # if CHICKEN is alive
         if self.alive:
+
             # self.chickens.append(self.rect)
             self.screen.blit(self.image, self.rect)
             if self.direction == 1:
@@ -52,7 +53,7 @@ class Chicken(pygame.sprite.Sprite):
             #self.y += 2
             #self.image = pygame.image.load('img/chickendead1.png')
             self.image = pygame.image.load('img/chickendead3.png')
-            self.rect.y += 1.5
+            self.rect.y += 2
 
             # delete CHICKEN  if it is out of the screen
             if self.rect.y >= 500:

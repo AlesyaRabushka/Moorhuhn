@@ -4,6 +4,7 @@ from buttons import *
 from chicken import Chicken
 from cursor import Cursor
 from random import randint
+from sounds import Sound
 
 pygame.init()
 HEIGHT = 600
@@ -22,7 +23,8 @@ chickens_group = pygame.sprite.Group()
 #chickens = Chicken(screen)
 chickens_group.add(Chicken(screen, randint(100, 500)))
 
-
+# SOUNDS
+sounds = Sound()
 
 # CURSOR
 cursor = Cursor('img/cursor.png')
@@ -177,7 +179,7 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         print('we are in PLAY mode')
-        check = play_loop(screen, buttons, cursor, cursor_group, chickens_group)
+        check = play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
 

@@ -1,5 +1,5 @@
 import pygame
-
+pygame.font.init()
 # class to draw buttons
 class Button:
     def __init__(self, screen):
@@ -13,6 +13,7 @@ class Button:
 
     # draw text on screen
     def draw_text(self, text,size, pos_x, pos_y):
+
         font = pygame.font.SysFont('Comic Sans MS', size)
         button_text = font.render(text, True, (0,1,1))
         button_rect = button_text.get_rect()
