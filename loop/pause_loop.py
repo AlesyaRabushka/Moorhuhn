@@ -21,12 +21,13 @@ def pause_loop(screen, buttons, cursor):
                     if event.button == 1:
                         running = False
                         # set the REAL CURSOR back
-                        pygame.mouse.set_visible(True)
+                        #pygame.mouse.set_visible(True)
                         return 2
 
         screen.fill((255,204,255))
-        buttons.draw_pause('Pause', 50, 200, 100)
         buttons.draw_pause('Main Menu', 50, 200, 200)
+        buttons.draw_pause('Exit', 50, 200, 100)
+
 
         # draw an image instead of REAL CURSOR
         # and update its position

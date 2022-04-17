@@ -7,6 +7,7 @@ from random import randint
 def play_loop(screen, buttons, cursor, cursor_group, chickens_group):
     print('PLAY mode')
     running = True
+    pause = False
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
 
@@ -19,14 +20,14 @@ def play_loop(screen, buttons, cursor, cursor_group, chickens_group):
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     running = False
+                    #pause = not pause
                     return 1
             # add new CHICKEN on the screen
             elif event.type == pygame.USEREVENT:
-                chickens_group.add(Chicken(screen, randint(10,550)))
+                chickens_group.add(Chicken(screen, randint(50,500)))
             # checks if we have shot a CHICKEN
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 cursor.shoot(cursor, chickens_group)
-
 
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
         buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)

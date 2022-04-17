@@ -20,7 +20,7 @@ buttons = Button(screen)
 # all chickens
 chickens_group = pygame.sprite.Group()
 #chickens = Chicken(screen)
-chickens_group.add(Chicken(screen, randint(100, 490)))
+chickens_group.add(Chicken(screen, randint(100, 500)))
 
 
 
@@ -211,9 +211,11 @@ class PauseState(State):
         pygame.display.set_caption('PAUSE')
         check = pause_loop(screen, buttons, cursor_group)
         if check == 1:
-            pass
-        elif check == 2:
+            # go back to MAIN MENU mode
             self.game.change_game_state(MainMenuState(self.game))
+        elif check == 2:
+            # go to EXIT mode
+            self.game.change_game_state(ExitState(self.game))
 
     # we are already in here
     def play_game_mode(self):
