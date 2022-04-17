@@ -4,9 +4,12 @@ from buttons import*
 
 # is used to select one of the buttons
 # on MAIN MENU screen
-def choose_loop(screen, buttons):
+def choose_loop(screen, cursor_group, buttons):
     running = True
-    mouse_position = pygame.mouse.get_pos()
+    # turn off the image of the REAL 'CURSOR'
+    pygame.mouse.set_visible(False)
+
+
     while running:
         # check events
         for event in pygame.event.get():
@@ -43,6 +46,10 @@ def choose_loop(screen, buttons):
         buttons.draw_main_menu('Best Score', 50, 300, 200)
         buttons.draw_main_menu('Help', 50, 300, 300)
         buttons.draw_main_menu('Exit', 50, 300, 400)
+
+        # draw an image instead of REAL CURSOR
+        cursor_group.draw(screen)
+        cursor_group.update()
 
 
         pygame.display.flip()

@@ -6,6 +6,8 @@ def user_name_loop(screen):
     running = True
     user_name = ''
     box_width = True
+    # turn off CURSOR
+    pygame.mouse.set_visible(False)
 
     while running:
         for event in pygame.event.get():

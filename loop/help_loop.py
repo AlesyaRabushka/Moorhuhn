@@ -2,7 +2,7 @@ import pygame
 
 
 # HELP INFORMATION
-def help_loop(screen, buttons):
+def help_loop(screen, cursor_group, buttons):
     running = True
 
     while running:
@@ -23,4 +23,9 @@ def help_loop(screen, buttons):
         # just a text
         buttons.draw_text('Help info!', 50, 300, 100)
         buttons.draw_help('Main Menu', 50, 300, 200)
+
+        # draw an image instead of REAL CURSOR
+        cursor_group.draw(screen)
+        cursor_group.update()
+
         pygame.display.flip()

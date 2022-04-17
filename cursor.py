@@ -13,9 +13,8 @@ class Cursor(pygame.sprite.Sprite):
 
     # shoot the chicken
     def shoot(self, cursor, chickens_group):
-        # for ch in chicken:
-        #     ch.alive = False
         for chicken in chickens_group:
+            # looking for a shot chicken
             if self.rect.colliderect(chicken.rect) and chicken.alive:
                 chicken.alive = False
         #pygame.sprite.spritecollide(cursor, chicken, True)

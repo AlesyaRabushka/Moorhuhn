@@ -145,5 +145,5 @@ game = Game()
 if __name__ == '__main__':
     print('START GAME')
     game.start_game()
-
+pygame.quit()
 

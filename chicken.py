@@ -9,8 +9,10 @@ class Chicken(pygame.sprite.Sprite):
         self.screen = screen
         self.chickens = []
 
+        # if CHICKEN is still alive
         self.alive = True
 
+        # direction of CHICKEN flight
         self.direction = 0
         self.img_path = None
         r = random.choice([0,900])
@@ -20,31 +22,16 @@ class Chicken(pygame.sprite.Sprite):
         else:
             self.direction = -1
             self.img_path = 'img/hen_right.png'
-
-
         self.image = pygame.image.load(self.img_path)
         self.rect = self.image.get_rect(center=(r,pos_y))
-        # self.rect.x = self.rect.width
-        # self.rect.y = self.rect.height
-        #self.x = float(self.rect.x)
-        #self.y = float(self.rect.y)
 
-    # show chicken on the screen
-    # def draw_chicken(self):
-    #     self.chickens.append(self.rect)
-    #     self.screen.blit(self.image, self.rect)
 
     # logic of flight
-    def fly_chicken(self):
-        #self.x += 1
-        self.rect.y += 1
-        #self.rect.move_ip(self.x, self.y)
-
     def update(self):
+        # if CHICKEN is alive
         if self.alive:
             # self.chickens.append(self.rect)
             self.screen.blit(self.image, self.rect)
-            #self.x += 1
             if self.direction == 1:
                 self.rect.x += 1
             else:
@@ -59,12 +46,14 @@ class Chicken(pygame.sprite.Sprite):
                 self.kill()
 
 
-        # if we have shooted one of them
+        # if we have shot one of them
         if not self.alive:
             #self.y += 2
             #self.image = pygame.image.load('img/chickendead1.png')
             self.image = pygame.image.load('img/chickendead3.png')
             self.rect.y += 2
+
+            # delete CHICKEN  if it is out of the screen
             if self.rect.y >= 500:
                 self.kill()
             elif self.rect.x >= 901 or self.rect.x <= 0:

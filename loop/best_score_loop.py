@@ -1,7 +1,7 @@
 from buttons import *
 
 # BEST SCORE
-def best_score_loop(screen, buttons):
+def best_score_loop(screen, cursor_group, buttons):
     running = True
 
     while running:
@@ -20,5 +20,9 @@ def best_score_loop(screen, buttons):
         screen.fill((204, 255, 153))
         buttons.draw_text('Best Score Table!', 50, 300, 100)
         buttons.draw_best_score('Main Menu', 50, 300, 200)
+
+        # draw an image instead of REAL CURSOR
+        cursor_group.draw(screen)
+        cursor_group.update()
 
         pygame.display.flip()

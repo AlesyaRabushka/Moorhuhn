@@ -2,7 +2,7 @@ import pygame
 
 
 # EXIT
-def exit_loop(screen, buttons):
+def exit_loop(screen, cursor_group, buttons):
     running = True
 
     while running:
@@ -32,4 +32,9 @@ def exit_loop(screen, buttons):
         buttons.draw_text("Are you sure?", 50, 300, 100)
         buttons.draw_exit('Yes', 50, 300, 200)
         buttons.draw_exit('No', 50, 300, 300)
+
+        # draw an image instead of REAL CURSOR
+        cursor_group.draw(screen)
+        cursor_group.update()
+
         pygame.display.flip()
