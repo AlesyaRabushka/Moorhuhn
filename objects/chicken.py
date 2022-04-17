@@ -52,7 +52,7 @@ class Chicken(pygame.sprite.Sprite):
         if not self.alive:
             #self.y += 2
             #self.image = pygame.image.load('img/chickendead1.png')
-            self.image = pygame.image.load('../img/chickendead3.png')
+            self.image = pygame.image.load('img/chickendead3.png')
             self.rect.y += 2
 
             # delete CHICKEN  if it is out of the screen

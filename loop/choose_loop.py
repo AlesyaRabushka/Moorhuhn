@@ -6,14 +6,18 @@ from settings.buttons import*
 # on MAIN MENU screen
 def choose_loop(screen, sounds, cursor_group, buttons):
     running = True
+
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
 
+    # main theme SOUND
+    sounds.main_theme_sound.play(-1)
 
     while running:
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                sounds.main_menu_sound.stop()
                 running = False
             # elif event.type == pygame.KEYDOWN:
             #     if event.key == pygame.K_ESCAPE:
@@ -23,21 +27,25 @@ def choose_loop(screen, sounds, cursor_group, buttons):
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
+                        sounds.main_theme_sound.stop()
                         running = False
                         return 1
                 elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
+                        sounds.main_theme_sound.stop()
                         running = False
                         return  2
                 elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
+                        sounds.main_theme_sound.stop()
                         running = False
                         return  3
                 elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
+                        sounds.main_theme_sound.stop()
                         running = False
                         return  4
 

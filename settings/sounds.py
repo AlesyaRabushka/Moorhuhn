@@ -6,6 +6,9 @@ class Sound():
     def __init__(self):
         self.button_click_sound = pygame.mixer.Sound('sounds/button_click.ogg')
 
+        # MAIN MENU mode
+        self.main_theme_sound = pygame.mixer.Sound('sounds/main_theme.ogg')
+
         # USER NAME mode
         self.type_sound = pygame.mixer.Sound('sounds/type_sound.wav')
         self.ready_after_user_name = pygame.mixer.Sound('sounds/game_start.ogg')
