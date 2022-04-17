@@ -1,10 +1,9 @@
-import pygame
 from loop_imports import *
-from buttons import *
-from chicken import Chicken
-from cursor import Cursor
+from settings.buttons import *
+from objects.chicken import Chicken
+from objects.cursor import Cursor
 from random import randint
-from sounds import Sound
+from settings.sounds import Sound
 
 pygame.init()
 HEIGHT = 600

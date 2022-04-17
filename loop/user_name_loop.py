@@ -1,6 +1,4 @@
-import pygame
-
-from buttons import *
+from settings.buttons import *
 
 def user_name_loop(screen, sounds):
     running = True

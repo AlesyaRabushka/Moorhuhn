@@ -1,4 +1,4 @@
-from buttons import*
+from settings.buttons import*
 
 
 

@@ -1,6 +1,5 @@
-import pygame
-from buttons import*
-from chicken import Chicken
+from settings.buttons import*
+from objects.chicken import Chicken
 from random import randint
 
 # PLAY mode

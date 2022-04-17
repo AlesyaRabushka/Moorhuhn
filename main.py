@@ -1,5 +1,4 @@
 #from loop import *
-import pygame, sys
 
 #
 # pygame.init()
@@ -137,7 +136,7 @@ import pygame, sys
 # pygame.quit()
 
 
-from states import*
+from settings.states import*
 
 # MAIN GAME
 game = Game()

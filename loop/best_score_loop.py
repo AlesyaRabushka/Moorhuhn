@@ -1,4 +1,4 @@
-from buttons import *
+from settings.buttons import *
 
 # BEST SCORE
 def best_score_loop(screen, sounds, cursor_group, buttons):
