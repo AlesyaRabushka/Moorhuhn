@@ -6,12 +6,12 @@ class Ammo(pygame.sprite.Sprite):
     def __init__(self, sounds):
         pygame.sprite.Sprite.__init__(self)
         self.sounds = sounds
-        self.count = 6
+        self.count = 8
         #self.shot = False
 
     def update(self):
         self.sounds.update_ammo.play()
-        self.count = 6
+        self.count = 8
 
     # change the AMMO amount
     def shot(self):

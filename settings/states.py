@@ -39,6 +39,8 @@ cursor = Cursor('img/cursor.png')
 cursor_group = pygame.sprite.Group()
 cursor_group.add(cursor)
 
+clock = pygame.time.Clock()
+
 
 class State:
     # -> MAIN MENU
@@ -133,7 +135,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
 
         # choose the next mode in MAIN MENU
-        chosen_screen = choose_loop(screen, sounds, cursor_group, buttons)
+        chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons)
         if chosen_screen == 1:
             self.game.play_game_mode()
         elif chosen_screen == 2:
@@ -149,7 +151,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
         print('we are on start screen')
         # choose the next mode in MAIN MENU
-        chosen_screen = choose_loop(screen, sounds, cursor_group, buttons)
+        chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons)
         if chosen_screen == 1:
             print('we are supposed to change it')
             self.game.play_game_mode()
@@ -187,9 +189,11 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         print('we are in PLAY mode')
-        check = play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
+        elif check == 2:
+            self.game.change_game_state(BestScoreState(self.game))
 
     # we are already in here
     def play_game_mode(self):

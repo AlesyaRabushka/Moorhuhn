@@ -18,8 +18,9 @@ class Cursor(pygame.sprite.Sprite):
             # looking for a shot chicken
             if self.rect.colliderect(chicken.rect) and chicken.alive:
                 if check_shot:
-                    # add SHOT CHICKEN SOUND
+                    # add random SHOT CHICKEN SOUND
                     index = random.randint(0, 2)
                     sounds.return_chick_hits(index).play()
                     # CHICKEN is DEAD
                     chicken.alive = False
+                    break

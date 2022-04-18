@@ -4,7 +4,7 @@ from settings.buttons import*
 
 # is used to select one of the buttons
 # on MAIN MENU screen
-def choose_loop(screen, sounds, cursor_group, buttons):
+def main_menu_loop(screen, sounds, cursor_group, buttons):
     running = True
 
     # turn off the image of the REAL 'CURSOR'

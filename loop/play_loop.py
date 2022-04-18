@@ -1,9 +1,12 @@
+import sys
+import time
+
 from settings.buttons import*
 from objects.chicken import Chicken
 from random import randint
 
 # PLAY mode
-def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -13,8 +16,15 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, amm
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
 
+    # initialize time value
+    # to know if we have to start counting time
+    init_time = 0
+
     while running:
         screen.fill((90,100,45))
+
+        # Returns milliseconds between each call to 'tick'. The convert time to seconds
+        dt = clock.tick(60)
 
 
         for event in pygame.event.get():
@@ -22,14 +32,16 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, amm
                 sounds.play_background.stop()
                 running = False
                 pygame.quit()
+                sys.exit()
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     sounds.play_background.stop()
                     running = False
                     return 1
+                # reload ammo if it is necessary
                 elif event.key == pygame.K_SPACE:
-                    if ammo.count < 6:
+                    if ammo.count < 8:
                         ammo.update()
 
             # add new CHICKEN on the screen0
@@ -37,11 +49,7 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, amm
                 y1 = randint(50,500)
                 chickens_group.add(Chicken(screen, y1))
                 chickens_group.add(Chicken(screen, randint(50,500)))
-                # y2 = randint(50,500)
-                # if y2 - y1 < 50:
-                #     chickens_group.add(Chicken(screen, y2 + 30))
-                # elif y1 - y2 < 50:
-                #     chickens_group.add(Chicken(screen, y1 + 4))
+
             # checks if we have shot a CHICKEN
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # check for AMMO amount
@@ -56,11 +64,27 @@ def play_loop(screen, sounds, buttons, cursor, cursor_group, chickens_group, amm
 
 
         chickens_group.draw(screen)
-        chickens_group.update()
+        chickens_group.update(dt)
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
         cursor_group.update()
 
+        # in purpose to make sure that we start counting only ones
+        # when we start the play_loop
+        init_time += 1
+        if init_time == 1:
+            start_time = time.time()
+        play_time = round(time.time() - start_time)
+       # screen.blit(str(120-left_time), (600, 20))
+        buttons.draw_text(f'{120 - play_time}', 30, 600, 20)
+
+        # if the timer is got down to 0
+        if play_time == 120:
+            sounds.play_background.stop()
+            running = False
+            # go to BEST SCORE mode
+            return 2
 
         pygame.display.flip()
+
