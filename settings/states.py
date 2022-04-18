@@ -1,12 +1,17 @@
 import pygame.sprite
+from random import randint
 
 from loop_imports import *
 from settings.buttons import *
 from objects.chicken import Chicken
 from objects.cursor import Cursor
-from random import randint
-from settings.sounds import Sound
+from objects.pumpkin import Pumpkin
 from objects.ammo import Ammo
+
+from settings.sounds import Sound
+from settings.score_manager import ScoreManager
+
+
 
 pygame.init()
 HEIGHT = 600
@@ -17,28 +22,31 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-# all buttons
+# BUTTONS
 buttons = Button(screen)
 
-# all chickens
+# CHICKEN
 chickens_group = pygame.sprite.Group()
-#chickens = Chicken(screen)
 chickens_group.add(Chicken(screen, randint(100, 500)))
 
 # SOUNDS
 sounds = Sound()
 
+# SCORE
+scores = ScoreManager()
+
 # AMMO
-# ammo_group = pygame.sprite.Group()
-# for i in range(0, 10):
-#     ammo_group.add(Ammo())
 ammo = Ammo(sounds)
+
+# PUMPKIN MAN
+pumpkin = Pumpkin(screen)
 
 # CURSOR
 cursor = Cursor('img/cursor.png')
 cursor_group = pygame.sprite.Group()
 cursor_group.add(cursor)
 
+# CLOCK
 clock = pygame.time.Clock()
 
 
@@ -189,7 +197,7 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         print('we are in PLAY mode')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores, pumpkin)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
