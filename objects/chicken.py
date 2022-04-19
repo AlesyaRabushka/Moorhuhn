@@ -16,7 +16,7 @@ class Chicken(pygame.sprite.Sprite):
 
         # POSITION and TIMER  of chicken's DEATH
         self.dead_index = 0
-        self.max_dead_time = 4
+        self.max_dead_time = 3
         self.dead_time = 0
 
         # CHICKEN size
