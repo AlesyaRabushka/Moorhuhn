@@ -12,7 +12,7 @@ class Pumpkin(pygame.sprite.Sprite):
         self.image = pygame.image.load('img/pumpkin1.png')
         self.rect = self.image.get_rect(center=(200,500))
         self.de_index = 0
-        self.max_time = 4
+        self.max_time = 3
         self.de_time = 0
 
     # update current PUMPKIN state
