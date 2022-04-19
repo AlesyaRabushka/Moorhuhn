@@ -65,12 +65,12 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
         buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)
 
+        # updates PUMPKIN state
+        pumpkin.update()
 
-
+        # updates CHICKEN/S state
         chickens_group.draw(screen)
         chickens_group.update(dt)
-
-        pumpkin.update()
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)

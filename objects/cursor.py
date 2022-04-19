@@ -23,7 +23,7 @@ class Cursor(pygame.sprite.Sprite):
                     sounds.return_chick_hits(index).play()
 
                     # update SCORE
-                    scores.update('chicken')
+                    scores.update(chicken)
 
                     # CHICKEN is DEAD
                     chicken.alive = False
@@ -39,7 +39,7 @@ class Cursor(pygame.sprite.Sprite):
 
 
                 # update SCORE
-                scores.update('pumpkin')
+                scores.update(pumpkin)
 
                 # CHICKEN is DEAD
                 pumpkin.alive = False
