@@ -3,6 +3,7 @@ import time
 
 from settings.buttons import*
 from objects.chicken import Chicken
+from settings.timer import Timer
 
 
 from random import randint
@@ -13,7 +14,10 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     # background SOUND
     sounds.play_background.play(-1)
 
+    # to check that we are still playing
     running = True
+    # to check last 10 sec of the PLAY
+    timer = Timer()
 
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
@@ -84,8 +88,10 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         cursor_group.draw(screen)
         cursor_group.update()
 
+        # shows SCORE progress
+        buttons.draw_text(f'Score: {scores.score}', 30, 800, 20)
 
-
+        # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones
         # when we start the play_loop
         init_time += 1
@@ -96,15 +102,17 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # shows LEFT PLAY TIME
         buttons.draw_text(f'Time: {90 - play_time}', 30, 82, 20)
 
-        # shows SCORE progress
-        buttons.draw_text(f'Score: {scores.score}', 30, 800, 20)
 
+
+        # --------- CHECK LEFT TIME ---------
         # if the timer is got down to 0
-        if play_time == 90:
+        play_time_check = timer.time_check(sounds, play_time)
+        if play_time_check == 1:
             sounds.play_background.stop()
             running = False
-            # go to BEST SCORE mode
+            # go to the BEST SCORE mode
             return 2
 
-        pygame.display.flip()
 
+
+        pygame.display.flip()
