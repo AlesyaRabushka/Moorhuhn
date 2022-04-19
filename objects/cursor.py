@@ -43,7 +43,7 @@ class Cursor(pygame.sprite.Sprite):
 
 
                 # update SCORE
-                scores.update(pumpkin)
+                scores.shot(pumpkin)
 
                 # CHICKEN is DEAD
                 pumpkin.alive = False
@@ -59,7 +59,7 @@ class Cursor(pygame.sprite.Sprite):
                 #sounds.sign_post_shot_sound.play()
 
                 # update SCORE
-                scores.update(sign_post)
+                scores.shot(sign_post)
 
                 # shot the SIGH POST
                 if sign_post.shot:
