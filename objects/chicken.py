@@ -2,7 +2,6 @@ import time
 
 import pygame
 import random
-import os
 
 
 class Chicken(pygame.sprite.Sprite):
@@ -18,6 +17,11 @@ class Chicken(pygame.sprite.Sprite):
         self.dead_index = 0
         self.max_dead_time = 3
         self.dead_time = 0
+
+        #Flyigt
+        self.fly_index = 0
+        self.max_fly_time = 3
+        self.fly_time = 0
 
         # CHICKEN size
         self.all_size = [(40,40), (60,60), (80,80)]
@@ -37,10 +41,10 @@ class Chicken(pygame.sprite.Sprite):
         r = random.choice([0,900])
         if r == 0:
             self.direction = 1
-            self.img_path = 'img/hen_left.png'
+            self.img_path = 'img/chicken1.png'
         else:
             self.direction = -1
-            self.img_path = 'img/hen_right.png'
+            self.img_path = 'img/chicken1.png'
 
 
         self.image = pygame.transform.scale(pygame.image.load(self.img_path).convert_alpha(), self.size)
@@ -51,17 +55,38 @@ class Chicken(pygame.sprite.Sprite):
     def update(self, dt):
         # if CHICKEN is alive
         if self.alive:
-
+            self.fly_time +=1
             # self.chickens.append(self.rect)
             self.screen.blit(self.image, self.rect)
 
             # flight to the RIGHT
             if self.direction == 1:
                 self.rect.x += float(self.speed * dt)
+                if self.fly_time == self.max_fly_time:
+                    self.fly_time = 0
+                    self.fly_index += 1
+                    if self.fly_index == 13:
+                        self.fly_index = 0
+                    elif self.fly_index <= 12:
+                        path = 'img/chicken' + str(self.fly_index) + '.png'
+                        self.image = pygame.transform.flip(pygame.transform.scale(pygame.image.load(path).convert_alpha(), self.size),True,False)
+
+
+
+
+
 
             # flight to the LEFT
             else:
                 self.rect.x -= float(self.speed * dt)
+                if self.fly_time == self.max_fly_time:
+                    self.fly_time = 0
+                    self.fly_index += 1
+                    if self.fly_index == 13:
+                        self.fly_index = 0
+                    elif self.fly_index <= 12:
+                        path = 'img/chicken' + str(self.fly_index) + '.png'
+                        self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), self.size)
 
             # if the chicken is out of the screen
             if self.rect.y >= 540:
@@ -94,6 +119,8 @@ class Chicken(pygame.sprite.Sprite):
                 self.kill()
             elif self.rect.x >= 901 or self.rect.x <= 0:
                 self.kill()
+
+
 
     # def kill_chicken(self):
     #     pygame.sprite.spritecollide(pygame.mouse.get_pos(), chicken, True)
