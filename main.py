@@ -1,4 +1,4 @@
-#from loop import *
+#from loops import *
 
 #
 # pygame.init()

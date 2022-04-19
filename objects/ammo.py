@@ -24,3 +24,7 @@ class Ammo(pygame.sprite.Sprite):
             # add SHOT SOUND
             self.sounds.shot_sound.play()
             return True
+
+    # to show AMMO on the screen
+    def draw_ammo(self):
+        pass

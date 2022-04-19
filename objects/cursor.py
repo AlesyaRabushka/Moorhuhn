@@ -46,3 +46,22 @@ class Cursor(pygame.sprite.Sprite):
 
                 # break
                 return True
+
+    # shot the SIGN POST
+    def shoot_sign_post(self, sounds, sign_post, check_shot, scores):
+        # looking for a shot chicken
+        if self.rect.colliderect(sign_post.rect):
+            if check_shot:
+                #sounds.sign_post_shot_sound.play()
+
+                # update SCORE
+                scores.update(sign_post)
+
+                # shot the SIGH POST
+                if sign_post.shot:
+                    sign_post.shot = False
+                else:
+                    sign_post.shot = True
+
+                # break
+                return True

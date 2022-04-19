@@ -3,16 +3,18 @@ import time
 
 from settings.buttons import*
 from objects.chicken import Chicken
+
+
 from random import randint
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores, pumpkin):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores, pumpkin, sign_post):
 
     # background SOUND
     sounds.play_background.play(-1)
 
     running = True
-    pause = False
+
     # turn off the image of the REAL 'CURSOR'
     pygame.mouse.set_visible(False)
 
@@ -60,6 +62,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # if we shot the PUMPKIN MAN
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, scores):
                     break
+                # if we shot SIGN POST
+                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, scores):
+                    break
 
 
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
@@ -71,6 +76,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # updates CHICKEN/S state
         chickens_group.draw(screen)
         chickens_group.update(dt)
+
+        # updates SIGN POST
+        sign_post.update()
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
@@ -86,10 +94,10 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         play_time = round(time.time() - start_time)
 
         # shows LEFT PLAY TIME
-        buttons.draw_text(f'{120 - play_time}', 30, 600, 20)
+        buttons.draw_text(f'Time: {120 - play_time}', 30, 82, 20)
 
         # shows SCORE progress
-        buttons.draw_text(f'{scores.score}', 20, 660, 20)
+        buttons.draw_text(f'Score: {scores.score}', 30, 800, 20)
 
         # if the timer is got down to 0
         if play_time == 120:

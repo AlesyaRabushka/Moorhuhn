@@ -2,14 +2,8 @@ import pygame.sprite
 from random import randint
 
 from loop_imports import *
-from settings.buttons import *
-from objects.chicken import Chicken
-from objects.cursor import Cursor
-from objects.pumpkin import Pumpkin
-from objects.ammo import Ammo
-
-from settings.sounds import Sound
-from settings.score_manager import ScoreManager
+from objects_imports import *
+from settings_imports import*
 
 
 
@@ -33,13 +27,16 @@ chickens_group.add(Chicken(screen, randint(100, 500)))
 sounds = Sound()
 
 # SCORE
-scores = ScoreManager()
+scores = ScoreManager(screen)
 
 # AMMO
 ammo = Ammo(sounds)
 
 # PUMPKIN MAN
 pumpkin = Pumpkin(screen)
+
+# SIGN POST
+sign_post = SignPost(screen)
 
 # CURSOR
 cursor = Cursor('img/cursor.png')
@@ -118,7 +115,7 @@ class UserNameState(State):
     def enter_new_screen(self):
         check, user_name = user_name_loop(screen, sounds)
         if check:
-            print(user_name)
+            print('user name: ', user_name)
             self.game.change_game_state(PlayState(self.game))
 
 
@@ -157,11 +154,9 @@ class MainMenuState(State):
     # we are already here
     def back_to_intro_mode(self):
         pygame.display.set_caption("MAIN MENU")
-        print('we are on start screen')
         # choose the next mode in MAIN MENU
         chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons)
         if chosen_screen == 1:
-            print('we are supposed to change it')
             self.game.play_game_mode()
         elif chosen_screen == 2:
             self.game.best_game_mode()
@@ -196,8 +191,7 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        print('we are in PLAY mode')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores, pumpkin)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores, pumpkin, sign_post)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
