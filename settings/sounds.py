@@ -16,8 +16,8 @@ class Sound():
         self.shot_sound = pygame.mixer.Sound('sounds/gun_shot_sound.ogg')
         self.play_background = pygame.mixer.Sound('sounds/ambientloop.ogg')
         self.pumpkin_shot_sound = pygame.mixer.Sound('sounds/pumpkin_shot_sound.ogg')
-        # self.play_background = pygame.mixer.Sound('sounds/play_loop_birds_background.wav')
         self.time_running = pygame.mixer.Sound('sounds/time_running.ogg')
+        self.game_over_sound = pygame.mixer.Sound('sounds/game_over.ogg')
 
         # CHICKEN hit sounds
         self.chick_hit1 = pygame.mixer.Sound('sounds/chick_hit1.ogg')

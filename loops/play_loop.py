@@ -109,6 +109,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         play_time_check = timer.time_check(sounds, play_time)
         if play_time_check == 1:
             sounds.play_background.stop()
+            sounds.game_over_sound.play()
             running = False
             # go to the BEST SCORE mode
             return 2
