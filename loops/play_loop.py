@@ -94,13 +94,13 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         play_time = round(time.time() - start_time)
 
         # shows LEFT PLAY TIME
-        buttons.draw_text(f'Time: {120 - play_time}', 30, 82, 20)
+        buttons.draw_text(f'Time: {90 - play_time}', 30, 82, 20)
 
         # shows SCORE progress
         buttons.draw_text(f'Score: {scores.score}', 30, 800, 20)
 
         # if the timer is got down to 0
-        if play_time == 120:
+        if play_time == 90:
             sounds.play_background.stop()
             running = False
             # go to BEST SCORE mode

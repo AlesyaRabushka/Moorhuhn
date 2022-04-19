@@ -14,6 +14,11 @@ def main_menu_loop(screen, sounds, cursor_group, buttons):
     sounds.main_theme_sound.play(-1)
 
     while running:
+        screen.fill((0, 100, 0))
+        buttons.draw_main_menu('start', 50, 300, 100)
+        buttons.draw_main_menu('Best Score', 50, 300, 200)
+        buttons.draw_main_menu('Help', 50, 300, 300)
+        buttons.draw_main_menu('Exit', 50, 300, 400)
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -22,7 +27,9 @@ def main_menu_loop(screen, sounds, cursor_group, buttons):
             # elif event.type == pygame.KEYDOWN:
             #     if event.key == pygame.K_ESCAPE:
             #         running = False
-
+            elif event.type == pygame.MOUSEMOTION:
+                if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
+                    buttons.draw_main_menu('start_h', 50, 300, 100)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
@@ -52,11 +59,7 @@ def main_menu_loop(screen, sounds, cursor_group, buttons):
 
 
 
-        screen.fill((0, 100, 0))
-        buttons.draw_main_menu('Play', 50, 300, 100)
-        buttons.draw_main_menu('Best Score', 50, 300, 200)
-        buttons.draw_main_menu('Help', 50, 300, 300)
-        buttons.draw_main_menu('Exit', 50, 300, 400)
+
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)

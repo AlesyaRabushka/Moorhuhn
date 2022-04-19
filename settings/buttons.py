@@ -11,6 +11,9 @@ class Button:
         self.help_buttons = []
         self.exit_buttons = []
 
+    def add_main_menu(self, button):
+        self.main_menu_buttons.append(button)
+
     # draw text on screen
     def draw_text(self, text,size, pos_x, pos_y):
 
@@ -22,9 +25,14 @@ class Button:
         self.screen.blit(button_text, button_rect)
 
     # MAIN MENU buttons
-    def draw_main_menu(self, text,size, pos_x, pos_y):
+    def draw_main_menu(self, text, size, pos_x, pos_y):
         font = pygame.font.SysFont('Comic Sans MS', size)
-        button_text = font.render(text, True, (0,1,1))
+        if text == 'start':
+            button_text = pygame.image.load('img/startNormal.gif')
+        elif text == 'start_h':
+            button_text = pygame.image.load('img/startHighlight.gif')
+        else:
+            button_text = font.render(text, True, (0, 1, 1))
         button_rect = button_text.get_rect()
         button_rect.center = (pos_x, pos_y)
 
@@ -71,3 +79,11 @@ class Button:
 
         self.exit_buttons.append(button_rect)
         self.screen.blit(button_text, button_rect)
+
+
+class MainMenuButtons(Button):
+    def __init__(self):
+        super().__init__()
+        self.start_img = pygame.image.load('img/startnormal.gif')
+        self.start_rect = self.start_img.get_rect()
+        super().add_main_menu(self)

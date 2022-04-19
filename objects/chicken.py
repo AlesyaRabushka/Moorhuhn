@@ -16,6 +16,14 @@ class Chicken(pygame.sprite.Sprite):
         self.all_size = [(40,40), (60,60), (80,80)]
         self.size = self.all_size[random.randint(0, 2)]
 
+        # choose CHICKEN SPEED
+        if self.size == self.all_size[0]:
+            self.speed = 0.1
+        elif self.size == self.all_size[1]:
+            self.speed = 0.15
+        elif self.size == self.all_size[2]:
+            self.speed = 0.2
+
         # direction of CHICKEN flight
         self.direction = 0
         self.img_path = None
@@ -40,9 +48,9 @@ class Chicken(pygame.sprite.Sprite):
             # self.chickens.append(self.rect)
             self.screen.blit(self.image, self.rect)
             if self.direction == 1:
-                self.rect.x += float(0.2 * dt)
+                self.rect.x += float(self.speed * dt)
             else:
-                self.rect.x -= float(0.2 * dt)
+                self.rect.x -= float(self.speed * dt)
 
             # if the chicken is out of the screen
             if self.rect.y >= 540:
