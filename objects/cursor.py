@@ -1,10 +1,13 @@
 import pygame
 import random
 
+from settings.score_manager import ScoreManager
+
 # CURSOR class
 class Cursor(pygame.sprite.Sprite):
-    def __init__(self, img_path):
+    def __init__(self, screen, img_path):
         super().__init__()
+        self.screen = screen
         self.image = pygame.image.load(img_path)
         self.rect = self.image.get_rect()
 
@@ -13,7 +16,7 @@ class Cursor(pygame.sprite.Sprite):
         self.rect.center = pygame.mouse.get_pos()
 
     # shot the CHICKEN
-    def shoot_chicken(self, sounds, chickens_group, check_shot, scores):
+    def shoot_chicken(self, sounds, chickens_group, check_shot, scores_group):
         for chicken in chickens_group:
             # looking for a shot chicken
             if self.rect.colliderect(chicken.rect) and chicken.alive:
@@ -23,7 +26,8 @@ class Cursor(pygame.sprite.Sprite):
                     sounds.return_chick_hits(index).play()
 
                     # update SCORE
-                    scores.update(chicken)
+                    #scores_group.add(ScoreManager(self.screen))
+                    scores_group.shot(chicken)
 
                     # CHICKEN is DEAD
                     chicken.alive = False

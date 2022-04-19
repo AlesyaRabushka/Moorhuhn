@@ -1,6 +1,8 @@
+import time
+
 import pygame
 import random
-
+import os
 
 
 class Chicken(pygame.sprite.Sprite):
@@ -11,6 +13,11 @@ class Chicken(pygame.sprite.Sprite):
 
         # if CHICKEN is still alive
         self.alive = True
+
+        # POSITION and TIMER  of chicken's DEATH
+        self.dead_index = 0
+        self.max_dead_time = 4
+        self.dead_time = 0
 
         # CHICKEN size
         self.all_size = [(40,40), (60,60), (80,80)]
@@ -47,8 +54,12 @@ class Chicken(pygame.sprite.Sprite):
 
             # self.chickens.append(self.rect)
             self.screen.blit(self.image, self.rect)
+
+            # flight to the RIGHT
             if self.direction == 1:
                 self.rect.x += float(self.speed * dt)
+
+            # flight to the LEFT
             else:
                 self.rect.x -= float(self.speed * dt)
 
@@ -63,10 +74,20 @@ class Chicken(pygame.sprite.Sprite):
 
         # if we have shot one of them
         if not self.alive:
-            #self.y += 2
-            #self.image = pygame.image.load('img/chickendead1.png')
-            self.image = pygame.transform.scale(pygame.image.load('img/chickendead3.png').convert_alpha(), self.size)
-            self.rect.y += float(0.2 * dt)
+            self.dead_time += 1
+            self.rect.y += float(self.speed * dt)
+
+
+            if self.dead_time == self.max_dead_time:
+                self.dead_time = 0
+                self.dead_index += 1
+                if self.dead_index == 9:
+                    self.kill()
+                elif self.dead_index <= 8:
+                    path = 'img/chickendead' + str(self.dead_index) + '.png'
+                    self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), self.size)
+                    #self.rect.y += 2
+
 
             # delete CHICKEN  if it is out of the screen
             if self.rect.y >= 500:
