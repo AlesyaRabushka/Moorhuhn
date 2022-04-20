@@ -27,8 +27,11 @@ chickens_group.add(Chicken(screen, randint(100, 500)))
 sounds = Sound()
 
 # SCORE
-#scores_group = pygame.sprite.Group()
-scores_group = ScoreManager(screen)
+scores_group = pygame.sprite.Group()
+score_manager = ScoreManager(screen)
+scores_group.add(ScoreImgManager(screen, score_manager))
+
+#scores_group = ScoreManager(screen)
 
 # AMMO
 ammo = Ammo(sounds)
@@ -192,7 +195,7 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores_group, pumpkin, sign_post)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
