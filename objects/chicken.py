@@ -18,7 +18,7 @@ class Chicken(pygame.sprite.Sprite):
         self.max_dead_time = 2
         self.dead_time = 0
 
-        #Flyigt
+        # TIMER of chicken's FLIGHT
         self.fly_index = 0
         self.max_fly_time = 2
         self.fly_time = 0
@@ -29,11 +29,11 @@ class Chicken(pygame.sprite.Sprite):
 
         # choose CHICKEN SPEED
         if self.size == self.all_size[0]:
-            self.speed = 0.1
+            self.speed = 0.095
         elif self.size == self.all_size[1]:
-            self.speed = 0.15
+            self.speed = 0.1
         elif self.size == self.all_size[2]:
-            self.speed = 0.2
+            self.speed = 0.15
 
         # direction of CHICKEN flight
         self.direction = 0

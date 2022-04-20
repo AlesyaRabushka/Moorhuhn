@@ -9,7 +9,7 @@ from settings.timer import Timer
 from random import randint
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, scores_group, pumpkin, sign_post):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -61,13 +61,13 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # check for AMMO amount
                 check_shot = ammo.shot()
                 # if we shot the CHICKEN
-                if cursor.shoot_chicken(sounds, chickens_group, check_shot, scores_group):
+                if cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
                     break
                 # if we shot the PUMPKIN MAN
-                elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, scores_group):
+                elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
                     break
                 # if we shot SIGN POST
-                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, scores_group):
+                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
                     break
 
 
@@ -89,7 +89,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         cursor_group.update()
 
         # shows SCORE progress
-        buttons.draw_text(f'Score: {scores_group.score}', 30, 800, 20)
+        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 800, 20)
+
+        scores_group.update()
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones
