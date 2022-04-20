@@ -1,5 +1,6 @@
 from settings.buttons import*
 from objects.holes import Holes
+from objects.chicken_hole import ChickenHole
 
 
 # is used to select one of the buttons
@@ -19,6 +20,7 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
     new_holes_max_time = 15
     new_holes_current_time = 0
     index = 0
+    finish = False
 
     while running:
         screen.fill((0, 100, 0))
@@ -79,13 +81,15 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
         if new_holes_current_time == new_holes_max_time:
             index += 1
             new_holes_current_time = 0
-            if index <= 4:
+            if index < 4:
                 holes.add(Holes(screen, index))
+            if index == 4:
+                holes.add(Holes(screen, index))
+                finish = True
 
         holes.update(sounds)
-        if index > 10:
-            chicken_hole.start()
-            chicken_hole.update(True)
+
+        chicken_hole.update()
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
