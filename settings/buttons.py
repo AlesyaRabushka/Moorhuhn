@@ -28,7 +28,8 @@ class Button:
     def draw_main_menu(self, text, size, pos_x, pos_y):
         font = pygame.font.SysFont('Comic Sans MS', size)
         if text == 'start':
-            button_text = pygame.image.load('img/startNormal.gif')
+            #button_text = pygame.transform.scale(pygame.image.load('img/start.PNG').convert_alpha(), (100,70))
+            button_text = pygame.image.load('img/startHighlight.gif')
         elif text == 'start_h':
             button_text = pygame.image.load('img/startHighlight.gif')
         else:
