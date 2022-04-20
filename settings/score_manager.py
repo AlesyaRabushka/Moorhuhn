@@ -9,9 +9,11 @@ class ScoreImgManager(pygame.sprite.Sprite):
         self.screen = screen
         self.score = 0
         self.score_manager = score_manager
+        self.font = pygame.font.Font('fonts/AA_Magnum.ttf', 30)
+        #print(pygame.font.get_fonts())
 
         self.show = False
-        self.max_show_y = 50
+        self.max_show_y = 25
         self.current_score = 0
 
         # SCORE show TIMER
@@ -20,8 +22,9 @@ class ScoreImgManager(pygame.sprite.Sprite):
 
         # self.img1_path = 'img/' + self.firsrt_number
         # self.img2_path = 'img/' + self.second_number
-        self.img_path = 'img/figures/0.png'
-        self.image = pygame.transform.scale(pygame.image.load(self.img_path).convert_alpha(), (40,40))
+        self.img_path = 'img/figures/5.png'
+        #self.image = pygame.transform.scale(pygame.image.load(self.img_path).convert_alpha(), (40,40))
+        self.image = self.font.render('0', True, (255,255,255,255))
         self.rect = self.image.get_rect()
 
 
@@ -30,45 +33,48 @@ class ScoreImgManager(pygame.sprite.Sprite):
         if isinstance(shot_object, Chicken):
             if shot_object.size == shot_object.all_size[0]:
                 self.score += 20
-                self.score_manager.update_score(20)
+                self.score_manager.update_score(self.score)
 
                 self.show = True
-                self.draw_score(20, shot_object)
+                self.draw_score(str(20), shot_object)
                 #self.draw_score(20, shot_object)
 
             elif shot_object.size == shot_object.all_size[1]:
                 self.score += 15
-                self.score_manager.update_score(15)
+                self.score_manager.update_score(self.score)
 
                 self.show = True
-                self.draw_score(15, shot_object)
+                self.draw_score(str(15), shot_object)
                 #self.draw_score(15, shot_object)
             elif shot_object.size == shot_object.all_size[2]:
                 self.score += 10
-                self.score_manager.update_score(10)
+                self.score_manager.update_score(self.score)
 
                 self.show = True
-                self.draw_score(10, shot_object)
+                self.draw_score(str(10), shot_object)
                 #self.draw_score(10, shot_object)
 
         elif isinstance(shot_object, Pumpkin):
             self.score += 15
-            self.score_manager.update_score(15)
+            self.score_manager.update_score(self.score)
 
             self.show = True
-            self.draw_score(15, shot_object)
+            self.draw_score(str(15), shot_object)
 
         elif isinstance(shot_object, SignPost):
             self.score -= 15
-            self.score_manager.update_score(-15)
+            self.score_manager.update_score(self.score)
 
             self.show = True
-            self.draw_score(-15, shot_object)
+            self.draw_score(str(-15), shot_object)
             #self.draw_score()
 
     # show SCORES on the screen after shooting
     def draw_score(self, new_score, shot_object):
+
+        self.image = self.font.render(new_score, True, (255,255,255))
         self.rect = self.image.get_rect(center=(shot_object.rect.x, shot_object.rect.y))
+
         self.current_score = new_score
         # new_path = 'img/figures'+new_score+'.png'
 
@@ -79,8 +85,8 @@ class ScoreImgManager(pygame.sprite.Sprite):
             self.show_time += 1
             self.screen.blit(self.image, self.rect)
             if self.show_time == self.max_show_time:
-                self.max_show_y -= 10
-                self.rect.y -= 10
+                self.max_show_y -= 5
+                self.rect.y -= 5
 
                 if self.max_show_y == 0:
                     self.show = False
@@ -109,7 +115,7 @@ class ScoreManager:
 
     # add new scores
     def update_score(self, new_score):
-        self.score += new_score
+        self.score = new_score
 
     # return current score
     def return_score(self):

@@ -41,10 +41,10 @@ class Chicken(pygame.sprite.Sprite):
         r = random.choice([0,900])
         if r == 0:
             self.direction = 1
-            self.img_path = 'img/chicken1.png'
+            self.img_path = 'img/chicken_flight/chicken1.png'
         else:
             self.direction = -1
-            self.img_path = 'img/chicken1.png'
+            self.img_path = 'img/chicken_flight/chicken1.png'
 
 
         self.image = pygame.transform.scale(pygame.image.load(self.img_path).convert_alpha(), self.size)
@@ -68,7 +68,7 @@ class Chicken(pygame.sprite.Sprite):
                     if self.fly_index == 13:
                         self.fly_index = 0
                     elif self.fly_index <= 12:
-                        path = 'img/chicken' + str(self.fly_index) + '.png'
+                        path = 'img/chicken_flight/chicken' + str(self.fly_index) + '.png'
                         self.image = pygame.transform.flip(pygame.transform.scale(pygame.image.load(path).convert_alpha(), self.size),True,False)
 
 
@@ -85,7 +85,7 @@ class Chicken(pygame.sprite.Sprite):
                     if self.fly_index == 13:
                         self.fly_index = 0
                     elif self.fly_index <= 12:
-                        path = 'img/chicken' + str(self.fly_index) + '.png'
+                        path = 'img/chicken_flight/chicken' + str(self.fly_index) + '.png'
                         self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), self.size)
 
             # if the chicken is out of the screen
@@ -109,7 +109,7 @@ class Chicken(pygame.sprite.Sprite):
                 if self.dead_index == 9:
                     self.kill()
                 elif self.dead_index <= 8:
-                    path = 'img/chickendead' + str(self.dead_index) + '.png'
+                    path = 'img/chicken_flight_death/chickendead' + str(self.dead_index) + '.png'
                     self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), self.size)
                     #self.rect.y += 2
 
