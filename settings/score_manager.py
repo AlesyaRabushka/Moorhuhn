@@ -119,7 +119,6 @@ class ScoreManager:
             self.score += new_score
         elif sign == '-':
             self.score -= new_score
-            print(self.score)
 
     # return current score
     def return_score(self):

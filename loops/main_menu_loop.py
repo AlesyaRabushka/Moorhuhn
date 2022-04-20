@@ -4,7 +4,7 @@ from settings.buttons import*
 
 # is used to select one of the buttons
 # on MAIN MENU screen
-def main_menu_loop(screen, sounds, cursor_group, buttons):
+def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole):
     running = True
 
     # turn off the image of the REAL 'CURSOR'
@@ -12,9 +12,14 @@ def main_menu_loop(screen, sounds, cursor_group, buttons):
 
     # main theme SOUND
     sounds.main_theme_sound.play(-1)
+    back = pygame.image.load("img/main_menu_background/main_menu.png")
+    back_rect = back.get_rect()
 
     while running:
         screen.fill((0, 100, 0))
+        screen.blit(back, back_rect)
+
+
         buttons.draw_main_menu('start', 50, 300, 100)
         buttons.draw_main_menu('Best Score', 50, 300, 200)
         buttons.draw_main_menu('Help', 50, 300, 300)
@@ -22,11 +27,8 @@ def main_menu_loop(screen, sounds, cursor_group, buttons):
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sounds.main_menu_sound.stop()
+                sounds.main_theme_sound.stop()
                 running = False
-            # elif event.type == pygame.KEYDOWN:
-            #     if event.key == pygame.K_ESCAPE:
-            #         running = False
             elif event.type == pygame.MOUSEMOTION:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     buttons.draw_main_menu('start_h', 50, 300, 100)
@@ -56,10 +58,7 @@ def main_menu_loop(screen, sounds, cursor_group, buttons):
                         running = False
                         return  4
 
-
-
-
-
+        chicken_hole.update()
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
