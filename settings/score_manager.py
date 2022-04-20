@@ -33,7 +33,7 @@ class ScoreImgManager(pygame.sprite.Sprite):
         if isinstance(shot_object, Chicken):
             if shot_object.size == shot_object.all_size[0]:
                 self.score += 20
-                self.score_manager.update_score(self.score)
+                self.score_manager.update_score('+',20)
 
                 self.show = True
                 self.draw_score(str(20), shot_object)
@@ -41,14 +41,14 @@ class ScoreImgManager(pygame.sprite.Sprite):
 
             elif shot_object.size == shot_object.all_size[1]:
                 self.score += 15
-                self.score_manager.update_score(self.score)
+                self.score_manager.update_score('+', 15)
 
                 self.show = True
                 self.draw_score(str(15), shot_object)
                 #self.draw_score(15, shot_object)
             elif shot_object.size == shot_object.all_size[2]:
                 self.score += 10
-                self.score_manager.update_score(self.score)
+                self.score_manager.update_score('+', 10)
 
                 self.show = True
                 self.draw_score(str(10), shot_object)
@@ -56,14 +56,14 @@ class ScoreImgManager(pygame.sprite.Sprite):
 
         elif isinstance(shot_object, Pumpkin):
             self.score += 15
-            self.score_manager.update_score(self.score)
+            self.score_manager.update_score('+', 15)
 
             self.show = True
             self.draw_score(str(15), shot_object)
 
         elif isinstance(shot_object, SignPost):
-            self.score -= 15
-            self.score_manager.update_score(self.score)
+            # self.score -= 15
+            self.score_manager.update_score('-', 15)
 
             self.show = True
             self.draw_score(str(-15), shot_object)
@@ -114,8 +114,11 @@ class ScoreManager:
         self.score = 0
 
     # add new scores
-    def update_score(self, new_score):
-        self.score = new_score
+    def update_score(self, sign, new_score):
+        if sign == '+':
+            self.score += new_score
+        elif sign == '-':
+            self.score -= new_score
 
     # return current score
     def return_score(self):
