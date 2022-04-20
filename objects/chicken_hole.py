@@ -45,7 +45,6 @@ class ChickenHole(pygame.sprite.Sprite):
         # CHICKEN only BLINKS
         elif self.show_cycle:
             self.current_time += 1
-            #self.current_blink_time += 1
             self.screen.blit(self.image, self.rect)
 
             if self.current_time == self.max_show_cycle_time:
@@ -74,4 +73,3 @@ class ChickenHole(pygame.sprite.Sprite):
                     self.index = 6
         else:
             self.show = True
-            #self.screen.blit(self.image, self.rect)
