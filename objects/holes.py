@@ -20,26 +20,23 @@ class Holes(pygame.sprite.Sprite):
             pass
         else:
             self.screen.blit(self.image, self.rect)
+
         if self.current_time == self.max_time:
             if self.count == 1:
                 self.rect = self.image.get_rect(center=(450, 250))
-                if self.show:
-                    sounds.shot_sound.play()
+                sounds.shot_sound.play()
 
             elif self.count == 2:
                 self.rect = self.image.get_rect(center=(450, 300))
-                if self.shot:
-                    sounds.shot_sound.play()
+                sounds.shot_sound.play()
 
             elif self.count == 3:
                 self.rect = self.image.get_rect(center=(450, 350))
-                if self.show:
-                    sounds.shot_sound.play()
+                sounds.shot_sound.play()
 
             elif self.count == 4:
                 self.rect = self.image.get_rect(center=(400, 180))
-                if self.show:
-                    sounds.shot_sound.play()
+                sounds.shot_sound.play()
 
     def shot(self):
-        self.show = False
+        self.kill()

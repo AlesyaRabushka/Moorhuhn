@@ -15,10 +15,10 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
     back = pygame.image.load("img/main_menu_background/main_menu.png")
     back_rect = back.get_rect()
 
+    # for HOLES
     new_holes_max_time = 15
     new_holes_current_time = 0
     index = 0
-    count = 0
 
     while running:
         screen.fill((0, 100, 0))
@@ -42,6 +42,8 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
+                        for hole in holes:
+                            hole.shot()
                         running = False
                         return 1
                 elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
@@ -57,23 +59,23 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
-
+                        for hole in holes:
+                            hole.shot()
                         running = False
                         return  3
                 elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
+                        for hole in holes:
+                            hole.shot()
                         running = False
                         return  4
 
-        chicken_hole.update()
+
 
 
         new_holes_current_time += 1
-
-
-
         if new_holes_current_time == new_holes_max_time:
             index += 1
             new_holes_current_time = 0
@@ -81,6 +83,9 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                 holes.add(Holes(screen, index))
 
         holes.update(sounds)
+        if index > 10:
+            chicken_hole.start()
+            chicken_hole.update(True)
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
