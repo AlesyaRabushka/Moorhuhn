@@ -28,10 +28,12 @@ class Cursor(pygame.sprite.Sprite):
                     # update SCORE
                     #scores_group.add(ScoreManager(self.screen))
                     #scores_group.shot(chicken)
-                    score = ScoreImgManager(self.screen, score_manager)
-                    scores_group.add(score)
+                    score1 = ScoreImgManager(self.screen, score_manager)
+                    score1.show = True
+                    scores_group.add(score1)
                     for score in scores_group:
-                        score.shot(chicken)
+                        if score.shot:
+                            score.shot(chicken)
 
                     # score.shot(chicken)
 
@@ -49,10 +51,12 @@ class Cursor(pygame.sprite.Sprite):
 
 
                 # update SCORE
-                score = ScoreImgManager(self.screen, score_manager)
-                scores_group.add(score)
+                score1 = ScoreImgManager(self.screen, score_manager)
+                scores_group.add(score1)
+                score1.show = True
                 for score in scores_group:
-                    score.shot(pumpkin)
+                    if score.show:
+                        score.shot(pumpkin)
 
                 # CHICKEN is DEAD
                 pumpkin.alive = False
@@ -68,10 +72,12 @@ class Cursor(pygame.sprite.Sprite):
                 #sounds.sign_post_shot_sound.play()
 
                 # update SCORE
-                score = ScoreImgManager(self.screen, score_manager)
-                scores_group.add(score)
+                score1 = ScoreImgManager(self.screen, score_manager)
+                scores_group.add(score1)
+                score1.show = True
                 for score in scores_group:
-                    score.shot(sign_post)
+                    if score.show:
+                        score.shot(sign_post)
 
                 # shot the SIGH POST
                 if sign_post.shot:
