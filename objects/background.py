@@ -19,14 +19,21 @@ class Speed(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = location
 
-bg1 = pygame.image.load('img/world/background1.png')
-background1 = BackgroundTree(bg1,[0,185])
+bg1 = pygame.image.load('img/world/sky.jpg')
+background1 = BackgroundTree(bg1, [0,0])
 pos_x = 10
 
-bg2 = pygame.image.load('img/world/background2.png')
-background2 = BackgroundTree(bg2, [0,145])
+bg2 = pygame.image.load('img/world/background1.png')
+background2 = BackgroundTree(bg2,[0,150])
 pos_x = 10
 
+bg3 = pygame.image.load('img/world/background2.png')
+background3 = BackgroundTree(bg3, [0,145])
+pos_x = 10
+
+# bg3 = pygame.image.load('img/world/sky.jpg')
+# background3 = BackgroundTree(bg3, [300,100])
+# pos_x = 20
 # bg = pygame.image.load('img/world/background1.png')
 # background3 = BackgroundTree(bg, [0,50])
 
