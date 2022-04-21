@@ -30,10 +30,10 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
         screen.blit(moorhuhn, moorhuhn_rect)
 
 
-        buttons.draw_main_menu('start', 50, 70, 550)
-        buttons.draw_main_menu('Best Score', 50, 300, 550)
-        buttons.draw_main_menu('Help', 50, 500, 550)
-        buttons.draw_main_menu('Exit', 50, 600, 550)
+        buttons.draw_main_menu('start', 50, 100, 550)
+        buttons.draw_main_menu('score', 50, 330, 550)
+        buttons.draw_main_menu('menu', 50, 560, 550)
+        buttons.draw_main_menu('exit', 50, 710, 550)
 
         # check events
         for event in pygame.event.get():
@@ -42,7 +42,7 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                 running = False
             elif event.type == pygame.MOUSEMOTION:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
-                    buttons.draw_main_menu('start_h', 50, 300, 100)
+                    buttons.draw_main_menu('start_h', 50, 100, 550)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:

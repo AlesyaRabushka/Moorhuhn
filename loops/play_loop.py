@@ -105,10 +105,10 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
         # --------- BIG CHICKEN POP UPS ---------
         big_chick_timer += 1
-        if big_chick_timer == 20:
+        if big_chick_timer == 40:
             sounds.big_chicken_pops_up_sound.play()
             big_chicken_group.add(BigChicken(screen))
-            #big_chick_timer = -70
+            big_chick_timer = -800
 
 
 
