@@ -72,7 +72,7 @@ class Cursor(pygame.sprite.Sprite):
         # looking for a shot chicken
         if self.rect.colliderect(sign_post.rect):
             if check_shot:
-                #sounds.sign_post_shot_sound.play()
+                sounds.sign_post_sound.play()
 
                 # update SCORE
                 score1 = ScoreImgManager(self.screen, score_manager)
