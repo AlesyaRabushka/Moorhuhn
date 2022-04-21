@@ -26,7 +26,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     # to know if we have to start counting time
     init_time = 0
 
-    big_chicken = BigChicken(screen)
+    big_chicken = None
     big_chick_timer = 0
 
     while running:
@@ -63,15 +63,18 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # check for AMMO amount
                 check_shot = ammo.shot()
+                # if we shot SIGN POST
+                if cursor.shoot_big_chicken(sounds, big_chicken, check_shot, score_manager, scores_group):
+                    continue
+                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
+                    continue
                 # if we shot the CHICKEN
-                if cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
+                elif cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
                     break
                 # if we shot the PUMPKIN MAN
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
                     break
-                # if we shot SIGN POST
-                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
-                    break
+
 
 
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
@@ -87,20 +90,20 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # updates SIGN POST
         sign_post.update()
 
-        # draw an image instead of REAL CURSOR
-        cursor_group.draw(screen)
-        cursor_group.update()
-
         # shows SCORE progress
         buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 800, 20)
 
         # updates SCORE progress
         scores_group.update()
 
+        # --------- BIG CHICKEN POP UPS ---------
         big_chick_timer += 1
         if big_chick_timer == 20:
+            print('here new')
             sounds.big_chicken_pops_up_sound.play()
+            big_chicken = BigChicken(screen)
             big_chicken.show = True
+            print(big_chicken.alive)
             big_chicken.update()
         elif big_chick_timer > 20:
             big_chicken.update()
@@ -129,6 +132,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             # go to the BEST SCORE mode
             return 2
 
-
+        # draw an image instead of REAL CURSOR
+        cursor_group.draw(screen)
+        cursor_group.update()
 
         pygame.display.flip()

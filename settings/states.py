@@ -50,6 +50,9 @@ pumpkin = Pumpkin(screen)
 # SIGN POST
 sign_post = SignPost(screen)
 
+# BIG CHICKEN
+big_chicken = BigChicken(screen)
+
 # CURSOR
 cursor = Cursor(screen, 'img/cursor/cursor.png')
 cursor_group = pygame.sprite.Group()
