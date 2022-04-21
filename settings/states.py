@@ -51,7 +51,7 @@ pumpkin = Pumpkin(screen)
 sign_post = SignPost(screen)
 
 # CURSOR
-cursor = Cursor(screen, 'img/cursor.png')
+cursor = Cursor(screen, 'img/cursor/cursor.png')
 cursor_group = pygame.sprite.Group()
 cursor_group.add(cursor)
 
