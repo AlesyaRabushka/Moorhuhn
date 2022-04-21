@@ -14,7 +14,8 @@ WIDTH = 900
 # the SCREEN of the GAME
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
-pygame.time.set_timer(pygame.USEREVENT, 1000)
+pygame.time.set_timer(pygame.USEREVENT, 2000)
+
 
 # BUTTONS
 buttons = Button(screen)
@@ -22,6 +23,9 @@ buttons = Button(screen)
 # CHICKEN
 chickens_group = pygame.sprite.Group()
 chickens_group.add(Chicken(screen, randint(100, 500)))
+
+# BIG CHICKEN
+big_chicken_group = pygame.sprite.Group()
 
 # SOUNDS
 sounds = Sound()
@@ -206,7 +210,7 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post, big_chicken_group)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:

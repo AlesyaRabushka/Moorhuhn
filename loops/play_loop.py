@@ -9,7 +9,7 @@ from objects_imports import *
 from random import randint
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -26,7 +26,6 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     # to know if we have to start counting time
     init_time = 0
 
-    big_chicken = None
     big_chick_timer = 0
 
     while running:
@@ -59,18 +58,27 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 chickens_group.add(Chicken(screen, y1))
                 chickens_group.add(Chicken(screen, randint(50,500)))
 
+            # if event.type == pygame.USEREVENT + 2000:
+            #     print('new big')
+            #     #y1 = randint(50,500)
+            #     chicken = BigChicken(screen)
+            #     chicken.show = True
+            #     big_chicken_group.add(chicken)
+            #     sounds.big_chicken_pops_up_sound.play()
+
+
             # checks if we have shot a CHICKEN
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # check for AMMO amount
                 check_shot = ammo.shot()
                 # if we shot SIGN POST
-                if cursor.shoot_big_chicken(sounds, big_chicken, check_shot, score_manager, scores_group):
+                if cursor.shoot_big_chicken(sounds, big_chicken_group, check_shot, score_manager, scores_group):
                     continue
-                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
-                    continue
-                # if we shot the CHICKEN
+                    # if we shot the CHICKEN
                 elif cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
                     break
+                elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
+                    continue
                 # if we shot the PUMPKIN MAN
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
                     break
@@ -99,15 +107,13 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # --------- BIG CHICKEN POP UPS ---------
         big_chick_timer += 1
         if big_chick_timer == 20:
-            print('here new')
             sounds.big_chicken_pops_up_sound.play()
-            big_chicken = BigChicken(screen)
-            big_chicken.show = True
-            print(big_chicken.alive)
-            big_chicken.update()
-        elif big_chick_timer > 20:
-            big_chicken.update()
+            big_chicken_group.add(BigChicken(screen))
+            #big_chick_timer = -70
 
+
+
+        big_chicken_group.update()
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones
