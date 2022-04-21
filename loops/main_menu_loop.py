@@ -15,6 +15,8 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
     sounds.main_theme_sound.play(-1)
     back = pygame.image.load("img/main_menu_background/main_menu.png")
     back_rect = back.get_rect()
+    moorhuhn = pygame.image.load("img/main_menu_background/moorhuhn.png")
+    moorhuhn_rect = moorhuhn.get_rect(center=(400,66))
 
     # for HOLES
     new_holes_max_time = 15
@@ -25,12 +27,14 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
     while running:
         screen.fill((0, 100, 0))
         screen.blit(back, back_rect)
+        screen.blit(moorhuhn, moorhuhn_rect)
 
 
-        buttons.draw_main_menu('start', 50, 300, 100)
-        buttons.draw_main_menu('Best Score', 50, 300, 200)
-        buttons.draw_main_menu('Help', 50, 300, 300)
-        buttons.draw_main_menu('Exit', 50, 300, 400)
+        buttons.draw_main_menu('start', 50, 100, 550)
+        buttons.draw_main_menu('score', 50, 330, 550)
+        buttons.draw_main_menu('menu', 50, 560, 550)
+        buttons.draw_main_menu('exit', 50, 710, 550)
+
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -38,7 +42,7 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                 running = False
             elif event.type == pygame.MOUSEMOTION:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
-                    buttons.draw_main_menu('start_h', 50, 300, 100)
+                    buttons.draw_main_menu('start_h', 50, 100, 550)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:

@@ -27,10 +27,22 @@ class Button:
     # MAIN MENU buttons
     def draw_main_menu(self, text, size, pos_x, pos_y):
         font = pygame.font.Font('fonts/Roose_Sally.otf', size)
+        if text == 'start':
+            button_text = pygame.image.load('img/main_menu_background/start_normal.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
+        elif text == 'exit':
+            button_text = pygame.image.load('img/main_menu_background/exit_normal.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
+        elif text == 'score':
+            button_text = pygame.image.load('img/main_menu_background/score_normal.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
+        elif text == 'menu':
+            button_text = pygame.image.load('img/main_menu_background/menu_normal.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
 
-        button_text = font.render(text, True, (0, 255, 255), (255, 255, 255))
-        button_rect = button_text.get_rect()
-        button_rect.center = (pos_x, pos_y)
+        elif text == 'start_h':
+            button_text = pygame.image.load('img/main_menu_background/start_h.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
 
         self.main_menu_buttons.append(button_rect)
         self.screen.blit(button_text, button_rect)

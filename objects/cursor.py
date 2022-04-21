@@ -8,12 +8,15 @@ class Cursor(pygame.sprite.Sprite):
     def __init__(self, screen, img_path):
         super().__init__()
         self.screen = screen
-        self.image = pygame.image.load(img_path)
+        self.simple = 'img/cursor/cursor.png'
+        self.target = 'img/cursor/cursorred.png'
+        self.image = pygame.image.load(self.simple)
         self.rect = self.image.get_rect()
 
     # updates the position
     def update(self):
         self.rect.center = pygame.mouse.get_pos()
+
 
     # shot the CHICKEN
     def shoot_chicken(self, sounds, chickens_group, check_shot, score_manager, scores_group):
@@ -88,12 +91,13 @@ class Cursor(pygame.sprite.Sprite):
                 # break
                 return True
 
-    def shoot_big_chicken(self, sounds, big_chicken_group, check_shot, score_manager, scores_group):
+    def shoot_big_chicken(self, sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
         for big_chicken in big_chicken_group:
             # looking for a shot chicken
             if self.rect.colliderect(big_chicken.rect):
                 if check_shot:
-                    # sounds.sign_post_shot_sound.play()
+                    index = random.randint(0, 2)
+                    sounds.return_chick_hits(index).play()
 
                     # update SCORE
                     score1 = ScoreImgManager(self.screen, score_manager)

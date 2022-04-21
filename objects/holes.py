@@ -23,7 +23,7 @@ class Holes(pygame.sprite.Sprite):
 
         if self.current_time == self.max_time:
             if self.count == 1:
-                self.rect = self.image.get_rect(center=(450, 250))
+                self.rect = self.image.get_rect(center=(500, 200))
                 sounds.shot_sound.play()
 
             elif self.count == 2:
@@ -31,11 +31,11 @@ class Holes(pygame.sprite.Sprite):
                 sounds.shot_sound.play()
 
             elif self.count == 3:
-                self.rect = self.image.get_rect(center=(450, 350))
+                self.rect = self.image.get_rect(center=(290, 320))
                 sounds.shot_sound.play()
 
             elif self.count == 4:
-                self.rect = self.image.get_rect(center=(400, 180))
+                self.rect = self.image.get_rect(center=(300, 220))
                 sounds.shot_sound.play()
 
     def shot(self):

@@ -10,7 +10,7 @@ from random import randint
 from objects.background import *
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -28,6 +28,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     init_time = 0
 
     big_chick_timer = 0
+
+    ammo_count = -1
 
     while running:
         screen.fill((90,100,45))
@@ -54,7 +56,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # reload ammo if it is necessary
                 elif event.key == pygame.K_SPACE:
                     if ammo.count < 8:
-                        ammo.update()
+                        ammo_count = ammo.update(screen, ammo_group)
 
             # add new CHICKEN on the screen0
             elif event.type == pygame.USEREVENT:
@@ -74,9 +76,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             # checks if we have shot a CHICKEN
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # check for AMMO amount
-                check_shot = ammo.shot()
+                check_shot, ammo_count = ammo.shot()
                 # if we shot SIGN POST
-                if cursor.shoot_big_chicken(sounds, big_chicken_group, check_shot, score_manager, scores_group):
+                if cursor.shoot_big_chicken(sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
                     continue
                     # if we shot the CHICKEN
                 elif cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
@@ -88,9 +90,6 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                     break
 
 
-
-        buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
-        buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)
 
         # updates PUMPKIN state
         pumpkin.update()
@@ -110,14 +109,16 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
         # --------- BIG CHICKEN POP UPS ---------
         big_chick_timer += 1
-        if big_chick_timer == 20:
+        if big_chick_timer == 40:
             sounds.big_chicken_pops_up_sound.play()
             big_chicken_group.add(BigChicken(screen))
-            #big_chick_timer = -70
+            big_chick_timer = -800
 
 
 
         big_chicken_group.update()
+
+        ammo_group.update(ammo_count)
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones

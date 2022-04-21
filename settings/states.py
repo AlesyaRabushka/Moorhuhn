@@ -10,7 +10,6 @@ from settings_imports import*
 pygame.init()
 HEIGHT = 600
 WIDTH = 800
-FPS = 60
 
 # the SCREEN of the GAME
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
@@ -48,6 +47,9 @@ holes.add(Holes(screen, 0))
 
 # AMMO
 ammo = Ammo(sounds)
+ammo_group = pygame.sprite.Group()
+for i in range(0, 8):
+    ammo_group.add(AmmoGroup(screen, i))
 
 # PUMPKIN MAN
 pumpkin = Pumpkin(screen)
@@ -211,7 +213,7 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post, big_chicken_group)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
