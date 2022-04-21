@@ -87,9 +87,6 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
 
 
-        buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
-        buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)
-
         # updates PUMPKIN state
         pumpkin.update()
 
@@ -101,7 +98,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         sign_post.update()
 
         # shows SCORE progress
-        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 800, 20)
+        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
 
         # updates SCORE progress
         scores_group.update()

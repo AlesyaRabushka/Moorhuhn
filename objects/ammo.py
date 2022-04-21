@@ -15,15 +15,11 @@ class Ammo(pygame.sprite.Sprite):
     def update(self, screen, ammo_group):
         self.sounds.update_ammo.play()
         self.count = 8
-        print(len(ammo_group))
         for ammo in ammo_group:
             ammo.animation = False
             ammo.end()
-
-
         for i in range(0, 8):
             ammo_group.add(AmmoGroup(screen, i))
-        print(len(ammo_group))
         return 8
 
 
@@ -99,6 +95,8 @@ class AmmoGroup(pygame.sprite.Sprite):
                 elif self.animation_index <= 17:
                     path = 'img/ammo/Ammo' + str(self.animation_index) + '.png'
                     self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), (50, 80))
+                    self.rect.x += 3
+                    self.rect.y -= 2
 
 
         # for i in range(0, self.count):

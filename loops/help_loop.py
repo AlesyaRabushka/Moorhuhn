@@ -6,9 +6,13 @@ def help_loop(screen, sounds, cursor_group, buttons):
     running = True
 
     sounds.main_theme_sound.play(-1)
+    bg = pygame.transform.scale(pygame.image.load('img/help_back.png'), (800,600))
+    bg_rect = bg.get_rect()
 
     while running:
         screen.fill((90, 15, 45))
+        screen.blit(bg, bg_rect)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sounds.main_theme_sound.stop()
