@@ -2,6 +2,7 @@ import time
 
 import pygame
 from objects_imports import *
+from objects.big_chicken import BigChicken
 
 class ScoreImgManager(pygame.sprite.Sprite):
     def __init__(self, screen, score_manager):
@@ -59,7 +60,7 @@ class ScoreImgManager(pygame.sprite.Sprite):
                 #self.draw_score(10, shot_object)
 
         elif isinstance(shot_object, Pumpkin):
-            self.score += 15
+            #self.score += 15
             self.score_manager.update_score('+', 15)
 
             self.show = True
@@ -72,6 +73,13 @@ class ScoreImgManager(pygame.sprite.Sprite):
             self.show = True
             self.draw_score(str(-15), shot_object)
             #self.draw_score()
+
+        elif isinstance(shot_object, BigChicken):
+            # self.score -= 15
+            self.score_manager.update_score('+', 25)
+
+            self.show = True
+            self.draw_score(str(25), shot_object)
 
     # show SCORES on the screen after shooting
     def draw_score(self, new_score, shot_object):

@@ -87,3 +87,26 @@ class Cursor(pygame.sprite.Sprite):
 
                 # break
                 return True
+
+    def shoot_big_chicken(self, sounds, big_chicken, check_shot, score_manager, scores_group):
+        # looking for a shot chicken
+        if self.rect.colliderect(big_chicken.rect):
+            if check_shot:
+                # sounds.sign_post_shot_sound.play()
+
+                # update SCORE
+                score1 = ScoreImgManager(self.screen, score_manager)
+                scores_group.add(score1)
+                score1.show = True
+                for score in scores_group:
+                    if score.show:
+                        score.shot(big_chicken)
+
+                # shot the SIGH POST
+                if big_chicken.alive:
+                    big_chicken.alive = False
+                    big_chicken.current_time = 0
+
+
+                # break
+                return True
