@@ -52,7 +52,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # reload ammo if it is necessary
                 elif event.key == pygame.K_SPACE:
                     if ammo.count < 8:
-                        ammo_count = ammo.update()
+                        ammo_count = ammo.update(screen, ammo_group)
 
             # add new CHICKEN on the screen0
             elif event.type == pygame.USEREVENT:
