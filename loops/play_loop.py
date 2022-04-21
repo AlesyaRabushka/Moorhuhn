@@ -9,7 +9,7 @@ from objects_imports import *
 from random import randint
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -27,6 +27,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     init_time = 0
 
     big_chick_timer = 0
+
+    ammo_count = -1
 
     while running:
         screen.fill((90,100,45))
@@ -50,7 +52,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # reload ammo if it is necessary
                 elif event.key == pygame.K_SPACE:
                     if ammo.count < 8:
-                        ammo.update()
+                        ammo_count = ammo.update()
 
             # add new CHICKEN on the screen0
             elif event.type == pygame.USEREVENT:
@@ -70,9 +72,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             # checks if we have shot a CHICKEN
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # check for AMMO amount
-                check_shot = ammo.shot()
+                check_shot, ammo_count = ammo.shot()
                 # if we shot SIGN POST
-                if cursor.shoot_big_chicken(sounds, big_chicken_group, check_shot, score_manager, scores_group):
+                if cursor.shoot_big_chicken(sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
                     continue
                     # if we shot the CHICKEN
                 elif cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
@@ -114,6 +116,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
 
         big_chicken_group.update()
+
+        ammo_group.update(ammo_count)
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones
