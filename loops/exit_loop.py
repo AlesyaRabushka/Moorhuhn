@@ -7,7 +7,13 @@ def exit_loop(screen, sounds, cursor_group, buttons):
 
     sounds.main_theme_sound.play(-1)
 
+    bg = pygame.transform.scale(pygame.image.load('img/help_background/help_back.png'), (800, 600))
+    bg_rect = bg.get_rect()
+
     while running:
+        screen.fill((90, 22, 45))
+        screen.blit(bg, bg_rect)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sounds.main_theme_sound.stop()
@@ -36,7 +42,7 @@ def exit_loop(screen, sounds, cursor_group, buttons):
                         running = False
                         return 2
 
-        screen.fill((90, 22, 45))
+
         buttons.draw_text("Are you sure?", 50, 300, 100)
         buttons.draw_exit('Yes', 50, 300, 200)
         buttons.draw_exit('No', 50, 300, 300)

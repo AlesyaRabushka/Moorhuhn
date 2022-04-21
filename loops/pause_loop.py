@@ -9,7 +9,13 @@ def pause_loop(screen, sounds, buttons, cursor):
 
     sounds.main_theme_sound.play(-1)
 
+    bg = pygame.transform.scale(pygame.image.load('img/pause_background/pause.png'), (800,600))
+    bg_rect = bg.get_rect()
+
     while running:
+        screen.fill((255, 204, 255))
+        screen.blit(bg, bg_rect)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sounds.main_theme_sound.stop()
@@ -31,7 +37,7 @@ def pause_loop(screen, sounds, buttons, cursor):
                         #pygame.mouse.set_visible(True)
                         return 2
 
-        screen.fill((255,204,255))
+
         buttons.draw_pause('Main Menu', 50, 200, 200)
         buttons.draw_pause('Exit', 50, 200, 100)
 

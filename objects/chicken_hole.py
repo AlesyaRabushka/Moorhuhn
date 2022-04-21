@@ -19,7 +19,7 @@ class ChickenHole(pygame.sprite.Sprite):
         self.index = 0
         self.path = 'img/main_menu_background/chickenhole1.png'
         self.image = pygame.transform.scale(pygame.image.load(self.path), (50,55))
-        self.rect = self.image.get_rect(center=(500,200))
+        self.rect = self.image.get_rect(center=(380,200))
         self.start = 0
 
     def start(self):
