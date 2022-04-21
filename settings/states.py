@@ -36,6 +36,11 @@ scores_group.add(ScoreImgManager(screen, score_manager))
 # CHICKEN HOLE
 chicken_hole = ChickenHole(screen)
 
+# HOLE
+holes = pygame.sprite.Group()
+holes.add(Holes(screen, 0))
+
+
 # AMMO
 ammo = Ammo(sounds)
 
@@ -147,7 +152,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
 
         # choose the next mode in MAIN MENU
-        chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole)
+        chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes)
         if chosen_screen == 1:
             self.game.play_game_mode()
         elif chosen_screen == 2:

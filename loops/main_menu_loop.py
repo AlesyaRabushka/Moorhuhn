@@ -1,10 +1,11 @@
 from settings.buttons import*
-
+from objects.holes import Holes
+from objects.chicken_hole import ChickenHole
 
 
 # is used to select one of the buttons
 # on MAIN MENU screen
-def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole):
+def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
     running = True
 
     # turn off the image of the REAL 'CURSOR'
@@ -14,6 +15,12 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole):
     sounds.main_theme_sound.play(-1)
     back = pygame.image.load("img/main_menu_background/main_menu.png")
     back_rect = back.get_rect()
+
+    # for HOLES
+    new_holes_max_time = 15
+    new_holes_current_time = 0
+    index = 0
+    finish = False
 
     while running:
         screen.fill((0, 100, 0))
@@ -37,6 +44,8 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
+                        for hole in holes:
+                            hole.shot()
                         running = False
                         return 1
                 elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
@@ -44,19 +53,41 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole):
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
                         running = False
+                        for hole in holes:
+                            hole.shot()
+
                         return  2
                 elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
+                        for hole in holes:
+                            hole.shot()
                         running = False
                         return  3
                 elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
+                        for hole in holes:
+                            hole.shot()
                         running = False
                         return  4
+
+
+
+
+        new_holes_current_time += 1
+        if new_holes_current_time == new_holes_max_time:
+            index += 1
+            new_holes_current_time = 0
+            if index < 4:
+                holes.add(Holes(screen, index))
+            if index == 4:
+                holes.add(Holes(screen, index))
+                finish = True
+
+        holes.update(sounds)
 
         chicken_hole.update()
 

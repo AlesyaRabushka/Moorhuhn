@@ -9,7 +9,7 @@ class ScoreImgManager(pygame.sprite.Sprite):
         self.screen = screen
         self.score = 0
         self.score_manager = score_manager
-        self.font = pygame.font.Font('fonts/AA_Magnum.ttf', 30)
+        self.font = pygame.font.Font('fonts/AA_Magnum.ttf', 50)
         #print(pygame.font.get_fonts())
 
         self.show = False
@@ -22,10 +22,14 @@ class ScoreImgManager(pygame.sprite.Sprite):
 
         # self.img1_path = 'img/' + self.firsrt_number
         # self.img2_path = 'img/' + self.second_number
-        self.img_path = 'img/figures/5.png'
+        self.img_path = 'img/figures/20.jpg'
+
         #self.image = pygame.transform.scale(pygame.image.load(self.img_path).convert_alpha(), (40,40))
+        #self.image = pygame.image.load(self.img_path)
+
         self.image = self.font.render('0', True, (255,255,255,255))
         self.rect = self.image.get_rect()
+        #self.image.set_colorkey((0, 0, 0))
 
 
     # update SCORE progress
@@ -74,6 +78,7 @@ class ScoreImgManager(pygame.sprite.Sprite):
 
         self.image = self.font.render(new_score, True, (255,255,255))
         self.rect = self.image.get_rect(center=(shot_object.rect.x, shot_object.rect.y))
+        #self.image.set_colorkey((0,0,0))
 
         self.current_score = new_score
         # new_path = 'img/figures'+new_score+'.png'
