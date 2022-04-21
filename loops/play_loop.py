@@ -7,6 +7,7 @@ from objects_imports import *
 
 
 from random import randint
+from objects.background import *
 
 # PLAY mode
 def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
@@ -32,6 +33,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
     while running:
         screen.fill((90,100,45))
+        screen.blit(bg1, background1)
+        screen.blit(bg2, background2)
+        screen.blit(bg3, background3)
 
         # Returns milliseconds between each call to 'tick'. The convert time to seconds
         dt = clock.tick(60)
