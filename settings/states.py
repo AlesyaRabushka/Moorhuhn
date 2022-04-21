@@ -10,6 +10,7 @@ from settings_imports import*
 pygame.init()
 HEIGHT = 600
 WIDTH = 800
+FPS = 60
 
 # the SCREEN of the GAME
 screen = pygame.display.set_mode((WIDTH,HEIGHT))

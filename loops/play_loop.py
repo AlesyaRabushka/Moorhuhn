@@ -1,15 +1,40 @@
 import sys
 import time
 
+import pygame
+
 from settings.buttons import*
 from settings.timer import Timer
 from objects_imports import *
 
 
 from random import randint
+from objects.background import*
 
 # PLAY mode
 def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, score_manager, scores_group, pumpkin, sign_post):
+    # bg_w, bg_h = 2000,800
+    # bg = (pygame.image.load('img/world/background1.png')
+    # bg = pygame.transform.smoothscale(pygame.image.load('img/world/backgroundcombined.png'), (bg_w,bg_h))
+    # bg_rect = bg.get_rect()
+    # pos_x = 10
+    # speed = 10
+#Backgroundspeed
+    # done = False
+    # while not done:
+    #     clock.tick(60)
+    #     for event in pygame.event.get():
+    #         if event.type == pygame.QUIT:
+    #             done = True
+    #
+    #     allKeys = pygame.key.get_pressed()
+    #     pos_x += speed if allKeys[pygame.K_LEFT] else -speed if allKeys[pygame.K_RIGHT] else 0
+    #
+    #     x_rel = pos_x % bg_w
+    #     x_part2 = x_rel - bg_w if x_rel > 0 else x_rel + bg_w
+    #
+    #     screen.blit(bg,(x_rel,0))
+    #     screen.blit(bg,(x_part2,0))
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -30,7 +55,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     big_chick_timer = 0
 
     while running:
-        screen.fill((90,100,45))
+        screen.fill((0,0,255))
+        screen.blit(bg1,background1)
+        screen.blit(bg2, background2)
 
         # Returns milliseconds between each call to 'tick'. The convert time to seconds
         dt = clock.tick(60)
@@ -75,8 +102,6 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
                     break
 
-
-
         buttons.draw_text('Imagine that you play a game here', 50, 450, 100)
         buttons.draw_text('(нажми esc чтобы вернуться в главное меню)', 20, 450, 200)
 
@@ -91,7 +116,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         sign_post.update()
 
         # shows SCORE progress
-        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 800, 20)
+        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
 
         # updates SCORE progress
         scores_group.update()
