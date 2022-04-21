@@ -43,6 +43,13 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
             elif event.type == pygame.MOUSEMOTION:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     buttons.draw_main_menu('start_h', 50, 100, 550)
+                elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
+                    buttons.draw_main_menu('score_h', 50, 330, 550)
+                elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
+                    buttons.draw_main_menu('menu_h', 50, 560, 550)
+                elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
+                    buttons.draw_main_menu('exit_h', 50, 710, 550)
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
                     if event.button == 1:

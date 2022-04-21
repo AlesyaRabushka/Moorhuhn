@@ -43,6 +43,15 @@ class Button:
         elif text == 'start_h':
             button_text = pygame.image.load('img/main_menu_background/start_h.png')
             button_rect = button_text.get_rect(center=(pos_x, pos_y))
+        elif text == 'exit_h':
+            button_text = pygame.image.load('img/main_menu_background/exit_h.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
+        elif text == 'score_h':
+            button_text = pygame.image.load('img/main_menu_background/score_h.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
+        elif text == 'menu_h':
+            button_text = pygame.image.load('img/main_menu_background/menu_h.png')
+            button_rect = button_text.get_rect(center=(pos_x, pos_y))
 
         self.main_menu_buttons.append(button_rect)
         self.screen.blit(button_text, button_rect)
