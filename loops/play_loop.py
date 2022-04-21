@@ -2,8 +2,8 @@ import sys
 import time
 
 from settings.buttons import*
-from objects.chicken import Chicken
 from settings.timer import Timer
+from objects_imports import *
 
 
 from random import randint
@@ -25,6 +25,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
     # initialize time value
     # to know if we have to start counting time
     init_time = 0
+
+    big_chicken = BigChicken(screen)
+    big_chick_timer = 0
 
     while running:
         screen.fill((90,100,45))
@@ -93,6 +96,15 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
         # updates SCORE progress
         scores_group.update()
+
+        big_chick_timer += 1
+        if big_chick_timer == 20:
+            sounds.big_chicken_pops_up_sound.play()
+            big_chicken.show = True
+            big_chicken.update()
+        elif big_chick_timer > 20:
+            big_chicken.update()
+
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones

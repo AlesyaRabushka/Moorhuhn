@@ -28,7 +28,9 @@ def help_loop(screen, sounds, cursor_group, buttons):
 
         # just a text
         buttons.draw_text('Help info!', 50, 300, 100)
-        buttons.draw_help('Main Menu', 50, 300, 200)
+        buttons.draw_text('Right Mouse Button - to shoot', 40, 350, 200)
+        buttons.draw_text('SPACE - to reload ammo', 40, 300, 300)
+        buttons.draw_help('Main Menu', 50, 300, 400)
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)

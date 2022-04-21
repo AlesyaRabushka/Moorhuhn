@@ -88,7 +88,8 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                 finish = True
 
         holes.update(sounds)
-
+        # if finish:
+        #     chicken_hole.update()
         chicken_hole.update()
 
         # draw an image instead of REAL CURSOR

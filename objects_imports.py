@@ -5,3 +5,4 @@ from objects.cursor import Cursor
 from objects.ammo import Ammo
 from objects.chicken_hole import ChickenHole
 from objects.holes import Holes
+from objects.big_chicken import BigChicken
