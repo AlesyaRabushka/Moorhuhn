@@ -10,7 +10,7 @@ from random import randint
 from objects.background import *
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -77,11 +77,14 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # check for AMMO amount
                 check_shot, ammo_count = ammo.shot()
+                x, y = event.pos
                 # if we shot SIGN POST
                 if cursor.shoot_big_chicken(sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
                     continue
                     # if we shot the CHICKEN
                 elif cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
+                    break
+                elif cursor.shoot_mill(cursor, x, y, sounds, mill, check_shot, score_manager, scores_group):
                     break
                 elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
                     continue
@@ -112,13 +115,14 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         if big_chick_timer == 40:
             sounds.big_chicken_pops_up_sound.play()
             big_chicken_group.add(BigChicken(screen))
-            big_chick_timer = -800
+            big_chick_timer = -700
 
 
 
         big_chicken_group.update()
+        mill.update()
 
-        ammo_group.update(ammo_count)
+        ammo_group.update(dt,ammo_count)
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones

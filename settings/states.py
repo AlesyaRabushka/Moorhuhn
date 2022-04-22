@@ -44,6 +44,10 @@ chicken_hole = ChickenHole(screen)
 holes = pygame.sprite.Group()
 holes.add(Holes(screen, 0))
 
+# MILL CHICKEN
+mill = pygame.sprite.Group()
+for i in range(0,4):
+    mill.add(MillChicken(screen, i))
 
 # AMMO
 ammo = Ammo(sounds)
@@ -213,7 +217,7 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group)
+        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
