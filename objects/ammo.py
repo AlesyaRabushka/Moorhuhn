@@ -55,7 +55,7 @@ class AmmoGroup(pygame.sprite.Sprite):
         self.show = True
         self.animation = False
         self.current_time = 0
-        self.max_time = 2
+        self.max_time = 1
         self.animation_index = 0
 
         self.img_index = 1
@@ -95,8 +95,8 @@ class AmmoGroup(pygame.sprite.Sprite):
                 elif self.animation_index <= 17:
                     path = 'img/ammo/Ammo' + str(self.animation_index) + '.png'
                     self.image = pygame.transform.scale(pygame.image.load(path).convert_alpha(), (50, 80))
-                    self.rect.x += float(0.2*dt)
-                    self.rect.y -= float(0.1 * dt)
+                    self.rect.x += float(0.1*dt)
+                    self.rect.y -= float(0.05 * dt)
 
 
         # for i in range(0, self.count):

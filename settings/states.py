@@ -61,9 +61,6 @@ pumpkin = Pumpkin(screen)
 # SIGN POST
 sign_post = SignPost(screen)
 
-# BIG CHICKEN
-big_chicken = BigChicken(screen)
-
 # CURSOR
 cursor = Cursor(screen, 'img/cursor/cursor.png')
 cursor_group = pygame.sprite.Group()
@@ -71,6 +68,9 @@ cursor_group.add(cursor)
 
 # CLOCK
 clock = pygame.time.Clock()
+
+def set_user_name(name):
+    USER_NAME = name
 
 
 class State:
@@ -140,6 +140,9 @@ class UserNameState(State):
 
     def enter_new_screen(self):
         check, user_name = user_name_loop(screen, sounds)
+        global USER_NAME
+        USER_NAME = user_name
+
         if check:
             print('user name: ', user_name)
             self.game.change_game_state(PlayState(self.game))
@@ -217,7 +220,9 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
+        check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
+        global SCORE
+        SCORE = score
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
@@ -287,7 +292,7 @@ class BestScoreState(State):
     # best score table
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
-        new_state = best_score_loop(screen, sounds, cursor_group, buttons)
+        new_state = best_score_loop(screen, sounds, cursor_group, buttons, USER_NAME, SCORE)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 

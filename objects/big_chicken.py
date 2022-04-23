@@ -1,10 +1,11 @@
 import pygame
 
 class BigChicken(pygame.sprite.Sprite):
-    def __init__(self, screen):
+    def __init__(self, screen, position):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
+        self.position = position
 
         # show on the screen properties
         self.alive = True
@@ -32,7 +33,7 @@ class BigChicken(pygame.sprite.Sprite):
 
         self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
         self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
-        self.rect = self.image.get_rect(center=(650, 480))
+        self.rect = self.image.get_rect(center=self.position)
 
 
     def update(self):

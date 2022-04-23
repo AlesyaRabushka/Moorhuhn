@@ -114,8 +114,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         big_chick_timer += 1
         if big_chick_timer == 40:
             sounds.big_chicken_pops_up_sound.play()
-            big_chicken_group.add(BigChicken(screen))
-            big_chick_timer = -700
+            x = randint(100, 750)
+            big_chicken_group.add(BigChicken(screen, (x, 500)))
+            big_chick_timer = -300
 
 
 
@@ -145,7 +146,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             sounds.game_over_sound.play()
             running = False
             # go to the BEST SCORE mode
-            return 2
+            return 2, score_manager.return_score()
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
