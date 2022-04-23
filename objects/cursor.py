@@ -142,3 +142,34 @@ class Cursor(pygame.sprite.Sprite):
 
                 # break
                 return True
+
+    def check_main_buttons(self, cursor, x, y, main_buttons, name):
+        for button in main_buttons:
+            if button.check(cursor, x, y) and button.name == name:
+                return True
+        return False
+
+    def change_main_button(self, cursor, x, y, main_buttons, name):
+        for button in main_buttons:
+            if button.check(cursor, x, y) and button.name == name:
+                new_button = 'img/main_menu_background/' + name + '_h.png'
+                button.change(new_button)
+                return True
+            else:
+                if button.name == name:
+                    new_button = 'img/main_menu_background/' + name + '_normal.png'
+                    button.change(new_button)
+        return False
+
+    def change_pressed_button(self, cursor, x, y, main_buttons, name):
+        for button in main_buttons:
+            if button.check(cursor, x, y) and button.name == name:
+                new_button = 'img/main_menu_background/' + name + '_pressed.png'
+
+                button.change(new_button)
+                return True
+            else:
+                if button.name == name:
+                    new_button = 'img/main_menu_background/' + name + '_normal.png'
+                    button.change(new_button)
+        return False

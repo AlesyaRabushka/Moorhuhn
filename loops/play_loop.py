@@ -52,7 +52,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 if event.key == pygame.K_ESCAPE:
                     sounds.play_background.stop()
                     running = False
-                    return 1
+                    return 1, 0
                 # reload ammo if it is necessary
                 elif event.key == pygame.K_SPACE:
                     if ammo.count < 8:

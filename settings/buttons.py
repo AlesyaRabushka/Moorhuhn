@@ -98,9 +98,35 @@ class Button:
         self.screen.blit(button_text, button_rect)
 
 
-class MainMenuButtons(Button):
-    def __init__(self):
-        super().__init__()
-        self.start_img = pygame.image.load('img/startnormal.gif')
-        self.start_rect = self.start_img.get_rect()
-        super().add_main_menu(self)
+class MainMenuButtons(pygame.sprite.Sprite):
+    def __init__(self, screen, index):
+        pygame.sprite.Sprite.__init__(self)
+        self.screen = screen
+
+        self.position_list = [(100,550), (330,550), (560,550), (710,550)]
+        self.name_list = ['start', 'score', 'menu', 'exit']
+        self.pos = self.position_list[index]
+        self.name = self.name_list[index]
+
+        self.path = 'img/main_menu_background/' + self.name + '_normal.png'
+        self.image = pygame.image.load(self.path)
+        self.rect = self.image.get_rect(center=self.pos)
+        self.mask = pygame.mask.from_surface(self.image)
+
+    def update(self):
+        self.screen.blit(self.image, self.rect)
+
+    def check(self, cursor, x, y):
+        cursor_mask = pygame.mask.from_surface(cursor.image)
+        offset = (x - self.rect.x, y - self.rect.y)
+        result = self.mask.overlap(cursor_mask, offset)
+        if result:
+            return True
+        else:
+            return False
+
+    def change(self, new_path):
+        self.path = new_path
+        self.image = pygame.image.load(self.path)
+        self.rect = self.image.get_rect(center=self.pos)
+        self.screen.blit(self.image, self.rect)

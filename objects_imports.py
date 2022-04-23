@@ -6,4 +6,4 @@ from objects.ammo import Ammo, AmmoGroup
 from objects.chicken_hole import ChickenHole
 from objects.holes import Holes
 from objects.big_chicken import BigChicken
-from objects.mill import Mill, MillChicken
+from objects.mill import MillChicken

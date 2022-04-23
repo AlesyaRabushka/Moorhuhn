@@ -20,6 +20,10 @@ pygame.time.set_timer(pygame.USEREVENT, 2000)
 # BUTTONS
 buttons = Button(screen)
 
+main_buttons = pygame.sprite.Group()
+for i in range(0, 4):
+    main_buttons.add(MainMenuButtons(screen, i))
+
 # CHICKEN
 chickens_group = pygame.sprite.Group()
 chickens_group.add(Chicken(screen, randint(100, 500)))
@@ -169,7 +173,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
 
         # choose the next mode in MAIN MENU
-        chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes)
+        chosen_screen = main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, chicken_hole, holes)
         if chosen_screen == 1:
             self.game.play_game_mode()
         elif chosen_screen == 2:
