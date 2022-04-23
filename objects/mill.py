@@ -14,8 +14,11 @@ class MillChicken(pygame.sprite.Sprite):
 
         self.alive = True
 
-        self.max_time = 5
+        self.max_time = 3
         self.current_time = 0
+        self.current_death_time = 0
+        self.death_animation_index_list = [55, 0, 21, 39]
+        self.death_animation_index = 0
 
 
         self.img_index_list = [28, 1, 10, 19]
@@ -25,7 +28,7 @@ class MillChicken(pygame.sprite.Sprite):
         self.pos_list_y = [250, 252, 250, 248]
 
         self.path = 'img/mill/chickenwindmil' + str(self.img_index_list[index]) + '.png'
-        self.image = pygame.transform.scale(pygame.image.load(self.path), (100,100))
+        self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
         self.rect = self.image.get_rect(bottomleft=(self.pos_list_x[index],self.pos_list_y[index]))
         self.img_mask = pygame.mask.from_surface(self.image)
 
@@ -41,20 +44,52 @@ class MillChicken(pygame.sprite.Sprite):
                 self.animation_index += 1
                 if self.animation_index <= 35:
                     self.path = 'img/mill/chickenwindmil' + str(self.animation_index) + '.png'
-                    self.image = pygame.transform.scale(pygame.image.load(self.path), (100,100))
+                    self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
                     self.img_mask = pygame.mask.from_surface(self.image)
 
 
                 elif self.animation_index == 36:
                     self.path = 'img/mill/chickenwindmil' + str(self.animation_index) + '.png'
-                    self.image = pygame.transform.scale(pygame.image.load(self.path), (100, 100))
+                    self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
                     self.img_mask = pygame.mask.from_surface(self.image)
 
                     #self.animation_index = self.img_index_list[self.index]
                     self.animation_index = 0
 
         if not self.alive:
-            self.kill()
+            #self.kill()
+            self.current_death_time += 1
+            self.screen.blit(self.image, self.rect)
+            if self.current_death_time == 2:
+                self.current_death_time = 0
+                self.death_animation_index += 1
+                if self.death_animation_index == 3:
+                    self.death_animation_index = 0
+                    self.kill()
+                else:
+                    self.path = 'img/mill/chickenwindmildead' + str(self.animation_index) + '_' + str(self.death_animation_index) + '.png'
+                    self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+
+
+            # self.current_death_time += 1
+            # self.screen.blit(self.image, self.rect)
+            # if self.current_death_time == self.max_time:
+            #     self.current_death_time = 0
+            #     self.death_animation_index += 1
+            #     if self.death_animation_index <= 73:
+            #         self.path = 'img/mill/chickenwindmildead' + str(self.death_animation_index) + '.png'
+            #         self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+            #         self.img_mask = pygame.mask.from_surface(self.image)
+            #
+            #
+            #     elif self.death_animation_index == 74:
+            #         self.path = 'img/mill/chickenwindmildead' + str(self.death_animation_index) + '.png'
+            #         self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+            #         self.img_mask = pygame.mask.from_surface(self.image)
+            #
+            #         # self.animation_index = self.img_index_list[self.index]
+            #         self.death_animation_index = 0
+            #         self.kill()
 
     # check the CURSOR position
     def check_shot(self, cursor, x, y):
