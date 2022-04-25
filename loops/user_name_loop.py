@@ -2,7 +2,8 @@ from settings.buttons import *
 
 def user_name_loop(screen, sounds):
     running = True
-    user_name = ''
+    user_name = '|'
+    user_tick = 30
     box_width = True
     # turn off CURSOR
     pygame.mouse.set_visible(False)
@@ -14,6 +15,8 @@ def user_name_loop(screen, sounds):
 
             # enter USER NAME
             elif event.type == pygame.KEYDOWN:
+                user_name = user_name.replace('|', '')
+                user_tick = 150
                 if event.key == pygame.K_RETURN:
                     # ready to go further SOUND
                     sounds.ready_after_user_name.play()
@@ -27,15 +30,25 @@ def user_name_loop(screen, sounds):
                         # type text SOUND
                         sounds.type_sound.play()
                         user_name += event.unicode
+                user_name += '|'
 
         screen.fill((254, 204, 153))
         b = Button(screen)
         b.draw_text("Enter User Name", 20, 200, 200)
 
+        user_tick -= 1
+        if user_tick == 0:
+            user_name = user_name[: - 1]
+        if user_tick == -150:
+            user_name += '|'
+            user_tick = 150
+
         pygame.font.init()
         font = pygame.font.Font(None, 40)
         user_name_surf = font.render(user_name, True, (255, 255, 255))
         user_name_rect = pygame.Rect(200, 300, 400, 50)
+
+
 
         # для регулирования длины
         user_name_rect.w = max(200, user_name_surf.get_width() + 30)
