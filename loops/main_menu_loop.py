@@ -1,3 +1,5 @@
+import time
+
 from settings.buttons import*
 from objects.holes import Holes
 from objects.chicken_hole import ChickenHole
@@ -5,7 +7,7 @@ from objects.chicken_hole import ChickenHole
 
 # is used to select one of the buttons
 # on MAIN MENU screen
-def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
+def main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, chicken_hole, holes):
     running = True
 
     # turn off the image of the REAL 'CURSOR'
@@ -30,38 +32,64 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
         screen.blit(moorhuhn, moorhuhn_rect)
 
 
-        buttons.draw_main_menu('start', 50, 100, 550)
-        buttons.draw_main_menu('score', 50, 330, 550)
-        buttons.draw_main_menu('menu', 50, 560, 550)
-        buttons.draw_main_menu('exit', 50, 710, 550)
+        # buttons.draw_main_menu('start', 50, 100, 550)
+        # buttons.draw_main_menu('score', 50, 330, 550)
+        # buttons.draw_main_menu('menu', 50, 560, 550)
+        # buttons.draw_main_menu('exit', 50, 710, 550)
+        main_buttons.update()
 
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sounds.main_theme_sound.stop()
                 running = False
+            # elif event.type == pygame.MOUSEMOTION:
+            #     if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
+            #         buttons.draw_main_menu('start_h', 50, 100, 550)
+            #     elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
+            #         buttons.draw_main_menu('score_h', 50, 330, 550)
+            #     elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
+            #         buttons.draw_main_menu('menu_h', 50, 560, 550)
+            #     elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
+            #         buttons.draw_main_menu('exit_h', 50, 710, 550)
             elif event.type == pygame.MOUSEMOTION:
-                if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
-                    buttons.draw_main_menu('start_h', 50, 100, 550)
+                x, y = pygame.mouse.get_pos()
+                if cursor.change_main_button(cursor, x, y, main_buttons, 'start'):
+                    break
+                elif cursor.change_main_button(cursor, x, y, main_buttons, 'score'):
+                    break
+                elif cursor.change_main_button(cursor, x, y, main_buttons, 'menu'):
+                    break
+                elif cursor.change_main_button(cursor, x, y, main_buttons, 'exit'):
+                    break
+
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
+                x, y = pygame.mouse.get_pos()
+                #if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
+                if cursor.check_main_buttons(cursor, x, y, main_buttons, 'start'):
                     if event.button == 1:
+
+
+
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
                         for hole in holes:
                             hole.shot()
                         running = False
                         return 1
-                elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
+                #elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
+                elif cursor.check_main_buttons(cursor, x, y, main_buttons, 'score'):
                     if event.button == 1:
+                        #cursor.change_pressed_button(cursor, x, y, main_buttons, 'score')
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
                         running = False
                         for hole in holes:
                             hole.shot()
-
                         return  2
-                elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
+                #elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
+                elif cursor.check_main_buttons(cursor, x, y, main_buttons, 'menu'):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
@@ -69,7 +97,8 @@ def main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes):
                             hole.shot()
                         running = False
                         return  3
-                elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
+                #elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
+                elif cursor.check_main_buttons(cursor, x, y, main_buttons, 'exit'):
                     if event.button == 1:
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()

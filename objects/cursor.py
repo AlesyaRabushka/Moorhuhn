@@ -115,3 +115,61 @@ class Cursor(pygame.sprite.Sprite):
 
                 # break
                 return True
+
+    def shoot_mill(self, cursor, x, y, sounds, mill, check_shot, score_manager, scores_group):
+        for chicken in mill:
+            # looking for a shot chicken
+            k = chicken.check_shot(cursor,x,y)
+            #if self.rect.colliderect(chicken.rect):
+            if k:
+                if check_shot:
+                    index = random.randint(0, 2)
+                    sounds.return_chick_hits(index).play()
+
+                    # update SCORE
+                    score1 = ScoreImgManager(self.screen, score_manager)
+                    scores_group.add(score1)
+                    score1.show = True
+                    for score in scores_group:
+                        if score.show:
+                            score.shot(chicken)
+
+                    # shot the SIGH POST
+                    if chicken.alive:
+                        chicken.alive = False
+                        chicken.current_time = 0
+
+
+                # break
+                return True
+
+    def check_main_buttons(self, cursor, x, y, main_buttons, name):
+        for button in main_buttons:
+            if button.check(cursor, x, y) and button.name == name:
+                return True
+        return False
+
+    def change_main_button(self, cursor, x, y, main_buttons, name):
+        for button in main_buttons:
+            if button.check(cursor, x, y) and button.name == name:
+                new_button = 'img/main_menu_background/' + name + '_h.png'
+                button.change(new_button)
+                return True
+            else:
+                if button.name == name:
+                    new_button = 'img/main_menu_background/' + name + '_normal.png'
+                    button.change(new_button)
+        return False
+
+    def change_pressed_button(self, cursor, x, y, main_buttons, name):
+        for button in main_buttons:
+            if button.check(cursor, x, y) and button.name == name:
+                new_button = 'img/main_menu_background/' + name + '_pressed.png'
+
+                button.change(new_button)
+                return True
+            else:
+                if button.name == name:
+                    new_button = 'img/main_menu_background/' + name + '_normal.png'
+                    button.change(new_button)
+        return False

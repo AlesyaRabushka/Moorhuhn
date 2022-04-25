@@ -8,9 +8,9 @@ class ChickenHole(pygame.sprite.Sprite):
         # time on the SCREEN
         self.show = False
         self.show_cycle = False
-        self.max_show_time = 9
+        self.max_show_time = 7
         # time on the SCREEN when the CHICKEN just blinks
-        self.max_show_cycle_time = 12
+        self.max_show_cycle_time = 9
         self.blink_pause = 6
         self.current_blink_time = 0
         self.current_time = 0

@@ -18,6 +18,10 @@ pygame.time.set_timer(pygame.USEREVENT, 2000)
 # BUTTONS
 buttons = Button(screen)
 
+main_buttons = pygame.sprite.Group()
+for i in range(0, 4):
+    main_buttons.add(MainMenuButtons(screen, i))
+
 # CHICKEN
 chickens_group = pygame.sprite.Group()
 chickens_group.add(Chicken(screen, randint(100, 500)))
@@ -42,6 +46,10 @@ chicken_hole = ChickenHole(screen)
 holes = pygame.sprite.Group()
 holes.add(Holes(screen, 0))
 
+# MILL CHICKEN
+mill = pygame.sprite.Group()
+for i in range(0,4):
+    mill.add(MillChicken(screen, i))
 
 # AMMO
 ammo = Ammo(sounds)
@@ -55,9 +63,6 @@ pumpkin = Pumpkin(screen)
 # SIGN POST
 sign_post = SignPost(screen)
 
-# BIG CHICKEN
-big_chicken = BigChicken(screen)
-
 # CURSOR
 cursor = Cursor(screen, 'img/cursor/cursor.png')
 cursor_group = pygame.sprite.Group()
@@ -65,6 +70,9 @@ cursor_group.add(cursor)
 
 # CLOCK
 clock = pygame.time.Clock()
+
+def set_user_name(name):
+    USER_NAME = name
 
 
 class State:
@@ -134,6 +142,9 @@ class UserNameState(State):
 
     def enter_new_screen(self):
         check, user_name = user_name_loop(screen, sounds)
+        global USER_NAME
+        USER_NAME = user_name
+
         if check:
             print('user name: ', user_name)
             self.game.change_game_state(PlayState(self.game))
@@ -160,7 +171,7 @@ class MainMenuState(State):
         pygame.display.set_caption("MAIN MENU")
 
         # choose the next mode in MAIN MENU
-        chosen_screen = main_menu_loop(screen, sounds, cursor_group, buttons, chicken_hole, holes)
+        chosen_screen = main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, chicken_hole, holes)
         if chosen_screen == 1:
             self.game.play_game_mode()
         elif chosen_screen == 2:
@@ -211,7 +222,9 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group)
+        check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
+        global SCORE
+        SCORE = score
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
@@ -281,7 +294,7 @@ class BestScoreState(State):
     # best score table
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
-        new_state = best_score_loop(screen, sounds, cursor_group, buttons)
+        new_state = best_score_loop(screen, sounds, cursor_group, buttons, USER_NAME, SCORE)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 

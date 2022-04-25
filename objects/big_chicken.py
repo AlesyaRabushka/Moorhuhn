@@ -1,18 +1,19 @@
 import pygame
 
 class BigChicken(pygame.sprite.Sprite):
-    def __init__(self, screen):
+    def __init__(self, screen, position):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
+        self.position = position
 
         # show on the screen properties
         self.alive = True
 
         self.show = True
         self.show_cycle = False
-        self.max_show_time = 6
-        self.max_cycle_show_time = 10
+        self.max_show_time = 3
+        self.max_cycle_show_time = 5
         self.current_time = 0
         self.index = 0
 
@@ -22,7 +23,7 @@ class BigChicken(pygame.sprite.Sprite):
 
         # DEATH animation
         self.current_death_time = 0
-        self.death_time = 4
+        self.death_time = 2
         self.death_index = -1
         self.stop_death = False
 
@@ -32,7 +33,7 @@ class BigChicken(pygame.sprite.Sprite):
 
         self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
         self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
-        self.rect = self.image.get_rect(center=(650, 480))
+        self.rect = self.image.get_rect(center=self.position)
 
 
     def update(self):
@@ -98,7 +99,7 @@ class BigChicken(pygame.sprite.Sprite):
             #if not self.stop_death:
             self.screen.blit(self.image, self.rect)
             self.current_death_time += 1
-            if self.current_death_time == 4:
+            if self.current_death_time == 3:
                 self.current_death_time = 0
                 self.death_index += 1
 
