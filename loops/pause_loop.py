@@ -37,9 +37,18 @@ def pause_loop(screen, sounds, buttons, cursor):
                         #pygame.mouse.set_visible(True)
                         return 2
 
+        font = pygame.font.Font(None, 60)
+        di = font.render('Main Menu', True, '#FFE80E')
+        di_rect = di.get_rect(center=(400, 270))
+        screen.blit(di, di_rect)
 
-        buttons.draw_pause('Main Menu', 50, 200, 200)
-        buttons.draw_pause('Exit', 50, 200, 100)
+        font2 = pygame.font.Font(None, 60)
+        di2 = font2.render('Exit', True, '#FFE80E')
+        di2_rect = di2.get_rect(center=(400, 370))
+        screen.blit(di2, di2_rect)
+
+        # buttons.draw_pause('Main Menu', 50, 200, 200)
+        # buttons.draw_pause('Exit', 50, 200, 100)
 
 
         # draw an image instead of REAL CURSOR
