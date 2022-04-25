@@ -3,51 +3,59 @@ from loops import play_loop
 import os
 
 from loops.play_loop import *
+# from settings.buttons import*
+# from objects.holes import Holes
+from settings.states import *
+
+# drag = 0
+pygame.init()
+
+class cam:
+    def __init__(self,x,y):
+        self.rect = pygame.Rect(x, y, 800, 600)
+
+    def move(self, x):
+        print(x)
+
+        # self.rect[0] += vector[0]
+        # self.rect[1] += vector[1]
+        if self.rect[0] == 1900:
+            if x < 0:
+                self.rect[0] += x
+            else:
+                self.rect[0] += 0
+        elif self.rect[0] == 0:
+            if x > 0:
+                self.rect[0] += x
+            else:
+                self.rect[0] += 0
+        else:
+            print(self.rect[0])
+            self.rect[0] += x
+
 
 class BackgroundTree(pygame.sprite.Sprite):
     def __init__(self,bg,location):
         pygame.sprite.Sprite.__init__(self)
-        #bg = pygame.image.load("backgroundcombined.png")
         self.image = bg
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
 
-class Speed(pygame.sprite.Sprite):
-    def __init__(self,bg,location):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = bg
-        self.rect = self.image.get_rect()
-        self.rect.center = location
 
-bg1 = pygame.image.load('img/world/sky.jpg')
+sky = pygame.image.load('img/world/sky.png')
+bg1 = pygame.transform.scale(sky, (4000, 500))
 background1 = BackgroundTree(bg1, [0,0])
-pos_x = 10
+# pos_x = 10
 
-bg2 = pygame.image.load('img/world/background1.png')
-background2 = BackgroundTree(bg2,[0,150])
-pos_x = 10
+castle = pygame.image.load('img/world/background1.png')
+bg2 = pygame.transform.scale(castle, (2120, 500))
+background2 = BackgroundTree(castle,[0,150])
+# pos_x = 10
 
-bg3 = pygame.image.load('img/world/background2.png')
-background3 = BackgroundTree(bg3, [0,145])
-pos_x = 10
+green = pygame.image.load('img/world/background2.png')
+background3 = BackgroundTree(green, [0,145])
+# # pos_x = 10
 
-# bg3 = pygame.image.load('img/world/sky.jpg')
-# background3 = BackgroundTree(bg3, [300,100])
-# pos_x = 20
-# bg = pygame.image.load('img/world/background1.png')
-# background3 = BackgroundTree(bg, [0,50])
-
-# bgStartGame = ((pygame.image.load('img/background/backgroundworls.png')))
-# startGameBG = Speed(bgStartGame,[WIDTH * 0,5, HEIGHT * 0,5])
-#
-# bgEndGame = ((pygame.image.load('img/background/backgroundtarget1.png')))
-# endGameBG = Speed(bgEndGame,[WIDTH * 0,5, HEIGHT * 0,5])
-#
-# bgBestList = ((pygame.image.load('img/background/backgroundtarget2.png')))
-# bestListBG = Speed(bgBestList,[WINTH * 0,5, HEIGHT * 0,5])
-#
-# bgHelpGame = ((pygame.image.load('img/background/background3.png')))
-# helpGameBG = Speed(bgListGame,[WINTH * 0,5, HEIGHT * 0,5])
 
 
 

@@ -5,8 +5,6 @@ from loop_imports import *
 from objects_imports import *
 from settings_imports import*
 
-
-
 pygame.init()
 HEIGHT = 600
 WIDTH = 800
