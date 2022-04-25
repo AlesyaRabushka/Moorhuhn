@@ -38,7 +38,7 @@ class Chicken(pygame.sprite.Sprite):
         # direction of CHICKEN flight
         self.direction = 0
         self.img_path = None
-        r = random.choice([0,900])
+        r = random.choice([0,1900])
         if r == 0:
             self.direction = 1
             self.img_path = 'img/chicken_flight/chicken1.png'

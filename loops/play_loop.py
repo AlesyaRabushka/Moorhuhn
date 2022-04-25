@@ -41,10 +41,19 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
     running = True
     while running:
+        # for screen moving
+        cursor_x = cursor.rect.x
+        if cursor_x >= 750 and cursor_x <= 800:
+            camera1.move(50)
+            camera2.move(50)
+            camera3.move(50)
+        elif cursor_x <= 20 and cursor_x >= -20:
+            camera1.move(-50)
+            camera2.move(-50)
+            camera3.move(-50)
+
+
         screen.fill((90,100,45))
-        #screen.blit(bg1, background1)
-        # screen.blit(bg2, background2)
-        # screen.blit(bg3, background3)
         screen.blit(bg1, (-camera1.rect[0], camera1.rect[1]))
         screen.blit(bg2, (-camera2.rect[0], camera2.rect[1]))
         screen.blit(green, (-camera3.rect[0], camera3.rect[1]))
@@ -70,11 +79,16 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                     if ammo.count < 8:
                         ammo_count = ammo.update(screen, ammo_group)
 
+            # if event.type == pygame.MOUSEMOTION:
+
+
+
+
             # add new CHICKEN on the screen0
             elif event.type == pygame.USEREVENT:
-                y1 = randint(50,500)
+                y1 = randint(150,500)
                 chickens_group.add(Chicken(screen, y1))
-                chickens_group.add(Chicken(screen, randint(50,500)))
+                chickens_group.add(Chicken(screen, randint(150,500)))
 
 
 
@@ -99,18 +113,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
             #moving
 
-            elif event.type == pygame.MOUSEMOTION:
-                (x, y) = pygame.mouse.get_pos()
-                if x>= 750 and x <= 800:
-                    print('edge')
-                    print((x, y))
-                    camera1.move(50)
-                    camera2.move(50)
-                    camera3.move(50)
-                if x <= 50 and x >= 0:
-                    camera1.move(-50)
-                    camera2.move(-50)
-                    camera3.move(-50)
+
 
 
 

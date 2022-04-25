@@ -15,7 +15,7 @@ class cam:
         self.rect = pygame.Rect(x, y, 800, 600)
 
     def move(self, x):
-        print(x)
+        print(self.rect[0])
 
         # self.rect[0] += vector[0]
         # self.rect[1] += vector[1]
@@ -30,7 +30,6 @@ class cam:
             else:
                 self.rect[0] += 0
         else:
-            print(self.rect[0])
             self.rect[0] += x
 
 
