@@ -61,7 +61,7 @@ class AmmoGroup(pygame.sprite.Sprite):
         self.img_index = 1
         self.path = 'img/ammo/Ammo' + str(self.img_index) + '.png'
         self.image = pygame.transform.scale(pygame.image.load(self.path), (50,80))
-        self.rect = self.image.get_rect(center=(500+self.index*30, 500))
+        self.rect = self.image.get_rect(center=(500+self.index*35, 550))
         #self.rect = None
 
 
