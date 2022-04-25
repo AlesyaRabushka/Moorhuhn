@@ -1,9 +1,12 @@
 import sys
 import time
 
+import pygame.event
+
 from settings.buttons import*
 from settings.timer import Timer
 from objects_imports import *
+from objects.background import *
 
 
 from random import randint
@@ -31,11 +34,20 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
     ammo_count = -1
 
+    camera1 = cam(0,0)
+    camera2 = cam(0, 100)
+    camera3 = cam(0, 150)
+
+
+    running = True
     while running:
         screen.fill((90,100,45))
-        screen.blit(bg1, background1)
-        screen.blit(bg2, background2)
-        screen.blit(bg3, background3)
+        #screen.blit(bg1, background1)
+        # screen.blit(bg2, background2)
+        # screen.blit(bg3, background3)
+        screen.blit(bg1, (-camera1.rect[0], camera1.rect[1]))
+        screen.blit(bg2, (-camera2.rect[0], camera2.rect[1]))
+        screen.blit(green, (-camera3.rect[0], camera3.rect[1]))
 
         # Returns milliseconds between each call to 'tick'. The convert time to seconds
         dt = clock.tick(60)
@@ -64,13 +76,6 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 chickens_group.add(Chicken(screen, y1))
                 chickens_group.add(Chicken(screen, randint(50,500)))
 
-            # if event.type == pygame.USEREVENT + 2000:
-            #     print('new big')
-            #     #y1 = randint(50,500)
-            #     chicken = BigChicken(screen)
-            #     chicken.show = True
-            #     big_chicken_group.add(chicken)
-            #     sounds.big_chicken_pops_up_sound.play()
 
 
             # checks if we have shot a CHICKEN
@@ -88,6 +93,29 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # if we shot the PUMPKIN MAN
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
                     break
+
+            #moving
+
+            elif event.type == pygame.MOUSEMOTION:
+                (x, y) = pygame.mouse.get_pos()
+                if x>= 750 and x <= 800:
+                    print('edge')
+                    print((x, y))
+                    camera1.move(50)
+                    camera2.move(50)
+                    camera3.move(50)
+                if x <= 50 and x >= 0:
+                    camera1.move(-50)
+                    camera2.move(-50)
+                    camera3.move(-50)
+
+
+
+
+
+
+
+
 
 
 
