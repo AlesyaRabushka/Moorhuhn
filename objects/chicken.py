@@ -52,7 +52,8 @@ class Chicken(pygame.sprite.Sprite):
 
 
     # logic of flight
-    def update(self, dt):
+    def update(self, dt, move):
+
         # if CHICKEN is alive
         if self.alive:
             self.fly_time +=1
@@ -61,7 +62,13 @@ class Chicken(pygame.sprite.Sprite):
 
             # flight to the RIGHT
             if self.direction == 1:
-                self.rect.x += float(self.speed * dt)
+                if move == 'move_r':
+                    self.rect.x -= 50 + float(self.speed * dt)
+                elif move == 'move_l':
+                    self.rect.x += float(self.speed * dt)
+                else:
+                    self.rect.x += float(self.speed * dt)
+
                 if self.fly_time == self.max_fly_time:
                     self.fly_time = 0
                     self.fly_index += 1
@@ -78,7 +85,13 @@ class Chicken(pygame.sprite.Sprite):
 
             # flight to the LEFT
             else:
-                self.rect.x -= float(self.speed * dt)
+                if move == 'move_r':
+                    self.rect.x += float(self.speed * dt)
+                elif move == 'move_l':
+                    self.rect.x -= float(self.speed * dt)
+                else:
+                    self.rect.x -= float(self.speed * dt)
+
                 if self.fly_time == self.max_fly_time:
                     self.fly_time = 0
                     self.fly_index += 1
@@ -91,9 +104,9 @@ class Chicken(pygame.sprite.Sprite):
             # if the chicken is out of the screen
             if self.rect.y >= 540:
                 self.kill()
-            elif self.rect.x >= 901:
+            elif self.rect.x >= 4000:
                 self.kill()
-            if  self.rect.x <= -40:
+            if  self.rect.x <= -4000:
                 self.kill()
 
 
@@ -114,11 +127,11 @@ class Chicken(pygame.sprite.Sprite):
                     #self.rect.y += 2
 
 
-            # delete CHICKEN  if it is out of the screen
-            if self.rect.y >= 500:
-                self.kill()
-            elif self.rect.x >= 901 or self.rect.x <= 0:
-                self.kill()
+                # delete CHICKEN  if it is out of the screen
+                # if self.rect.y >= 500:
+                #     self.kill()
+                # elif self.rect.x >= 901 or self.rect.x <= 0:
+                #     self.kill()
 
 
 

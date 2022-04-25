@@ -10,15 +10,11 @@ from settings.states import *
 # drag = 0
 pygame.init()
 
-class cam:
+class Camera:
     def __init__(self,x,y):
         self.rect = pygame.Rect(x, y, 800, 600)
 
     def move(self, x):
-        print(self.rect[0])
-
-        # self.rect[0] += vector[0]
-        # self.rect[1] += vector[1]
         if self.rect[0] == 1900:
             if x < 0:
                 self.rect[0] += x
@@ -31,6 +27,13 @@ class cam:
                 self.rect[0] += 0
         else:
             self.rect[0] += x
+
+class Objects:
+    def __init__(self, x,y, width, height):
+        self.rect = pygame.Rect(x, y, width, height)
+
+    def move(self, x):
+        self.rect.x += x
 
 
 class BackgroundTree(pygame.sprite.Sprite):

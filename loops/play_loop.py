@@ -34,23 +34,26 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
     ammo_count = -1
 
-    camera1 = cam(0,0)
-    camera2 = cam(0, 100)
-    camera3 = cam(0, 150)
+    camera1 = Camera(0,0)
+    camera2 = Camera(0, 100)
+    camera3 = Camera(0, 150)
 
 
     running = True
     while running:
+        dt = clock.tick(60)
         # for screen moving
         cursor_x = cursor.rect.x
         if cursor_x >= 750 and cursor_x <= 800:
             camera1.move(50)
             camera2.move(50)
             camera3.move(50)
+            chickens_group.update(dt, 'move_r')
         elif cursor_x <= 20 and cursor_x >= -20:
             camera1.move(-50)
             camera2.move(-50)
             camera3.move(-50)
+            chickens_group.update(dt, 'move_l')
 
 
         screen.fill((90,100,45))
@@ -59,7 +62,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         screen.blit(green, (-camera3.rect[0], camera3.rect[1]))
 
         # Returns milliseconds between each call to 'tick'. The convert time to seconds
-        dt = clock.tick(60)
+
 
 
         for event in pygame.event.get():
@@ -89,6 +92,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 y1 = randint(150,500)
                 chickens_group.add(Chicken(screen, y1))
                 chickens_group.add(Chicken(screen, randint(150,500)))
+
 
 
 
@@ -130,7 +134,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
         # updates CHICKEN/S state
         chickens_group.draw(screen)
-        chickens_group.update(dt)
+        chickens_group.update(dt, 'no')
 
         # updates SIGN POST
         sign_post.update()
