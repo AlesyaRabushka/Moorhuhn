@@ -40,8 +40,10 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
 
     # CAMERA
     camera1 = Camera(0, 0, 96)
-    camera2 = Camera(0, 100, 890)
-    camera3 = Camera(0, 150, 1900)
+    camera2 = Camera(0, 80, 1900)
+    camera3 = Camera(0, 130, 890)
+    camera4 = Camera(0, 160, 1900)
+
 
 
     running = True
@@ -52,7 +54,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
         # for camera moving
         cursor_x = cursor.rect.x
         if cursor_x >= 750 and cursor_x <= 800:
-            if camera1.move(2) and camera2.move(15) and camera3.move(40):
+            if camera1.move(2) and camera2.move(5) and camera3.move(15) and camera4.move(40):
                 chickens_small_group.update(dt, 'move_r')
                 chickens_mid_group.update(dt, 'move_r')
                 chickens_big_group.update(dt, 'move_r')
@@ -65,7 +67,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
                 tree2.update('move_r')
 
         elif cursor_x <= 20 and cursor_x >= -20:
-            if camera1.move(-2) and camera2.move(-15) and camera3.move(-40):
+            if camera1.move(-2) and camera2.move(-5) and camera3.move(-15) and camera4.move(-40):
                 chickens_small_group.update(dt, 'move_l')
                 chickens_mid_group.update(dt, 'move_l')
                 chickens_big_group.update(dt, 'move_l')
@@ -167,15 +169,16 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
 
         # --------------- UPDATE -----------------------
         screen.fill((90, 100, 45))
-        screen.blit(bg1, (-camera1.rect[0], camera1.rect[1]))
+        screen.blit(sky, (-camera1.rect[0], camera1.rect[1]))
+        screen.blit(hills, (-camera2.rect[0], camera2.rect[1]))
         # update FLY CHICKEN SMALL
         chickens_small_group.draw(screen)
         chickens_small_group.update(dt, 'no')
-        screen.blit(bg2, (-camera2.rect[0], camera2.rect[1]))
+        screen.blit(castle, (-camera3.rect[0], camera3.rect[1]))
         # update FLY CHICKEN MID
         chickens_mid_group.draw(screen)
         chickens_mid_group.update(dt, 'no')
-        screen.blit(green, (-camera3.rect[0], camera3.rect[1]))
+        screen.blit(green, (-camera4.rect[0], camera4.rect[1]))
         # updates PUMPKIN state
         pumpkin.update('no')
 

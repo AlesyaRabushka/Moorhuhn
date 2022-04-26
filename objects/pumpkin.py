@@ -13,7 +13,7 @@ class Pumpkin(pygame.sprite.Sprite):
         self.stop = False
 
         self.image = pygame.transform.scale(pygame.image.load('img/pumpkin/pumpkin1.png'),(100,100))
-        self.rect = self.image.get_rect(center=(2110,400))
+        self.rect = self.image.get_rect(center=(2110,410))
         self.de_index = 0
         self.max_time = 2
         self.de_time = 0

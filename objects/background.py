@@ -32,11 +32,10 @@ class Camera:
 
 
 
-sky = pygame.image.load('img/world/sky.png')
-bg1 = pygame.transform.scale(sky, (4000, 500))
+sky = pygame.transform.scale(pygame.image.load('img/world/sky.png'), (4000, 500))
+hills = pygame.transform.scale(pygame.image.load('img/world/backgroundHills.gif'), (2000,500))
 
-castle = pygame.image.load('img/world/background1.png')
-bg2 = pygame.transform.scale(castle, (2120, 500))
+castle = pygame.transform.scale(pygame.image.load('img/world/background1.png'), (2120, 500))
 
 green = pygame.image.load('img/world/background2.png')
 
