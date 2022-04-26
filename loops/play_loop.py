@@ -144,7 +144,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         if big_chick_timer == 40:
             sounds.big_chicken_pops_up_sound.play()
             x = randint(100, 1700)
-            big_chicken_group.add(BigChicken(screen, (x, 500)))
+            big_chicken_group.add(BigChicken(screen, (x, 450)))
             big_chick_timer = -300
 
 

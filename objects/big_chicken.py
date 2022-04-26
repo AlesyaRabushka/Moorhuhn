@@ -32,7 +32,7 @@ class BigChicken(pygame.sprite.Sprite):
         self.current_wait_time = 0
 
         self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-        self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
+        self.image = pygame.transform.scale(pygame.image.load(self.path), (300,300))
         self.rect = self.image.get_rect(center=self.position)
 
 
@@ -54,11 +54,11 @@ class BigChicken(pygame.sprite.Sprite):
 
                         if self.index <= 17:
                             self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-                            self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                            self.image = pygame.transform.scale(pygame.image.load(self.path), (300, 300))
 
                         elif self.index == 18:
                             self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-                            self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                            self.image = pygame.transform.scale(pygame.image.load(self.path), (300, 300))
                             self.show = False
                             self.show_cycle = True
                             self.current_time = 0
@@ -74,14 +74,14 @@ class BigChicken(pygame.sprite.Sprite):
 
                         if self.index == 8:
                             self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-                            self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                            self.image = pygame.transform.scale(pygame.image.load(self.path), (300, 300))
                             self.index += 1
                             self.current_blink_time += 1
 
                         elif self.index == 9:
                             if self.current_blink_time == self.blink_pause:
                                 self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-                                self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                                self.image = pygame.transform.scale(pygame.image.load(self.path), (300, 300))
                                 self.index += 1
                                 self.current_blink_time = 0
                             else:
@@ -89,12 +89,12 @@ class BigChicken(pygame.sprite.Sprite):
 
                         elif self.index > 9 and self.index <= 17:
                             self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-                            self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                            self.image = pygame.transform.scale(pygame.image.load(self.path), (300, 300))
                             self.index += 1
 
                         elif self.index == 18:
                             self.path = 'img/big_chicken/big_chicken' + str(self.index) + '.png'
-                            self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                            self.image = pygame.transform.scale(pygame.image.load(self.path), (300, 300))
                             self.index = 8
 
         if not self.alive:
@@ -116,4 +116,4 @@ class BigChicken(pygame.sprite.Sprite):
 
                 elif self.death_index <= 5:
                     self.path = 'img/big_chicken/big_chicken_dead' + str(self.death_index) + '.png'
-                    self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
+                    self.image = pygame.transform.scale(pygame.image.load(self.path), (400,400))
