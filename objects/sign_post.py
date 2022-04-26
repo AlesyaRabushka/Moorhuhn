@@ -11,7 +11,7 @@ class SignPost(pygame.sprite.Sprite):
         self.shot = False
 
         self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post1.png'),(400,500))
-        self.rect = self.image.get_rect(center=(210,450))
+        self.rect = self.image.get_rect(center=(930,450))
 
     def update(self, move):
 
