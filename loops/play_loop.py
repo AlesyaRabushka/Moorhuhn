@@ -7,6 +7,7 @@ from settings.buttons import*
 from settings.timer import Timer
 from objects_imports import *
 from objects.background import *
+from objects.trees import *
 
 
 from random import randint
@@ -34,6 +35,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
     ammo_count = -1
 
+    tree1 = Tree(screen, 'img/tree/trunkBig1.png', 300, 200)
+    tree2 = Tree(screen, 'img/tree/trunkSmall1.png',1900, 100)
     camera1 = Camera(0,0)
     camera2 = Camera(0, 100)
     camera3 = Camera(0, 150)
@@ -57,6 +60,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 mill.update('move_r')
                 pumpkin.update('move_r')
                 sign_post.update('move_r')
+                tree1.update('move_r')
+                tree2.update('move_r')
 
         elif cursor_x <= 20 and cursor_x >= -20:
 
@@ -69,6 +74,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 mill.update('move_l')
                 pumpkin.update('move_l')
                 sign_post.update('move_l')
+                tree1.update('move_l')
+                tree2.update('move_l')
         # else:
         #     pumpkin.update('no')
         #
@@ -177,6 +184,8 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # updates PUMPKIN state
         pumpkin.update('no')
 
+
+
         # update MILL
         mill.update('no')
 
@@ -192,11 +201,16 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # updates SCORE progress
         scores_group.update()
 
+        tree1.update('no')
+
+        tree2.update('no')
+
         # update BIG CHICKEN
         big_chicken_group.update('no')
 
         # update AMMO
         ammo_group.update(dt, ammo_count)
+
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
