@@ -1,7 +1,8 @@
 import pygame.sprite
 from random import randint
-
+import shelve
 from loop_imports import *
+from loops.play_loop import play_loop
 from objects_imports import *
 from settings_imports import*
 
@@ -110,6 +111,13 @@ class Game:
         # the first screen of the GAME
         # is INTRO (MainMenu)
         self.game_state = MainMenuState(game = self)
+        self.save = Save()
+        self.scores=0
+
+        self.highscore=Highscore_table(self.save.get('hs'))
+
+        #self.save.add('hs', {})
+        print(self.save.get('hs'))
 
     # the method that STARTS the GAME
     # -> MainMenu
@@ -202,9 +210,12 @@ class MainMenuState(State):
 
     # -> PLAY mode
     def play_game_mode(self):
+        self.game.change_game_state(PlayState(self.game))
+
+    # -> BEST SCORE mode UserNameState(self.game)
+    def username_game_mode(self):
         self.game.change_game_state(UserNameState(self.game))
 
-    # -> BEST SCORE mode
     def best_game_mode(self):
         self.game.change_game_state(BestScoreState(self.game))
 
@@ -229,13 +240,14 @@ class PlayState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
         check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_small_group, chickens_mid_group, chickens_big_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
-        global SCORE
-        SCORE = score
 
+        self.game.scores = score
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
-            self.game.change_game_state(BestScoreState(self.game))
+            self.game.change_game_state(UserNameState(self.game))
+       # elif check == 2:
+       #     self.game.change_game_state(BestScoreState(self.game))
 
     # we are already in here
     def play_game_mode(self):
@@ -252,6 +264,33 @@ class PlayState(State):
     def exit_game_mode(self):
         self.game.change_game_state(ExitState(self.game))
 
+# USER NAME
+class UserNameState(State):
+    def __init__(self, game):
+        self.game = game
+
+    def enter_new_screen(self):
+        check, user_name = user_name_loop(screen, sounds)
+        global USER_NAME
+        USER_NAME = user_name
+
+        if check:
+            print('user name: ', user_name)
+            self.game.highscore.update(USER_NAME,self.game.scores)
+            self.game.save.add('hs', self.game.highscore.hs_table)
+            self.game.change_game_state(BestScoreState(self.game))
+
+
+    def back_to_intro_mode(self):
+        pass
+    def play_game_mode(self):
+        pass
+    def best_game_mode(self):
+        pass
+    def help_game_mode(self):
+        pass
+    def exit_game_mode(self):
+        pass
 
 # PAUSE on PLAY mode
 class PauseState(State):
@@ -301,7 +340,8 @@ class BestScoreState(State):
     # best score table
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
-        new_state = best_score_loop(screen, sounds, cursor_group, buttons, USER_NAME, SCORE)
+        new_state = best_score_loop(screen, sounds, cursor_group, buttons, USER_NAME, self.game.scores,self.game)
+        #self.game.highscore.print(200,230)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 
@@ -352,6 +392,33 @@ class HelpState(State):
         pass
     def exit_game_mode(self):
         self.game.change_game_state(ExitState(self.game))
+
+class Save:
+    def __init__(self):
+        self.file=shelve.open('highscore')
+    def save(self,table):
+        self.file['score']=table
+    def add(self,name,value):
+        self.file[name]=value
+    def get(self,name):
+        return self.file[name]
+    def __del__(self):
+        self.file.close()
+
+class Highscore_table:
+    def __init__(self,table):
+        self.hs_table=table
+    def update(self,name,score):
+        self.hs_table[name]=score
+    def print(self,x,y):
+        step_x=400
+        step_y=30
+        for name, score in self.hs_table.items():
+            buttons.draw_text(name,30,x,y)
+            x+=step_x
+            buttons.draw_text(str(score), 30, x, y)
+            x-=step_x
+            y+=step_y
 
 
 # EXIT

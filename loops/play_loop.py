@@ -164,6 +164,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
             sounds.game_over_sound.play()
             running = False
             # go to the BEST SCORE mode
+
             return 2, score_manager.return_score()
 
 
