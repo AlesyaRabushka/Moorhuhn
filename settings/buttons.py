@@ -17,43 +17,11 @@ class Button:
     # draw text on screen
     def draw_text(self, text,size, pos_x, pos_y):
 
-        font = pygame.font.SysFont('Comic Sans MS', size)
-        button_text = font.render(text, True, (0,1,1))
+        font = pygame.font.Font('fonts/AA_Magnum.ttf', size)
+        button_text = font.render(text, True, (255,255,255))
         button_rect = button_text.get_rect()
         button_rect.center = (pos_x, pos_y)
 
-        self.screen.blit(button_text, button_rect)
-
-    # MAIN MENU buttons
-    def draw_main_menu(self, text, size, pos_x, pos_y):
-        font = pygame.font.Font('fonts/Roose_Sally.otf', size)
-        if text == 'start':
-            button_text = pygame.image.load('img/main_menu_background/start_normal.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-        elif text == 'exit':
-            button_text = pygame.image.load('img/main_menu_background/exit_normal.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-        elif text == 'score':
-            button_text = pygame.image.load('img/main_menu_background/score_normal.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-        elif text == 'menu':
-            button_text = pygame.image.load('img/main_menu_background/menu_normal.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-
-        elif text == 'start_h':
-            button_text = pygame.image.load('img/main_menu_background/start_h.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-        elif text == 'exit_h':
-            button_text = pygame.image.load('img/main_menu_background/exit_h.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-        elif text == 'score_h':
-            button_text = pygame.image.load('img/main_menu_background/score_h.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-        elif text == 'menu_h':
-            button_text = pygame.image.load('img/main_menu_background/menu_h.png')
-            button_rect = button_text.get_rect(center=(pos_x, pos_y))
-
-        self.main_menu_buttons.append(button_rect)
         self.screen.blit(button_text, button_rect)
 
     # PAUSE mode buttons

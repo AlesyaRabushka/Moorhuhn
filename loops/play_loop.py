@@ -164,8 +164,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             start_time = time.time()
         play_time = round(time.time() - start_time)
 
-        # shows LEFT PLAY TIME
-        buttons.draw_text(f'Time: {90 - play_time}', 30, 82, 20)
+
 
 
 
@@ -196,14 +195,18 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # updates SIGN POST
         sign_post.update('no')
 
-        # shows SCORE progress
-        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
+
         # updates SCORE progress
         scores_group.update()
 
         tree1.update('no')
 
         tree2.update('no')
+
+        # shows LEFT PLAY TIME
+        buttons.draw_text(f'Time: {90 - play_time}', 30, 82, 20)
+        # shows SCORE progress
+        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
 
         # update BIG CHICKEN
         big_chicken_group.update('no')

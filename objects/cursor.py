@@ -123,8 +123,7 @@ class Cursor(pygame.sprite.Sprite):
             #if self.rect.colliderect(chicken.rect):
             if k:
                 if check_shot:
-                    index = random.randint(0, 2)
-                    sounds.return_chick_hits(index).play()
+                    sounds.mill_hit_sound.play()
 
                     # update SCORE
                     score1 = ScoreImgManager(self.screen, score_manager)

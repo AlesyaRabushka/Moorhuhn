@@ -11,7 +11,6 @@ class Camera:
         self.rect = pygame.Rect(x, y, 800, 600)
 
     def move(self, x):
-        print(self.rect[0])
         if self.rect[0] == 1900:
             if x < 0:
                 self.rect[0] += x

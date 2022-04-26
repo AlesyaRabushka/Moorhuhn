@@ -20,6 +20,7 @@ class Sound():
         self.game_over_sound = pygame.mixer.Sound('sounds/game_over.ogg')
         self.big_chicken_pops_up_sound = pygame.mixer.Sound('sounds/big_chicken_pops_up.ogg')
         self.sign_post_sound = pygame.mixer.Sound('sounds/sign_post_sound.ogg')
+        self.mill_hit_sound = pygame.mixer.Sound('sounds/mill_hit_sound.ogg')
 
         # CHICKEN hit sounds
         self.chick_hit1 = pygame.mixer.Sound('sounds/chick_hit1.ogg')
