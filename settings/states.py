@@ -113,10 +113,12 @@ class Game:
         self.game_state = MainMenuState(game = self)
         self.save = Save()
         self.scores=0
-
-        self.highscore=Highscore_table(self.save.get('hs'))
+        self.username=''
 
         #self.save.add('hs', {})
+        self.highscore = Highscore_table(self.save.get('hs'))
+
+
         print(self.save.get('hs'))
 
     # the method that STARTS the GAME
@@ -147,33 +149,7 @@ class Game:
         self.game_state.exit_game_mode()
 
 
-# USER NAME
-class UserNameState(State):
-    def __init__(self, game):
-        self.game = game
 
-    def enter_new_screen(self):
-        check, user_name = user_name_loop(screen, sounds)
-        global USER_NAME
-        USER_NAME = user_name
-
-        if check:
-            print('user name: ', user_name)
-            self.game.change_game_state(PlayState(self.game))
-        if not check:
-            self.game.change_game_state(MainMenuState(self.game))
-
-
-    def back_to_intro_mode(self):
-        pass
-    def play_game_mode(self):
-        pass
-    def best_game_mode(self):
-        pass
-    def help_game_mode(self):
-        pass
-    def exit_game_mode(self):
-        pass
 
 # MAIN MENU mod
 class MainMenuState(State):
@@ -271,12 +247,12 @@ class UserNameState(State):
 
     def enter_new_screen(self):
         check, user_name = user_name_loop(screen, sounds)
-        global USER_NAME
-        USER_NAME = user_name
+        #global USER_NAME
+        self.game.username = user_name
 
         if check:
             print('user name: ', user_name)
-            self.game.highscore.update(USER_NAME,self.game.scores)
+            self.game.highscore.update(self.game.username,self.game.scores)
             self.game.save.add('hs', self.game.highscore.hs_table)
             self.game.change_game_state(BestScoreState(self.game))
 
@@ -340,7 +316,7 @@ class BestScoreState(State):
     # best score table
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
-        new_state = best_score_loop(screen, sounds, cursor_group, buttons, USER_NAME, self.game.scores,self.game)
+        new_state = best_score_loop(screen, sounds, cursor_group, buttons, self.game.username, self.game.scores,self.game)
         #self.game.highscore.print(200,230)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
