@@ -12,15 +12,15 @@ class MillChicken(pygame.sprite.Sprite):
         self.max_time = 3
         self.current_time = 0
         self.current_death_time = 0
-        self.death_animation_index_list = [55, 0, 21, 39]
+        self.death_animation_index_list = [55, 1, 21, 39]
         self.death_animation_index = 0
 
 
         self.img_index_list = [28, 1, 10, 19]
         self.index = index
         self.animation_index = self.img_index_list[index]
-        self.pos_list_x = [240, 241, 242, 243]
-        self.pos_list_y = [250, 252, 250, 248]
+        self.pos_list_x = [2379, 2380, 2381, 2380]
+        self.pos_list_y = [310, 309, 310, 311]
 
         self.path = 'img/mill/chickenwindmil' + str(self.img_index_list[index]) + '.png'
         self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
@@ -30,26 +30,32 @@ class MillChicken(pygame.sprite.Sprite):
         self.bottom_left = self.rect.bottomleft
 
 
-    def update(self):
+    def update(self, move):
         if self.alive:
-            self.screen.blit(self.image, self.rect)
-            self.current_time += 1
-            if self.current_time == self.max_time:
-                self.current_time = 0
-                self.animation_index += 1
-                if self.animation_index <= 35:
-                    self.path = 'img/mill/chickenwindmil' + str(self.animation_index) + '.png'
-                    self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
-                    self.img_mask = pygame.mask.from_surface(self.image)
+            if move == 'move_r':
+                self.rect.x -= 50
+            elif move == 'move_l':
+                self.rect.x += 50
+            else:
+
+                self.screen.blit(self.image, self.rect)
+                self.current_time += 1
+                if self.current_time == self.max_time:
+                    self.current_time = 0
+                    self.animation_index += 1
+                    if self.animation_index <= 35:
+                        self.path = 'img/mill/chickenwindmil' + str(self.animation_index) + '.png'
+                        self.image = pygame.transform.scale(pygame.image.load(self.path), (200,200))
+                        self.img_mask = pygame.mask.from_surface(self.image)
 
 
-                elif self.animation_index == 36:
-                    self.path = 'img/mill/chickenwindmil' + str(self.animation_index) + '.png'
-                    self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
-                    self.img_mask = pygame.mask.from_surface(self.image)
+                    elif self.animation_index == 36:
+                        self.path = 'img/mill/chickenwindmil' + str(self.animation_index) + '.png'
+                        self.image = pygame.transform.scale(pygame.image.load(self.path), (200, 200))
+                        self.img_mask = pygame.mask.from_surface(self.image)
 
-                    #self.animation_index = self.img_index_list[self.index]
-                    self.animation_index = 0
+                        #self.animation_index = self.img_index_list[self.index]
+                        self.animation_index = 1
 
         if not self.alive:
             #self.kill()

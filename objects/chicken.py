@@ -38,7 +38,7 @@ class Chicken(pygame.sprite.Sprite):
         # direction of CHICKEN flight
         self.direction = 0
         self.img_path = None
-        r = random.choice([0,1900])
+        r = random.choice([0,800])
         if r == 0:
             self.direction = 1
             self.img_path = 'img/chicken_flight/chicken1.png'
@@ -63,11 +63,11 @@ class Chicken(pygame.sprite.Sprite):
             # flight to the RIGHT
             if self.direction == 1:
                 if move == 'move_r':
-                    self.rect.x -= 50 + float(self.speed * dt)
+                    self.rect.x -= (50 + float(self.speed*dt))
                 elif move == 'move_l':
-                    self.rect.x += float(self.speed * dt)
+                    self.rect.x += (50 + float(self.speed*dt))
                 else:
-                    self.rect.x += float(self.speed * dt)
+                    self.rect.x += float(self.speed*dt)
 
                 if self.fly_time == self.max_fly_time:
                     self.fly_time = 0
@@ -86,9 +86,9 @@ class Chicken(pygame.sprite.Sprite):
             # flight to the LEFT
             else:
                 if move == 'move_r':
-                    self.rect.x += float(self.speed * dt)
+                    self.rect.x -= (50 + float(self.speed*dt))
                 elif move == 'move_l':
-                    self.rect.x -= float(self.speed * dt)
+                    self.rect.x += (50 + float(self.speed*dt))
                 else:
                     self.rect.x -= float(self.speed * dt)
 
@@ -106,7 +106,7 @@ class Chicken(pygame.sprite.Sprite):
                 self.kill()
             elif self.rect.x >= 4000:
                 self.kill()
-            if  self.rect.x <= -4000:
+            if  self.rect.x == -4000:
                 self.kill()
 
 

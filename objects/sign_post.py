@@ -7,13 +7,22 @@ class SignPost(pygame.sprite.Sprite):
 
         self.shot = False
 
-        self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post1.png'),(100,200))
-        self.rect = self.image.get_rect(center=(500,500))
+        self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post1.png'),(400,500))
+        self.rect = self.image.get_rect(center=(210,450))
 
-    def update(self):
+    def update(self, move):
+
         if not self.shot:
-            self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post1.png'),(100,200))
+            if move == 'move_r':
+                self.rect.x -= 50
+            elif move == 'move_l':
+                self.rect.x += 50
+            self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post1.png'),(400,500))
         else:
-            self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post2.png'),(100,200))
+            if move == 'move_r':
+                self.rect.x -= 50
+            elif move == 'move_l':
+                self.rect.x += 50
+            self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post2.png'),(400,500))
 
         self.screen.blit(self.image, self.rect)

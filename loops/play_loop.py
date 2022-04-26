@@ -45,16 +45,39 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
         # for screen moving
         cursor_x = cursor.rect.x
         if cursor_x >= 750 and cursor_x <= 800:
-            camera1.move(50)
-            camera2.move(50)
-            camera3.move(50)
-            chickens_group.update(dt, 'move_r')
-        elif cursor_x <= 20 and cursor_x >= -20:
-            camera1.move(-50)
-            camera2.move(-50)
-            camera3.move(-50)
-            chickens_group.update(dt, 'move_l')
+            # obj = []
+            # obj.append(chickens_group, big_chicken_group, mill, pumpkin, sign_post)
+            # camera1.move(50)
+            # camera2.move(50)
+            # camera3.move(50)
+            if camera1.move(50) and camera2.move(50) and camera3.move(50):
+                chickens_group.update(dt, 'move_r')
+                big_chicken_group.update('move_r')
 
+                mill.update('move_r')
+                pumpkin.update('move_r')
+                sign_post.update('move_r')
+
+        elif cursor_x <= 20 and cursor_x >= -20:
+
+            # camera2.move(-50)
+            # camera3.move(-50)
+            if camera1.move(-50) and camera2.move(-50) and camera3.move(-50):
+                chickens_group.update(dt, 'move_l')
+                big_chicken_group.update('move_l')
+
+                mill.update('move_l')
+                pumpkin.update('move_l')
+                sign_post.update('move_l')
+        # else:
+        #     pumpkin.update('no')
+        #
+        #     chickens_group.update(dt, 'no')
+        #
+        #     # updates SIGN POST
+        #     sign_post.update('no')
+        #     big_chicken_group.update('no')
+        #     mill.update('no')
 
         screen.fill((90,100,45))
         screen.blit(bg1, (-camera1.rect[0], camera1.rect[1]))
@@ -91,7 +114,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             elif event.type == pygame.USEREVENT:
                 y1 = randint(150,500)
                 chickens_group.add(Chicken(screen, y1))
-                chickens_group.add(Chicken(screen, randint(150,500)))
+                #chickens_group.add(Chicken(screen, randint(150,500)))
 
 
 
@@ -115,50 +138,16 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
                     break
 
-            #moving
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # updates PUMPKIN state
-        pumpkin.update()
-
-        # updates CHICKEN/S state
-        chickens_group.draw(screen)
-        chickens_group.update(dt, 'no')
-
-        # updates SIGN POST
-        sign_post.update()
-
-        # shows SCORE progress
-        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
-
-        # updates SCORE progress
-        scores_group.update()
 
         # --------- BIG CHICKEN POP UPS ---------
         big_chick_timer += 1
         if big_chick_timer == 40:
             sounds.big_chicken_pops_up_sound.play()
-            x = randint(100, 750)
+            x = randint(100, 1700)
             big_chicken_group.add(BigChicken(screen, (x, 500)))
             big_chick_timer = -300
 
 
-
-        big_chicken_group.update()
-        mill.update()
-
-        ammo_group.update(dt,ammo_count)
 
         # --------- COUNT PLAY TIME ---------
         # in purpose to make sure that we start counting only ones
@@ -182,6 +171,32 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
             running = False
             # go to the BEST SCORE mode
             return 2, score_manager.return_score()
+
+
+        # --------------- UPDATE -----------------------
+        # updates PUMPKIN state
+        pumpkin.update('no')
+
+        # update MILL
+        mill.update('no')
+
+        # updates FLY CHICKEN/S state
+        chickens_group.draw(screen)
+        chickens_group.update(dt, 'no')
+
+        # updates SIGN POST
+        sign_post.update('no')
+
+        # shows SCORE progress
+        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
+        # updates SCORE progress
+        scores_group.update()
+
+        # update BIG CHICKEN
+        big_chicken_group.update('no')
+
+        # update AMMO
+        ammo_group.update(dt, ammo_count)
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)

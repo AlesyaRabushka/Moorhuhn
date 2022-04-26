@@ -9,15 +9,19 @@ class Pumpkin(pygame.sprite.Sprite):
         self.alive = True
         self.stop = False
 
-        self.image = pygame.image.load('img/pumpkin/pumpkin1.png')
-        self.rect = self.image.get_rect(center=(200,500))
+        self.image = pygame.transform.scale(pygame.image.load('img/pumpkin/pumpkin1.png'),(100,100))
+        self.rect = self.image.get_rect(center=(2110,400))
         self.de_index = 0
         self.max_time = 2
         self.de_time = 0
 
     # update current PUMPKIN state
-    def update(self):
+    def update(self, move):
         if self.alive:
+            if move == 'move_r':
+                self.rect.x -= 50
+            elif move == 'move_l':
+                self.rect.x += 50
             self.screen.blit(self.image, self.rect)
 
         else:
@@ -35,6 +39,10 @@ class Pumpkin(pygame.sprite.Sprite):
                         self.image = pygame.image.load(path)
 
             else:
+                if move == 'move_r':
+                    self.rect.x -= 50
+                elif move == 'move_l':
+                    self.rect.x += 50
                 path = 'img/pumpkin/pumpkin9.png'
                 self.image = pygame.image.load(path)
             self.screen.blit(self.image, self.rect)
