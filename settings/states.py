@@ -276,8 +276,8 @@ class UserNameState(State):
 
         if check:
             print('user name: ', user_name)
-            #self.game.highscore.update(USER_NAME,self.game.scores)
-            #self.game.save.add('hs', self.game.highscore.hs_table)
+            self.game.highscore.update(USER_NAME,self.game.scores)
+            self.game.save.add('hs', self.game.highscore.hs_table)
             self.game.change_game_state(BestScoreState(self.game))
 
 
@@ -341,7 +341,7 @@ class BestScoreState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
         new_state = best_score_loop(screen, sounds, cursor_group, buttons, USER_NAME, self.game.scores,self.game)
-        #self.game.highscore.print(200,230)
+        self.game.highscore.print(200,230)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 
