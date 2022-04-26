@@ -40,11 +40,13 @@ def pause_loop(screen, sounds, buttons, cursor):
         font = pygame.font.Font(None, 60)
         di = font.render('Main Menu', True, '#FFE80E')
         di_rect = di.get_rect(center=(400, 270))
+        buttons.pause_buttons.append(di_rect)
         screen.blit(di, di_rect)
 
         font2 = pygame.font.Font(None, 60)
         di2 = font2.render('Exit', True, '#FFE80E')
         di2_rect = di2.get_rect(center=(400, 370))
+        buttons.pause_buttons.append(di2_rect)
         screen.blit(di2, di2_rect)
 
         # buttons.draw_pause('Main Menu', 50, 200, 200)

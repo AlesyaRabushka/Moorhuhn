@@ -50,11 +50,13 @@ def exit_loop(screen, sounds, cursor_group, buttons):
         font2 = pygame.font.Font(None, 60)
         top1 = font2.render('Yes', True, '#FFE80E')
         top1_rect = top1.get_rect(center=(530, 280))
+        buttons.exit_buttons.append(top1_rect)
         screen.blit(top1, top1_rect)
 
         font3 = pygame.font.Font(None, 60)
         top2 = font3.render('No', True, '#FFE80E')
         top2_rect = top2.get_rect(center=(530, 350))
+        buttons.exit_buttons.append(top2_rect)
         screen.blit(top2, top2_rect)
 
         # buttons.draw_text("Are you sure?", 50, 300, 100)
