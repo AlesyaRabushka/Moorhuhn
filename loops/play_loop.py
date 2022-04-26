@@ -3,7 +3,6 @@ import time
 
 import pygame.event
 
-from settings.buttons import*
 from settings.timer import Timer
 from objects_imports import *
 from objects.background import *
@@ -14,7 +13,7 @@ from random import randint
 from objects.background import *
 
 # PLAY mode
-def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill):
+def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_small_group, chickens_mid_group, chickens_big_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill):
 
     # background SOUND
     sounds.play_background.play(-1)
@@ -35,26 +34,28 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
     ammo_count = -1
 
+    # TREES
     tree1 = Tree(screen, 'img/tree/trunkBig1.png', 300, 200)
     tree2 = Tree(screen, 'img/tree/trunkSmall1.png',1900, 100)
-    camera1 = Camera(0,0)
-    camera2 = Camera(0, 100)
-    camera3 = Camera(0, 150)
+
+    # CAMERA
+    camera1 = Camera(0, 0, 96)
+    camera2 = Camera(0, 100, 890)
+    camera3 = Camera(0, 150, 1900)
 
 
     running = True
     while running:
+        # Returns milliseconds between each call to 'tick'. The convert time to seconds
         dt = clock.tick(60)
-        # for screen moving
+
+        # for camera moving
         cursor_x = cursor.rect.x
         if cursor_x >= 750 and cursor_x <= 800:
-            # obj = []
-            # obj.append(chickens_group, big_chicken_group, mill, pumpkin, sign_post)
-            # camera1.move(50)
-            # camera2.move(50)
-            # camera3.move(50)
-            if camera1.move(50) and camera2.move(50) and camera3.move(50):
-                chickens_group.update(dt, 'move_r')
+            if camera1.move(2) and camera2.move(15) and camera3.move(40):
+                chickens_small_group.update(dt, 'move_r')
+                chickens_mid_group.update(dt, 'move_r')
+                chickens_big_group.update(dt, 'move_r')
                 big_chicken_group.update('move_r')
 
                 mill.update('move_r')
@@ -64,11 +65,10 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 tree2.update('move_r')
 
         elif cursor_x <= 20 and cursor_x >= -20:
-
-            # camera2.move(-50)
-            # camera3.move(-50)
-            if camera1.move(-50) and camera2.move(-50) and camera3.move(-50):
-                chickens_group.update(dt, 'move_l')
+            if camera1.move(-2) and camera2.move(-15) and camera3.move(-40):
+                chickens_small_group.update(dt, 'move_l')
+                chickens_mid_group.update(dt, 'move_l')
+                chickens_big_group.update(dt, 'move_l')
                 big_chicken_group.update('move_l')
 
                 mill.update('move_l')
@@ -76,22 +76,9 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 sign_post.update('move_l')
                 tree1.update('move_l')
                 tree2.update('move_l')
-        # else:
-        #     pumpkin.update('no')
-        #
-        #     chickens_group.update(dt, 'no')
-        #
-        #     # updates SIGN POST
-        #     sign_post.update('no')
-        #     big_chicken_group.update('no')
-        #     mill.update('no')
 
-        screen.fill((90,100,45))
-        screen.blit(bg1, (-camera1.rect[0], camera1.rect[1]))
-        screen.blit(bg2, (-camera2.rect[0], camera2.rect[1]))
-        screen.blit(green, (-camera3.rect[0], camera3.rect[1]))
 
-        # Returns milliseconds between each call to 'tick'. The convert time to seconds
+
 
 
 
@@ -112,18 +99,11 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                     if ammo.count < 8:
                         ammo_count = ammo.update(screen, ammo_group)
 
-            # if event.type == pygame.MOUSEMOTION:
-
-
-
-
             # add new CHICKEN on the screen0
             elif event.type == pygame.USEREVENT:
-                y1 = randint(150,500)
-                chickens_group.add(Chicken(screen, y1))
-                #chickens_group.add(Chicken(screen, randint(150,500)))
-
-
+                chickens_small_group.add(ChickenSmall(screen, randint(100, 200)))
+                chickens_mid_group.add(ChickenMiddle(screen, randint(100, 300)))
+                chickens_big_group.add(ChickenBig(screen, randint(100, 500)))
 
 
             # checks if we have shot a CHICKEN
@@ -134,11 +114,17 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
                 # if we shot SIGN POST
                 if cursor.shoot_big_chicken(sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
                     continue
-                    # if we shot the CHICKEN
-                elif cursor.shoot_chicken(sounds, chickens_group, check_shot, score_manager, scores_group):
+                # if we shot the CHICKEN
+                elif cursor.shoot_chicken(sounds, chickens_small_group, check_shot, score_manager, scores_group):
                     break
+                elif cursor.shoot_chicken(sounds, chickens_mid_group, check_shot, score_manager, scores_group):
+                    break
+                elif cursor.shoot_chicken(sounds, chickens_big_group, check_shot, score_manager, scores_group):
+                    break
+                # if we shot the CHICKENS on the MILL
                 elif cursor.shoot_mill(cursor, x, y, sounds, mill, check_shot, score_manager, scores_group):
                     break
+                # if we shot the SUGN POST
                 elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
                     continue
                 # if we shot the PUMPKIN MAN
@@ -180,40 +166,52 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_gro
 
 
         # --------------- UPDATE -----------------------
+        screen.fill((90, 100, 45))
+        screen.blit(bg1, (-camera1.rect[0], camera1.rect[1]))
+        # update FLY CHICKEN SMALL
+        chickens_small_group.draw(screen)
+        chickens_small_group.update(dt, 'no')
+        screen.blit(bg2, (-camera2.rect[0], camera2.rect[1]))
+        # update FLY CHICKEN MID
+        chickens_mid_group.draw(screen)
+        chickens_mid_group.update(dt, 'no')
+        screen.blit(green, (-camera3.rect[0], camera3.rect[1]))
         # updates PUMPKIN state
         pumpkin.update('no')
 
-
-
         # update MILL
         mill.update('no')
+        # update FLY CHICKEN BIG
+        chickens_big_group.draw(screen)
+        chickens_big_group.update(dt, 'no')
+
+
+
 
         # updates FLY CHICKEN/S state
-        chickens_group.draw(screen)
-        chickens_group.update(dt, 'no')
+        # chickens_group.draw(screen)
+        # chickens_group.update(dt, 'no')
 
         # updates SIGN POST
         sign_post.update('no')
 
-
         # updates SCORE progress
         scores_group.update()
 
+        # update TREES
         tree1.update('no')
-
         tree2.update('no')
 
         # shows LEFT PLAY TIME
-        buttons.draw_text(f'Time: {90 - play_time}', 30, 82, 20)
+        buttons.draw_text(f'Time: {90 - play_time}', 30, 70, 20)
         # shows SCORE progress
-        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 700, 20)
+        buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 710, 20)
 
         # update BIG CHICKEN
         big_chicken_group.update('no')
 
         # update AMMO
         ammo_group.update(dt, ammo_count)
-
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)

@@ -12,7 +12,7 @@ WIDTH = 800
 # the SCREEN of the GAME
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
-pygame.time.set_timer(pygame.USEREVENT, 2000)
+pygame.time.set_timer(pygame.USEREVENT, 4000)
 
 
 # BUTTONS
@@ -23,8 +23,12 @@ for i in range(0, 4):
     main_buttons.add(MainMenuButtons(screen, i))
 
 # CHICKEN
-chickens_group = pygame.sprite.Group()
-chickens_group.add(Chicken(screen, randint(100, 500)))
+chickens_small_group = pygame.sprite.Group()
+chickens_small_group.add(ChickenSmall(screen, randint(100, 200)))
+chickens_mid_group = pygame.sprite.Group()
+chickens_mid_group.add(ChickenMiddle(screen, randint(100,300)))
+chickens_big_group = pygame.sprite.Group()
+chickens_big_group.add(ChickenBig(screen, randint(100,500)))
 
 # BIG CHICKEN
 big_chicken_group = pygame.sprite.Group()
@@ -148,6 +152,8 @@ class UserNameState(State):
         if check:
             print('user name: ', user_name)
             self.game.change_game_state(PlayState(self.game))
+        if not check:
+            self.game.change_game_state(MainMenuState(self.game))
 
 
     def back_to_intro_mode(self):
@@ -222,7 +228,7 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
-        check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
+        check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_small_group, chickens_mid_group, chickens_big_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
         global SCORE
         SCORE = score
         if check == 1:

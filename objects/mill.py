@@ -33,9 +33,9 @@ class MillChicken(pygame.sprite.Sprite):
     def update(self, move):
         if self.alive:
             if move == 'move_r':
-                self.rect.x -= 50
+                self.rect.x -= 40
             elif move == 'move_l':
-                self.rect.x += 50
+                self.rect.x += 40
             else:
 
                 self.screen.blit(self.image, self.rect)

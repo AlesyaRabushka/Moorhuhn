@@ -1,6 +1,9 @@
 import pygame
 
 class Pumpkin(pygame.sprite.Sprite):
+    """
+    PUMPKIN class
+    """
     def __init__(self, screen):
         super().__init__()
 
@@ -19,17 +22,17 @@ class Pumpkin(pygame.sprite.Sprite):
     def update(self, move):
         if self.alive:
             if move == 'move_r':
-                self.rect.x -= 50
+                self.rect.x -= 40
             elif move == 'move_l':
-                self.rect.x += 50
+                self.rect.x += 40
             self.screen.blit(self.image, self.rect)
 
         else:
             if not self.stop:
                 if move == 'move_r':
-                    self.rect.x -= 50
+                    self.rect.x -= 40
                 elif move == 'move_l':
-                    self.rect.x += 50
+                    self.rect.x += 40
                 self.de_time += 1
                 if self.de_time == self.max_time:
                     self.de_time = 0
@@ -44,9 +47,9 @@ class Pumpkin(pygame.sprite.Sprite):
 
             else:
                 if move == 'move_r':
-                    self.rect.x -= 50
+                    self.rect.x -= 40
                 elif move == 'move_l':
-                    self.rect.x += 50
+                    self.rect.x += 40
                 path = 'img/pumpkin/pumpkin9.png'
                 self.image = pygame.image.load(path)
             self.screen.blit(self.image, self.rect)

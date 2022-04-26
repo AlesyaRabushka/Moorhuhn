@@ -2,7 +2,7 @@ import pygame
 
 class Tree(pygame.sprite.Sprite):
     """
-    SIGN POST  class
+    TREES  class
     """
     def __init__(self, screen, path,x, width):
         super().__init__()
@@ -16,8 +16,8 @@ class Tree(pygame.sprite.Sprite):
     def update(self, move):
 
         if move == 'move_r':
-            self.rect.x -= 50
+            self.rect.x -= 40
         elif move == 'move_l':
-            self.rect.x += 50
+            self.rect.x += 40
 
         self.screen.blit(self.image, self.rect)

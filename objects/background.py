@@ -7,11 +7,12 @@ class Camera:
     """
     Camera scrolling class
     """
-    def __init__(self,x,y):
+    def __init__(self,x,y, max):
+        self.max = max
         self.rect = pygame.Rect(x, y, 800, 600)
 
     def move(self, x):
-        if self.rect[0] == 1900:
+        if self.rect[0] >= self.max:
             if x < 0:
                 self.rect[0] += x
                 return True

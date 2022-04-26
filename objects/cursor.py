@@ -120,10 +120,10 @@ class Cursor(pygame.sprite.Sprite):
         for chicken in mill:
             # looking for a shot chicken
             k = chicken.check_shot(cursor,x,y)
-            #if self.rect.colliderect(chicken.rect):
             if k:
                 if check_shot:
-                    sounds.mill_hit_sound.play()
+                    index = random.randint(0, 2)
+                    sounds.return_chick_hits(index).play()
 
                     # update SCORE
                     score1 = ScoreImgManager(self.screen, score_manager)

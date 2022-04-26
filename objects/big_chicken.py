@@ -1,6 +1,9 @@
 import pygame
 
 class BigChicken(pygame.sprite.Sprite):
+    """
+    BIG CHICKEN class
+    """
     def __init__(self, screen, position):
         pygame.sprite.Sprite.__init__(self)
 
@@ -42,9 +45,9 @@ class BigChicken(pygame.sprite.Sprite):
     def update(self, move):
         if self.alive:
             if move == 'move_r':
-                self.rect.x -= 50
+                self.rect.x -= 40
             elif move == 'move_l':
-                self.rect.x += 50
+                self.rect.x += 40
             else:
                 # when it appears FIRST TIEM
                 if self.show:

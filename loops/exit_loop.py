@@ -59,9 +59,6 @@ def exit_loop(screen, sounds, cursor_group, buttons):
         buttons.exit_buttons.append(top2_rect)
         screen.blit(top2, top2_rect)
 
-        # buttons.draw_text("Are you sure?", 50, 300, 100)
-        # buttons.draw_exit('Yes', 50, 300, 200)
-        # buttons.draw_exit('No', 50, 300, 300)
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)

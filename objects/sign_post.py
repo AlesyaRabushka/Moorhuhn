@@ -17,15 +17,15 @@ class SignPost(pygame.sprite.Sprite):
 
         if not self.shot:
             if move == 'move_r':
-                self.rect.x -= 50
+                self.rect.x -= 40
             elif move == 'move_l':
-                self.rect.x += 50
+                self.rect.x += 40
             self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post1.png'),(400,500))
         else:
             if move == 'move_r':
-                self.rect.x -= 50
+                self.rect.x -= 40
             elif move == 'move_l':
-                self.rect.x += 50
+                self.rect.x += 40
             self.image = pygame.transform.scale(pygame.image.load('img/sign_post/sign_post2.png'),(400,500))
 
         self.screen.blit(self.image, self.rect)
