@@ -1,16 +1,12 @@
-import pygame
-from loops import play_loop
-import os
-
 from loops.play_loop import *
-# from settings.buttons import*
-# from objects.holes import Holes
 from settings.states import *
 
-# drag = 0
 pygame.init()
 
 class Camera:
+    """
+    Camera scrolling class
+    """
     def __init__(self,x,y):
         self.rect = pygame.Rect(x, y, 800, 600)
 

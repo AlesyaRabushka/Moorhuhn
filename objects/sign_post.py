@@ -1,6 +1,9 @@
 import pygame
 
 class SignPost(pygame.sprite.Sprite):
+    """
+    SIGN POST  class
+    """
     def __init__(self, screen):
         super().__init__()
         self.screen = screen
