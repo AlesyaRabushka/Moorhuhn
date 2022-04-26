@@ -1,7 +1,7 @@
 from settings.buttons import *
 
 # BEST SCORE
-def best_score_loop(screen, sounds, cursor_group, buttons, user_name, score):
+def best_score_loop(screen, sounds, cursor_group, buttons, user_name, score,game):
     running = True
 
     sounds.main_theme_sound.play(-1)
@@ -24,9 +24,10 @@ def best_score_loop(screen, sounds, cursor_group, buttons, user_name, score):
 
         screen.fill((204, 255, 153))
         buttons.draw_text('Best Score Table!', 50, 300, 100)
-        buttons.draw_text(f'Name:{user_name}', 50, 300, 200)
-        buttons.draw_text(f'Score: {score}', 50, 300, 300)
-        buttons.draw_best_score('Main Menu', 50, 300, 400)
+        buttons.draw_text(f'Name:', 30, 200, 200)
+        buttons.draw_text(f'Score:', 30, 600, 200)
+        game.highscore.print(200,230)
+        buttons.draw_best_score('Main Menu', 40, 300, 500)
 
         # draw an image instead of REAL CURSOR
         cursor_group.draw(screen)
