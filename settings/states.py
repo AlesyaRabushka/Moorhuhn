@@ -231,6 +231,7 @@ class PlayState(State):
         check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_small_group, chickens_mid_group, chickens_big_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
         global SCORE
         SCORE = score
+
         if check == 1:
             self.game.change_game_state(PauseState(self.game))
         elif check == 2:
