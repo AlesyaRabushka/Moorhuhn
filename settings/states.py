@@ -87,7 +87,7 @@ class Game:
         self.scores=0
         self.username=''
 
-        self.save.add('hs', {})
+        #self.save.add('hs', {})
         self.highscore = Highscore_table(self.save.get('hs'))
 
 
