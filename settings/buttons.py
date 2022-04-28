@@ -37,7 +37,7 @@ class Button:
     # BEST SCORE mode buttons
     def draw_best_score(self, text, size, pos_x, pos_y):
         font = pygame.font.SysFont('Comic Sans MS', size)
-        button_text = font.render(text, True, (0, 1, 1))
+        button_text = font.render(text, True, ('#FFE80E'))
         button_rect = button_text.get_rect()
         button_rect.center = (pos_x, pos_y)
 

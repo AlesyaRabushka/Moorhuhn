@@ -37,12 +37,16 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
     # TREES
     tree1 = Tree(screen, 'img/tree/trunkBig1.png', 300, 200)
     tree2 = Tree(screen, 'img/tree/trunkSmall1.png',1900, 100)
+    trees = pygame.sprite.Group()
+    trees.add(tree1)
+    trees.add(tree2)
 
     # CAMERA
     camera1 = Camera(0, 0, 96)
     camera2 = Camera(0, 80, 1900)
     camera3 = Camera(0, 130, 890)
     camera4 = Camera(0, 160, 1900)
+
 
 
 
@@ -63,8 +67,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
                 mill.update('move_r')
                 pumpkin.update('move_r')
                 sign_post.update('move_r')
-                tree1.update('move_r')
-                tree2.update('move_r')
+                trees.update('move_r')
 
         elif cursor_x <= 20 and cursor_x >= -20:
             if camera1.move(-2) and camera2.move(-5) and camera3.move(-15) and camera4.move(-40):
@@ -76,8 +79,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
                 mill.update('move_l')
                 pumpkin.update('move_l')
                 sign_post.update('move_l')
-                tree1.update('move_l')
-                tree2.update('move_l')
+                trees.update('move_l')
 
 
 
@@ -113,25 +115,31 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
                 # check for AMMO amount
                 check_shot, ammo_count = ammo.shot()
                 x, y = event.pos
-                # if we shot SIGN POST
+
+                # if we shot BIG CHICKEN
                 if cursor.shoot_big_chicken(sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
                     continue
+                # if we shot TREE
+                elif cursor.shoot_tree(sounds, trees, check_shot):
+                    continue
+
                 # if we shot the CHICKEN
-                elif cursor.shoot_chicken(sounds, chickens_small_group, check_shot, score_manager, scores_group):
-                    break
-                elif cursor.shoot_chicken(sounds, chickens_mid_group, check_shot, score_manager, scores_group):
-                    break
                 elif cursor.shoot_chicken(sounds, chickens_big_group, check_shot, score_manager, scores_group):
-                    break
+                    continue
+                elif cursor.shoot_chicken(sounds, chickens_mid_group, check_shot, score_manager, scores_group):
+                    continue
+                elif cursor.shoot_chicken(sounds, chickens_small_group, check_shot, score_manager, scores_group):
+                    continue
+
                 # if we shot the CHICKENS on the MILL
                 elif cursor.shoot_mill(cursor, x, y, sounds, mill, check_shot, score_manager, scores_group):
-                    break
-                # if we shot the SUGN POST
+                    continue
+                # if we shot SIGN POST
                 elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
                     continue
                 # if we shot the PUMPKIN MAN
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
-                    break
+                    continue
 
 
         # --------- BIG CHICKEN POP UPS ---------
@@ -193,8 +201,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
 
 
         # updates FLY CHICKEN/S state
-        # chickens_group.draw(screen)
-        # chickens_group.update(dt, 'no')
+
 
         # updates SIGN POST
         sign_post.update('no')
@@ -203,8 +210,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
         scores_group.update()
 
         # update TREES
-        tree1.update('no')
-        tree2.update('no')
+        trees.update('no')
 
         # shows LEFT PLAY TIME
         buttons.draw_text(f'Time: {90 - play_time}', 30, 70, 20)

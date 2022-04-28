@@ -23,26 +23,12 @@ main_buttons = pygame.sprite.Group()
 for i in range(0, 4):
     main_buttons.add(MainMenuButtons(screen, i))
 
-# CHICKEN
-chickens_small_group = pygame.sprite.Group()
-chickens_small_group.add(ChickenSmall(screen, randint(100, 200)))
-chickens_mid_group = pygame.sprite.Group()
-chickens_mid_group.add(ChickenMiddle(screen, randint(100,300)))
-chickens_big_group = pygame.sprite.Group()
-chickens_big_group.add(ChickenBig(screen, randint(100,500)))
-
-# BIG CHICKEN
-big_chicken_group = pygame.sprite.Group()
-
 # SOUNDS
 sounds = Sound()
 
-# SCORE
-scores_group = pygame.sprite.Group()
-score_manager = ScoreManager(screen)
-scores_group.add(ScoreImgManager(screen, score_manager))
 
-#scores_group = ScoreManager(screen)
+
+
 
 # CHICKEN HOLE
 chicken_hole = ChickenHole(screen)
@@ -51,22 +37,7 @@ chicken_hole = ChickenHole(screen)
 holes = pygame.sprite.Group()
 holes.add(Holes(screen, 0))
 
-# MILL CHICKEN
-mill = pygame.sprite.Group()
-for i in range(0,4):
-    mill.add(MillChicken(screen, i))
-
-# AMMO
-ammo = Ammo(sounds)
-ammo_group = pygame.sprite.Group()
-for i in range(0, 8):
-    ammo_group.add(AmmoGroup(screen, i))
-
-# PUMPKIN MAN
-pumpkin = Pumpkin(screen)
-
-# SIGN POST
-sign_post = SignPost(screen)
+#------------
 
 # CURSOR
 cursor = Cursor(screen, 'img/cursor/cursor.png')
@@ -75,6 +46,7 @@ cursor_group.add(cursor)
 
 # CLOCK
 clock = pygame.time.Clock()
+
 
 def set_user_name(name):
     USER_NAME = name
@@ -115,11 +87,11 @@ class Game:
         self.scores=0
         self.username=''
 
-        #self.save.add('hs', {})
+        self.save.add('hs', {})
         self.highscore = Highscore_table(self.save.get('hs'))
 
 
-        print(self.save.get('hs'))
+        #print(self.save.get('hs'))
 
     # the method that STARTS the GAME
     # -> MainMenu
@@ -207,7 +179,7 @@ class MainMenuState(State):
 class PlayState(State):
     def __init__(self, game):
         self.game = game
-
+        self.scores = 0
     # -> MainMenu mode
     def back_to_intro_mode(self):
         self.game.change_game_state(MainMenuState(game = self.game))
@@ -215,6 +187,40 @@ class PlayState(State):
     # enter current mode
     def enter_new_screen(self):
         pygame.display.set_caption('PLAY')
+        # ------------------------- OBJECTS INITIALIZATION -------------------------
+        # MILL CHICKEN
+        mill = pygame.sprite.Group()
+        for i in range(0, 4):
+            mill.add(MillChicken(screen, i))
+
+        # AMMO
+        ammo = Ammo(sounds)
+        ammo_group = pygame.sprite.Group()
+        for i in range(0, 8):
+            ammo_group.add(AmmoGroup(screen, i))
+
+        # PUMPKIN MAN
+        pumpkin = Pumpkin(screen)
+
+        # SIGN POST
+        sign_post = SignPost(screen)
+        # CHICKEN
+        chickens_small_group = pygame.sprite.Group()
+        chickens_small_group.add(ChickenSmall(screen, randint(100, 200)))
+        chickens_mid_group = pygame.sprite.Group()
+        chickens_mid_group.add(ChickenMiddle(screen, randint(100, 300)))
+        chickens_big_group = pygame.sprite.Group()
+        chickens_big_group.add(ChickenBig(screen, randint(100, 500)))
+
+        # SCORE
+        scores_group = pygame.sprite.Group()
+        score_manager = ScoreManager(screen)
+        scores_group.add(ScoreImgManager(screen, score_manager))
+
+        # BIG CHICKEN
+        big_chicken_group = pygame.sprite.Group()
+        # ---------------------------------------------------------------------------
+
         check, score = play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_small_group, chickens_mid_group, chickens_big_group, ammo, ammo_group, score_manager, scores_group, pumpkin, sign_post, big_chicken_group, mill)
 
         self.game.scores = score
@@ -317,7 +323,7 @@ class BestScoreState(State):
     def enter_new_screen(self):
         pygame.display.set_caption('BEST SCORE TABLE')
         new_state = best_score_loop(screen, sounds, cursor_group, buttons, self.game.username, self.game.scores,self.game)
-        #self.game.highscore.print(200,230)
+       # self.game.highscore.print(450,230)
         if new_state:
             self.game.change_game_state(MainMenuState(self.game))
 
@@ -387,9 +393,15 @@ class Highscore_table:
     def update(self,name,score):
         self.hs_table[name]=score
     def print(self,x,y):
-        step_x=400
+        step_x=300
         step_y=30
-        for name, score in self.hs_table.items():
+        self.sorted_hs_table={}
+
+        sorted_keys=sorted(self.hs_table,key=self.hs_table.get)
+        for i in sorted_keys:
+            self.sorted_hs_table[i] = self.hs_table[i]
+        #self.sorted_hs_table=dict()
+        for name, score in reversed(self.sorted_hs_table.items()):
             buttons.draw_text(name,30,x,y)
             x+=step_x
             buttons.draw_text(str(score), 30, x, y)

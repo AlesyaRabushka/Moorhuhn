@@ -142,6 +142,18 @@ class Cursor(pygame.sprite.Sprite):
                 # break
                 return True
 
+    def shoot_tree(self, sounds, trees, check_shot):
+        for tree in trees:
+            if self.rect.colliderect(tree.rect):
+                if check_shot:
+                    sounds.tree_hit_sound.play()
+                # break
+                return True
+        return False
+
+
+
+
     def check_main_buttons(self, cursor, x, y, main_buttons, name):
         for button in main_buttons:
             if button.check(cursor, x, y) and button.name == name:
@@ -166,6 +178,7 @@ class Cursor(pygame.sprite.Sprite):
                 new_button = 'img/main_menu_background/' + name + '_pressed.png'
 
                 button.change(new_button)
+                print('it is', new_button)
                 return True
             else:
                 if button.name == name:

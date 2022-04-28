@@ -25,8 +25,7 @@ def user_name_loop(screen, sounds):
                 user_tick = 150
                 if event.key == pygame.K_RETURN:
                     running = False
-                    # ready to go further SOUND
-                    sounds.ready_after_user_name.play()
+
                     if len(user_name) == 0:
                         user_name = 'NO NAME'
                     return True, user_name

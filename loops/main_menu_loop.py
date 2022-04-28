@@ -31,27 +31,24 @@ def main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, 
         screen.blit(back, back_rect)
         screen.blit(moorhuhn, moorhuhn_rect)
 
-
-        # buttons.draw_main_menu('start', 50, 100, 550)
-        # buttons.draw_main_menu('score', 50, 330, 550)
-        # buttons.draw_main_menu('menu', 50, 560, 550)
-        # buttons.draw_main_menu('exit', 50, 710, 550)
         main_buttons.update()
+
+        # x, y = pygame.mouse.get_pos()
+        # if cursor.change_main_button(cursor, x, y, main_buttons, 'start'):
+        #     break
+        # elif cursor.change_main_button(cursor, x, y, main_buttons, 'score'):
+        #     break
+        # elif cursor.change_main_button(cursor, x, y, main_buttons, 'menu'):
+        #     break
+        # elif cursor.change_main_button(cursor, x, y, main_buttons, 'exit'):
+        #     break
 
         # check events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sounds.main_theme_sound.stop()
                 running = False
-            # elif event.type == pygame.MOUSEMOTION:
-            #     if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
-            #         buttons.draw_main_menu('start_h', 50, 100, 550)
-            #     elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
-            #         buttons.draw_main_menu('score_h', 50, 330, 550)
-            #     elif buttons.main_menu_buttons[2].collidepoint(pygame.mouse.get_pos()):
-            #         buttons.draw_main_menu('menu_h', 50, 560, 550)
-            #     elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
-            #         buttons.draw_main_menu('exit_h', 50, 710, 550)
+
             elif event.type == pygame.MOUSEMOTION:
                 x, y = pygame.mouse.get_pos()
                 if cursor.change_main_button(cursor, x, y, main_buttons, 'start'):
@@ -66,17 +63,17 @@ def main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, 
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
-                #if buttons.main_menu_buttons[0].collidepoint(pygame.mouse.get_pos()):
+
                 if cursor.check_main_buttons(cursor, x, y, main_buttons, 'start'):
                     if event.button == 1:
-
-
-
+                       # b.change('img/main_menu_background/start_pressed.png')
                         sounds.button_click_sound.play()
                         sounds.main_theme_sound.stop()
                         for hole in holes:
                             hole.shot()
                         running = False
+                        # ready to go further SOUND
+                        sounds.ready_after_user_name.play()
                         return 1
                 #elif buttons.main_menu_buttons[1].collidepoint(pygame.mouse.get_pos()):
                 elif cursor.check_main_buttons(cursor, x, y, main_buttons, 'score'):
@@ -96,6 +93,7 @@ def main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, 
                         for hole in holes:
                             hole.shot()
                         running = False
+
                         return  3
                 #elif buttons.main_menu_buttons[3].collidepoint(pygame.mouse.get_pos()):
                 elif cursor.check_main_buttons(cursor, x, y, main_buttons, 'exit'):
@@ -107,8 +105,16 @@ def main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, 
                         running = False
                         return  4
 
-
-
+            # elif event.type == pygame.MOUSEBUTTONUP:
+            #     x, y = pygame.mouse.get_pos()
+            #     if cursor.change_main_button(cursor, x, y, main_buttons, 'start'):
+            #         break
+            #     elif cursor.change_main_button(cursor, x, y, main_buttons, 'score'):
+            #         break
+            #     elif cursor.change_main_button(cursor, x, y, main_buttons, 'menu'):
+            #         break
+            #     elif cursor.change_main_button(cursor, x, y, main_buttons, 'exit'):
+            #         break
 
         new_holes_current_time += 1
         if new_holes_current_time == new_holes_max_time:
@@ -121,6 +127,7 @@ def main_menu_loop(screen, sounds, cursor, cursor_group, main_buttons, buttons, 
                 finish = True
 
         holes.update(sounds)
+
         # if finish:
         #     chicken_hole.update()
         chicken_hole.update()
