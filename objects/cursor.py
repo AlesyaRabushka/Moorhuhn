@@ -35,7 +35,7 @@ class Cursor(pygame.sprite.Sprite):
                     score1.show = True
                     scores_group.add(score1)
                     for score in scores_group:
-                        if score.shot:
+                        if score.show:
                             score.shot(chicken)
 
                     # score.shot(chicken)

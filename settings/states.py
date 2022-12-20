@@ -5,7 +5,7 @@ from loop_imports import *
 from loops.play_loop import play_loop
 from objects_imports import *
 from settings_imports import*
-
+import json
 pygame.init()
 HEIGHT = 600
 WIDTH = 800
@@ -86,7 +86,9 @@ class Game:
         self.save = Save()
         self.scores=0
         self.username=''
-
+        self.config = ConfigClass()
+        self.config.readFromFile()
+        print(self.config.config_dict['pictures']['world'][5])
         #self.save.add('hs', {})
         self.highscore = Highscore_table(self.save.get('hs'))
 
@@ -408,6 +410,14 @@ class Highscore_table:
             x-=step_x
             y+=step_y
 
+
+class ConfigClass:
+    def __init__(self):
+        self.config_dict = {}
+
+    def readFromFile(self):
+        with open('settings\config.json', 'r') as config_file:
+            self.config_dict = json.load(config_file)
 
 # EXIT
 class ExitState(State):

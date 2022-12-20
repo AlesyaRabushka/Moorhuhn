@@ -3,6 +3,8 @@ import time
 
 import pygame.event
 
+
+
 from settings.timer import Timer
 from objects_imports import *
 from objects.background import *
@@ -96,6 +98,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     sounds.play_background.stop()
+                    #score_manager.score = 0
                     running = False
                     return 1, 0
                 # reload ammo if it is necessary
@@ -118,28 +121,31 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
 
                 # if we shot BIG CHICKEN
                 if cursor.shoot_big_chicken(sounds, cursor, big_chicken_group, check_shot, score_manager, scores_group):
-                    continue
+                    break
                 # if we shot TREE
                 elif cursor.shoot_tree(sounds, trees, check_shot):
-                    continue
+                    break
 
                 # if we shot the CHICKEN
                 elif cursor.shoot_chicken(sounds, chickens_big_group, check_shot, score_manager, scores_group):
-                    continue
+                    print('big')
+                    break
                 elif cursor.shoot_chicken(sounds, chickens_mid_group, check_shot, score_manager, scores_group):
-                    continue
+                    print('mid')
+                    break
                 elif cursor.shoot_chicken(sounds, chickens_small_group, check_shot, score_manager, scores_group):
-                    continue
+                    print('small')
+                    break
 
                 # if we shot the CHICKENS on the MILL
                 elif cursor.shoot_mill(cursor, x, y, sounds, mill, check_shot, score_manager, scores_group):
-                    continue
+                    break
                 # if we shot SIGN POST
                 elif cursor.shoot_sign_post(sounds, sign_post, check_shot, score_manager, scores_group):
-                    continue
+                    break
                 # if we shot the PUMPKIN MAN
                 elif cursor.shoot_pumpkin(sounds, pumpkin, check_shot, score_manager, scores_group):
-                    continue
+                    break
 
 
         # --------- BIG CHICKEN POP UPS ---------
@@ -216,6 +222,7 @@ def play_loop(clock, screen, sounds, buttons, cursor, cursor_group, chickens_sma
         buttons.draw_text(f'Time: {90 - play_time}', 30, 70, 20)
         # shows SCORE progress
         buttons.draw_text(f'Score: {score_manager.return_score()}', 30, 710, 20)
+
 
         # update BIG CHICKEN
         big_chicken_group.update('no')

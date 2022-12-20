@@ -27,21 +27,22 @@ class ScoreImgManager(pygame.sprite.Sprite):
 
     # update SCORE progress
     def shot(self, shot_object):
-        if isinstance(shot_object, ChickenSmall) or isinstance(shot_object, ChickenMiddle) or isinstance(shot_object, ChickenBig):
-            if shot_object.size == (40,40):
-                self.score += 20
-                self.score_manager.update_score('+',20)
-                self.show = True
-                self.draw_score(str(20), shot_object)
+        if isinstance(shot_object, ChickenSmall):
+            #if shot_object.size == (40,40):
 
+            self.score += 20
+            self.score_manager.update_score('+',20)
+            self.show = True
+            self.draw_score(str(20), shot_object)
 
-            elif shot_object.size == (60,60):
+        elif isinstance(shot_object, ChickenMiddle):
+            if shot_object.size == (60,60):
                 self.score += 15
                 self.score_manager.update_score('+', 15)
                 self.show = True
                 self.draw_score(str(15), shot_object)
-
-            elif shot_object.size == (80,80):
+        elif isinstance(shot_object, ChickenBig):
+            if shot_object.size == (80,80):
                 self.score += 10
                 self.score_manager.update_score('+', 10)
                 self.show = True
@@ -113,7 +114,9 @@ class ScoreManager:
     # add new scores
     def update_score(self, sign, new_score):
         if sign == '+':
+            print('score before ', self.score)
             self.score += new_score
+            print('score after ', self.score)
         elif sign == '-':
             self.score -= new_score
 

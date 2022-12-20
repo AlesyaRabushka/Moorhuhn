@@ -1,8 +1,9 @@
-from loops.play_loop import *
+#from loops.play_loop import *
 from settings.states import *
+import pygame
+# from settings.states import Game
 
-pygame.init()
-
+# config = Game.config
 class Camera:
     """
     Camera scrolling class
@@ -30,7 +31,7 @@ class Camera:
             self.rect[0] += x
             return True
 
-
+#config.config_dict['pictures']['world'][5]'img/world/sky.png'
 
 sky = pygame.transform.scale(pygame.image.load('img/world/sky.png'), (4000, 500))
 hills = pygame.transform.scale(pygame.image.load('img/world/backgroundHills.gif'), (2000,500))
